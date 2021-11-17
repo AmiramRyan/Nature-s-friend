@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dba435cf4cdcf8b48acc746c94b8511d, type: 3}
+  m_Name: Order3
+  m_EditorClassIdentifier: 
+  title: And interesting
+  description: ZZzzzZzzZZZZzzz...
+  affectRelationship: 0
+  OrderRequests:
+  - {fileID: 11400000, guid: c66847280bf76d340a21cbd5b3842306, type: 2}
+  - {fileID: 11400000, guid: ed0299b5892013e4093873cb1ad02609, type: 2}

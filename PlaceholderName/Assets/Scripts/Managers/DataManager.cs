@@ -6,7 +6,7 @@ public class DataManager : MonoBehaviour
 {
     [SerializeField] private List<GenericOrderResource> resources;
     public static List<GenericOrderResource> data_resourceList; //all resource in the game
-    private void Awake()
+    private void Awake() //set the resources list
     {
         for(int i=0; i< resources.Count - 1; i++)
         {

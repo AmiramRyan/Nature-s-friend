@@ -21,7 +21,7 @@ public class OrderManager : MonoBehaviour
             var thisRequest = currentOrder.OrderRequests[i];
             GameObject req =Instantiate(requestPrefab) as GameObject;
             req.transform.SetParent(requestHolder.transform);
-            req.GetComponent<Request>().SetUpRequest(thisRequest.theResource.resourceSprite, thisRequest.amount);
+            req.GetComponent<Request>().SetUpRequest(thisRequest.theProduct.productSprite, thisRequest.amount);
         }
 
     }

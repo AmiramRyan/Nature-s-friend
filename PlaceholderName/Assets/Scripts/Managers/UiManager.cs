@@ -54,7 +54,7 @@ public class UiManager : MonoBehaviour
     private void FillPotionIngredient()
     {
         
-        for (int i = 0; i < playerInventory.playerResources.Count; i++) //for each ingredient
+        for (int i = 0; i < playerInventory.playerResources.Count; i++) //for each item
         {
             if(playerInventory.playerResources[i].numInInv != 0) //there IS such resource
             {

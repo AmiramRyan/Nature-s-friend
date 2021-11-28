@@ -54,13 +54,15 @@ public class CauldronInteractions : GenericInteractable
             }
             //clear the list
             selectedIngredientList.Clear();
+            //advance time
             clockManager.TimePass(hoursConsumed, minutesConsumed); //move the clock forward by the time it takes to make a potion
+            //disable panels
             uiManager.DisablePanels();
         }
         else
         {
             //no ingrediant was selected do nothing
-            Debug.Log("No ingreiant is selected");
+            Debug.Log("No ingredient is selected");
         }
     }
 }

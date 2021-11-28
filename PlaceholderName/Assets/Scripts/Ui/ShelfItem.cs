@@ -10,7 +10,7 @@ public class ShelfItem : MonoBehaviour
     public void InitiateItem(GenericInventoryResource thisResource)
     {
         resourceData = thisResource;
-        GetComponent<Image>().sprite = resourceData.resourceSprite;
+        GetComponent<Image>().sprite = resourceData.itemSprite;
     }
 
     public void DestroyItem()
@@ -20,7 +20,6 @@ public class ShelfItem : MonoBehaviour
 
     private void OnMouseDown()
     {
-        Debug.Log("clicked3");
         highlighted = !highlighted;
         if (highlighted)
         {

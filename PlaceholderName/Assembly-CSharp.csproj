@@ -56,22 +56,23 @@
     <Compile Include="Assets\Scripts\Resources\Inventory\DebugBtn.cs" />
     <Compile Include="Assets\Scripts\Managers\DataManager.cs" />
     <Compile Include="Assets\Scripts\Orders\GenericOrder.cs" />
+    <Compile Include="Assets\Scripts\Debuging\DebugBtns.cs" />
     <Compile Include="Assets\Scripts\Orders\GenericOrderResource.cs" />
+    <Compile Include="Assets\Scripts\Managers\ClockManager.cs" />
+    <Compile Include="Assets\Scripts\Interactables\CauldronInteractions.cs" />
     <Compile Include="Assets\Scripts\Orders\PremadeRequests\GenericRequest.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerMovement.cs" />
     <Compile Include="Assets\Scripts\Ui\Orders\Request.cs" />
+    <Compile Include="Assets\Scripts\Managers\UiManager.cs" />
     <Compile Include="Assets\Scripts\Resources\GenericInventoryResource.cs" />
+    <Compile Include="Assets\Scripts\Interactables\GenericInteractable.cs" />
+    <Compile Include="Assets\Scripts\Player\PlayerInteractions.cs" />
     <Compile Include="Assets\Scripts\Managers\GameManager.cs" />
+    <Compile Include="Assets\Scripts\Ui\TimeUI.cs" />
     <Compile Include="Assets\Scripts\Resources\Inventory\InventoryManager.cs" />
     <Compile Include="Assets\Scripts\Resources\Inventory\InventoryObj.cs" />
     <Compile Include="Assets\Scripts\Managers\OrderManager.cs" />
-    <Compile Include="Assets\Scripts\Managers\ClockManager.cs" />
-    <Compile Include="Assets\Scripts\Ui\TimeUI.cs" />
-    <Compile Include="Assets\Scripts\Debuging\DebugBtns.cs" />
-    <Compile Include="Assets\Scripts\Interactables\GenericInteractable.cs" />
-    <Compile Include="Assets\Scripts\Player\PlayerInteractions.cs" />
-    <Compile Include="Assets\Scripts\Interactables\CauldronInteractions.cs" />
-    <Compile Include="Assets\Scripts\Managers\UiManager.cs" />
+    <Compile Include="Assets\Scripts\ShelfItem.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

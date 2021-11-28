@@ -7,9 +7,9 @@ public class UiManager : MonoBehaviour
 {
     [Header("UiPanels")] 
     public GameObject cauldronPanel;
-    public GameObject topShelfFrame;
+    public GameObject ShelfStorage;
 
-    private int shelfeStorageSpace = 7; //maximum amount on 1 shelf
+    private int shelfeStorageSpace = 22; //maximum amount on 1 shelf
     [SerializeField] private GameObject cauldronShelfImgPrefab; //the image prefab for a shelf cauldron ingredient
     [SerializeField] private InventoryObj playerInventory; //the player scriptable obj inventory
 
@@ -40,7 +40,12 @@ public class UiManager : MonoBehaviour
 
     public void DisablePanels() //disable all game mini panels 
     {
+        //disable all panels
         cauldronPanel.SetActive(false);
+        //clear ui elements
+        ClearUiIngridientList();
+        //ready all interactables
+        CauldronInteractions.readyForInteraction = true;
     }
 
     #endregion
@@ -65,15 +70,15 @@ public class UiManager : MonoBehaviour
         for(int i = 0; i < inventoryIngredientsList.Count; i++)
         {
             GameObject tempIngredientRef = Instantiate(cauldronShelfImgPrefab, transform.position, Quaternion.identity) as GameObject;
-            tempIngredientRef.GetComponent<ShelfItem>().InitiateItem(inventoryIngredientsList[i].resourceSprite);
+            tempIngredientRef.GetComponent<ShelfItem>().InitiateItem(inventoryIngredientsList[i]);
             tempIngredientGameobjectsList.Add(tempIngredientRef);
             if (i < shelfeStorageSpace)
             {
-                tempIngredientRef.transform.SetParent(topShelfFrame.transform, false);
+                tempIngredientRef.transform.SetParent(ShelfStorage.transform, false);
             }
             else
             {
-                Debug.Log("I go on the next shelf");
+                Debug.Log("No More Room For Me :(");
             }
         }
     }

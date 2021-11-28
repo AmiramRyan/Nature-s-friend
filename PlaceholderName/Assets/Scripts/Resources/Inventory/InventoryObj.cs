@@ -7,4 +7,9 @@ using UnityEngine;
 public class InventoryObj : ScriptableObject
 {
     public List<GenericInventoryResource> playerResources;
+
+    public void UesItem(GenericInventoryResource thisResource)
+    {
+        thisResource.DecreaseAmount();
+    }
 }

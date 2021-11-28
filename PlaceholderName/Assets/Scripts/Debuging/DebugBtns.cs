@@ -40,9 +40,5 @@ public class DebugBtns : MonoBehaviour
         uiManager.DisablePanels();
     }
 
-    public void ClearIngredientList()
-    {
-        uiManager.ClearUiIngridientList();
-    }
     #endregion
 }

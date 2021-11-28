@@ -29,6 +29,16 @@ public class GenericInventoryResource : GenericOrderResource
         }
     }
 
+    public void DecreaseAmount()
+    {
+        numInInv--;
+        if (numInInv < 0)
+        {
+            numInInv = 0;
+            Debug.LogError("Item " + thisResourceType + "is lower then zero");
+        }
+    }
+
     public void IncreaseAmount(int amount)
     {
         numInInv += amount;

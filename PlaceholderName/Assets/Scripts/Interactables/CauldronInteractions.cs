@@ -46,7 +46,7 @@ public class CauldronInteractions : GenericInteractable
         }
         if (selectedIngredientList != null && selectedIngredientList.Count >= 2) //if enough ingrediant is selected
         {
-            //Check if the potion is valid
+            //if the potion is valid add it to the player inventory
             List<GenericInventoryResource> tempList = new List<GenericInventoryResource>();
             for(int i =0; i< selectedIngredientList.Count; i++)
             {
@@ -54,7 +54,6 @@ public class CauldronInteractions : GenericInteractable
             }
             CheckRecipe(tempList);
             tempList.Clear();
-            //TODO add the potion to the inventory
 
             //consume ingredient
             for (int i = 0; i < selectedIngredientList.Count; i++)
@@ -86,28 +85,31 @@ public class CauldronInteractions : GenericInteractable
         for (int i = 0; i < myInventory.playerProducts.Count; i++) //for each product
         {
             checkingProductValidity = myInventory.playerProducts[i];
-            thisProductRecipe = checkingProductValidity.productRecipe;
-            for (int j = 0; j < thisProductRecipe.ingredientsRequierment.Length; j++) //for each ingredient req
+            if (checkingProductValidity.thisProductType == ProductType.potion) //skip non potion recipes
             {
-                isCorrect = true; //the recpie is correct by default, if we fail one of the tests to validate it then the recipe failed
-                //compare the amount selected to the amount req
-                List<GenericInventoryResource> sameIngredientList = selectedIng.FindAll(ingredient => ingredient == thisProductRecipe.ingredientsRequierment[j].reqResource); //list of the same ingredient
-                int ingredientAmount = sameIngredientList.Count;
-                if(ingredientAmount != thisProductRecipe.ingredientsRequierment[j].amount) //no way to make that specific product
+                thisProductRecipe = checkingProductValidity.productRecipe;
+                for (int j = 0; j < thisProductRecipe.ingredientsRequierment.Length; j++) //for each ingredient req
                 {
-                    //Debug.Log("recipe failed");
-                    isCorrect = false;
-                    break;
-                } //shelf item resource data is a generic inventory resource
-                sameIngredientList.Clear();
-            }
-            if (isCorrect) //passed all the tests
-            {
-                //make the item
-                GenericInventoryProduct recipeResult = myInventory.playerProducts.Find(product => product == checkingProductValidity);
-                Debug.Log(recipeResult.itemName + " product has been made!");
-                recipeResult.IncreaseAmount(1);
-                return;
+                    isCorrect = true; //the recpie is correct by default, if we fail one of the tests to validate it then the recipe failed
+                                      //compare the amount selected to the amount req
+                    List<GenericInventoryResource> sameIngredientList = selectedIng.FindAll(ingredient => ingredient == thisProductRecipe.ingredientsRequierment[j].reqResource); //list of the same ingredient
+                    int ingredientAmount = sameIngredientList.Count;
+                    if (ingredientAmount != thisProductRecipe.ingredientsRequierment[j].amount) //no way to make that specific product
+                    {
+                        //Debug.Log("recipe failed");
+                        isCorrect = false;
+                        break;
+                    } //shelf item resource data is a generic inventory resource
+                    sameIngredientList.Clear();
+                }
+                if (isCorrect) //passed all the tests
+                {
+                    //make the item
+                    GenericInventoryProduct recipeResult = myInventory.playerProducts.Find(product => product == checkingProductValidity);
+                    Debug.Log(recipeResult.itemName + " product has been made!");
+                    recipeResult.IncreaseAmount(1);
+                    return;
+                }
             }
         }
     }

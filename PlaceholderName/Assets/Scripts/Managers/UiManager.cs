@@ -69,16 +69,20 @@ public class UiManager : MonoBehaviour
        
         for(int i = 0; i < inventoryIngredientsList.Count; i++)
         {
-            GameObject tempIngredientRef = Instantiate(cauldronShelfImgPrefab, transform.position, Quaternion.identity) as GameObject;
-            tempIngredientRef.GetComponent<ShelfItem>().InitiateItem(inventoryIngredientsList[i]);
-            tempIngredientGameobjectsList.Add(tempIngredientRef);
-            if (i < shelfeStorageSpace)
+            if (inventoryIngredientsList[i].thisResourceType == ResourceType.plant) //only instantiate room for plants
             {
+                GameObject tempIngredientRef = Instantiate(cauldronShelfImgPrefab, transform.position, Quaternion.identity) as GameObject;
+                tempIngredientRef.GetComponent<ShelfItem>().InitiateItem(inventoryIngredientsList[i]);
+                tempIngredientGameobjectsList.Add(tempIngredientRef);
+                /*if (i < shelfeStorageSpace) Ui panel storage space limiter
+                {
+                    tempIngredientRef.transform.SetParent(ShelfStorage.transform, false);
+                }
+                else
+                {
+                    Debug.Log("No More Room For Me :(");
+                }*/
                 tempIngredientRef.transform.SetParent(ShelfStorage.transform, false);
-            }
-            else
-            {
-                Debug.Log("No More Room For Me :(");
             }
         }
     }

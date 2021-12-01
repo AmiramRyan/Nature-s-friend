@@ -19,3 +19,4 @@ MonoBehaviour:
   itempType: 1
   thisProductType: 1
   sellValue: 150
+  productRecipe: {fileID: 11400000, guid: 715c227f61cae6049b664d8b06e4bcfa, type: 2}

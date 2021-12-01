@@ -15,6 +15,6 @@ MonoBehaviour:
   itemSprite: {fileID: 21300000, guid: 761ace2598527974789b143dda8b7487, type: 3}
   itemName: CrystalB
   toolTipText: 
-  numInInv: 4
+  numInInv: 2
   itempType: 0
   thisResourceType: 1

@@ -12,5 +12,5 @@ public class GenericInventoryProduct : GenericInventoryItem
 {
     public ProductType thisProductType;
     public int sellValue;
-    //stuff
+    public GenericRecipe productRecipe;
 }

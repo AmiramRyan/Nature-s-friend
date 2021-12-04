@@ -22,6 +22,7 @@ public class GenericInventoryItem : ScriptableObject
 
     public int numInInv; //how many are in the inventory
     public ItemType itempType;
+    public bool discoverd;
 
     #endregion
 
@@ -48,6 +49,10 @@ public class GenericInventoryItem : ScriptableObject
 
     public void IncreaseAmount(int amount)
     {
+        if (!discoverd)
+        {
+            discoverd = true;
+        }
         numInInv += amount;
         if (numInInv > maxNumInInv)
         {

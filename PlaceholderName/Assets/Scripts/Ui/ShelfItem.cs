@@ -2,9 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 public class ShelfItem : MonoBehaviour
 {
+    public static Action highlightStatusChanged;
     public bool highlighted = false;
     public GenericInventoryResource resourceData;
     public void InitiateItem(GenericInventoryResource thisResource)
@@ -29,10 +31,7 @@ public class ShelfItem : MonoBehaviour
         {
             GetComponent<Image>().color = Color.white;
         }
+        highlightStatusChanged?.Invoke();
     }
 
-    public void UesItem()
-    {
-        resourceData.DecreaseAmount();
-    }
 }

@@ -17,4 +17,5 @@ MonoBehaviour:
   toolTipText: 
   numInInv: 10
   itempType: 0
+  discoverd: 0
   thisResourceType: 1

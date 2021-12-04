@@ -17,6 +17,7 @@ MonoBehaviour:
   toolTipText: 
   numInInv: 0
   itempType: 1
+  discoverd: 1
   thisProductType: 0
   sellValue: 100
   productRecipe: {fileID: 11400000, guid: d87ca33be06648948851c9e4362c3534, type: 2}

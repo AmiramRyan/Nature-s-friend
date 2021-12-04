@@ -1,7 +1,5 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System;
 
 public class CauldronInteractions : GenericInteractable
 {
@@ -13,10 +11,23 @@ public class CauldronInteractions : GenericInteractable
     public ClockManager clockManager;
     public UiManager uiManager;
     public InventoryObj myInventory;
+    public List<GenericInventoryResource> selectedIngredientList = new List<GenericInventoryResource>();
 
     private void Start()
     {
         readyForInteraction = true;
+        UpdatePredictedResult();
+    }
+    public override void OnEnable()
+    {
+        base.OnEnable();
+        ShelfItem.highlightStatusChanged += UpdatePredictedResult;
+    }
+
+    public override void OnDisable()
+    {
+        base.OnDisable();
+        ShelfItem.highlightStatusChanged -= UpdatePredictedResult;
     }
 
     public override void InteractAction()
@@ -35,30 +46,25 @@ public class CauldronInteractions : GenericInteractable
 
     public void MakePotion() //called when the "make potion" button is pressed
     {
-        //make a new list for the selected ingredient and add all the highlighted ones
-        List<GameObject> selectedIngredientList = new List<GameObject>();
-        for (int i = 0; i < uiManager.tempIngredientGameobjectsList.Count; i++)
-        {
-            if (uiManager.tempIngredientGameobjectsList[i].GetComponent<ShelfItem>().highlighted) //if the item is selected
-            {
-                selectedIngredientList.Add(uiManager.tempIngredientGameobjectsList[i]); //add it to the list
-            }
-        }
+        //get the current list from the uiManager
+        selectedIngredientList = uiManager.selectedIngredientList;
+        //check if the combination is a valid potion
         if (selectedIngredientList != null && selectedIngredientList.Count >= 2) //if enough ingrediant is selected
         {
-            //if the potion is valid add it to the player inventory
-            List<GenericInventoryResource> tempList = new List<GenericInventoryResource>();
-            for(int i =0; i< selectedIngredientList.Count; i++)
+            GenericInventoryProduct potionToMake = CheckRecipe(selectedIngredientList);
+            if (potionToMake != null)
             {
-                tempList.Add(selectedIngredientList[i].GetComponent<ShelfItem>().resourceData);
+                //make the potion 
+                AddPotionToInv(potionToMake);
+                //consume the ingredients
+                for (int i = 0; i < selectedIngredientList.Count; i++)
+                {
+                    selectedIngredientList[i].DecreaseAmount(1);
+                }
             }
-            CheckRecipe(tempList);
-            tempList.Clear();
-
-            //consume ingredient
-            for (int i = 0; i < selectedIngredientList.Count; i++)
+            else
             {
-                selectedIngredientList[i].GetComponent<ShelfItem>().UesItem();
+                Debug.Log("recipe failed");
             }
 
             //clear the list
@@ -77,7 +83,7 @@ public class CauldronInteractions : GenericInteractable
         }
     }
 
-    private void CheckRecipe(List<GenericInventoryResource> selectedIng)
+    public GenericInventoryProduct CheckRecipe(List<GenericInventoryResource> selectedIng)
     {
         GenericInventoryProduct checkingProductValidity;
         GenericRecipe thisProductRecipe;
@@ -96,7 +102,6 @@ public class CauldronInteractions : GenericInteractable
                     int ingredientAmount = sameIngredientList.Count;
                     if (ingredientAmount != thisProductRecipe.ingredientsRequierment[j].amount) //no way to make that specific product
                     {
-                        //Debug.Log("recipe failed");
                         isCorrect = false;
                         break;
                     } //shelf item resource data is a generic inventory resource
@@ -104,13 +109,30 @@ public class CauldronInteractions : GenericInteractable
                 }
                 if (isCorrect) //passed all the tests
                 {
-                    //make the item
+                    //make an item ref
                     GenericInventoryProduct recipeResult = myInventory.playerProducts.Find(product => product == checkingProductValidity);
-                    Debug.Log(recipeResult.itemName + " product has been made!");
-                    recipeResult.IncreaseAmount(1);
-                    return;
+                    //Debug.Log(recipeResult.itemName + " product has been made!");
+                    //recipeResult.IncreaseAmount(1);
+                    return recipeResult;
                 }
             }
         }
+        return null;
     }
+
+    public void AddPotionToInv(GenericInventoryProduct makeThisProduct)
+    {
+        makeThisProduct.IncreaseAmount(1);
+    }
+
+    private void UpdatePredictedResult()
+    {
+        //get the current list from the uiManager
+        selectedIngredientList = uiManager.selectedIngredientList;
+        //calculate the predicted result if the uesr were to press "make potion"
+        GenericInventoryProduct tempPredictedProduct = CheckRecipe(selectedIngredientList);
+        //updtae predicted result sprite
+        uiManager.ChangePredictedSprite(tempPredictedProduct); //can be null if no recipe matches
+    }
+
 }

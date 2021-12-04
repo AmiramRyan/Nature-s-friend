@@ -7,14 +7,28 @@ public class UiManager : MonoBehaviour
 {
     [Header("UiPanels")] 
     public GameObject cauldronPanel;
-    public GameObject ShelfStorage;
+    public GameObject shelfStorage;
+    public Image discoverImg;
+    [SerializeField] private Sprite discoverImgDefault; //TOOD: move to a data manager
 
     private int shelfeStorageSpace = 22; //maximum amount on 1 shelf
     [SerializeField] private GameObject cauldronShelfImgPrefab; //the image prefab for a shelf cauldron ingredient
     [SerializeField] private InventoryObj playerInventory; //the player scriptable obj inventory
+    public List<GenericInventoryResource> selectedIngredientList = new List<GenericInventoryResource>(); //the ingredients currently selected (updates in runtime)
+    private List<GameObject> selectedGameObjectList = new List<GameObject>(); //the ingredients currently selected GAME OBJECTS
 
     public List<GenericInventoryResource> inventoryIngredientsList = new List<GenericInventoryResource>(); //spread out the ingrideint from the inventory into a list
     public List<GameObject> tempIngredientGameobjectsList = new List<GameObject>(); // a refarance to the actual gameobjects renderd on screen
+
+    private void OnEnable()
+    {
+        ShelfItem.highlightStatusChanged += CheckForSelectedIngredients;
+    }
+
+    private void OnDisable()
+    {
+        ShelfItem.highlightStatusChanged -= CheckForSelectedIngredients;
+    }
 
     #region PanelsControls
     public void ActivateUiPanel(string uiPanelToActivate) //activates the slected panel while closing others using the panels name string
@@ -76,13 +90,13 @@ public class UiManager : MonoBehaviour
                 tempIngredientGameobjectsList.Add(tempIngredientRef);
                 /*if (i < shelfeStorageSpace) Ui panel storage space limiter
                 {
-                    tempIngredientRef.transform.SetParent(ShelfStorage.transform, false);
+                    tempIngredientRef.transform.SetParent(shelfStorage.transform, false);
                 }
                 else
                 {
                     Debug.Log("No More Room For Me :(");
                 }*/
-                tempIngredientRef.transform.SetParent(ShelfStorage.transform, false);
+                tempIngredientRef.transform.SetParent(shelfStorage.transform, false);
             }
         }
     }
@@ -95,8 +109,61 @@ public class UiManager : MonoBehaviour
         }
         tempIngredientGameobjectsList.Clear();
         inventoryIngredientsList.Clear();
+        selectedIngredientList.Clear();
+        selectedGameObjectList.Clear();
     }
 
+    public void CheckForSelectedIngredients()
+    {
+        for (int i = 0; i < tempIngredientGameobjectsList.Count; i++)
+        {
+            bool isHighlighted = tempIngredientGameobjectsList[i].GetComponent<ShelfItem>().highlighted;
+            bool isInsideTheList = selectedGameObjectList.Contains(tempIngredientGameobjectsList[i]);
+            if (isHighlighted) //if the item is selected
+            {
+                if (!isInsideTheList) //if not already on the list
+                {
+                    selectedGameObjectList.Add(tempIngredientGameobjectsList[i]); //add it to the game objects list
+                    selectedIngredientList.Add(tempIngredientGameobjectsList[i].GetComponent<ShelfItem>().resourceData); //add it to the Resource list
+                }
+            }
+            else //if the item is not selected
+            {
+                if (isInsideTheList) //if its in the list
+                {
+                    selectedGameObjectList.Remove(tempIngredientGameobjectsList[i]);
+                    selectedIngredientList.Remove(tempIngredientGameobjectsList[i].GetComponent<ShelfItem>().resourceData); //remove from the list
+                }
+            }
+        }
+    }
+
+    public void ChangePredictedSprite(GenericInventoryProduct product)
+    {
+        if(selectedIngredientList.Count >= 2)
+        {
+            discoverImg.enabled = true;
+            if (product != null)
+            {
+                if (product.discoverd)
+                {
+                    discoverImg.sprite = product.itemSprite;
+                }
+                else
+                {
+                    discoverImg.sprite = discoverImgDefault;
+                }
+            }
+            else
+            {
+                discoverImg.sprite = discoverImgDefault;
+            }
+        }
+        else
+        {
+            discoverImg.enabled = false;
+        }
+    }
     #endregion
 
 }

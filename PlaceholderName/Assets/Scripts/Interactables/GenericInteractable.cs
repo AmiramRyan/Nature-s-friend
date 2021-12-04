@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class GenericInteractable : MonoBehaviour
 {
@@ -9,12 +10,12 @@ public class GenericInteractable : MonoBehaviour
     public int hoursConsumed = 0; //time to cunsome in hours
 
     #region General Actions
-    private void OnEnable() //event subscribe
+    public  virtual void OnEnable() //event subscribe
     {
         PlayerInteractions.interactedAction += PlayerInteracted;
     }
 
-    private void OnDisable() //events unsubscribe
+    public  virtual void OnDisable() //events unsubscribe
     {
         PlayerInteractions.interactedAction -= PlayerInteracted;
     }

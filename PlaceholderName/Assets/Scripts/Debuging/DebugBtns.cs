@@ -33,11 +33,16 @@ public class DebugBtns : MonoBehaviour
         clockManager.TimePass(1, 45);
     }
 
-    //Functional buttons
+    //Panels Functional buttons
 
     public void CloseAllGamePanels()
     {
         uiManager.DisablePanels();
+    }
+
+    public void OpenOrdersPanel()
+    {
+        uiManager.ActivateUiPanel("orderBook");
     }
 
     #endregion

@@ -19,3 +19,4 @@ MonoBehaviour:
   itempType: 0
   discoverd: 0
   thisResourceType: 1
+  splashEffect: {fileID: 263368775825912064, guid: 98b908a62830dc1439e1e6b50eafccf5, type: 3}

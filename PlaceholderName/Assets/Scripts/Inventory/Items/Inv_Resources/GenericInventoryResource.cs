@@ -14,5 +14,6 @@ public enum ResourceType
 public class GenericInventoryResource : GenericInventoryItem
 {
     public ResourceType thisResourceType;
+    public GameObject splashEffect;
     //stuff
 }

@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 543e3db47cfbb2c4289c14ae642f496a, type: 3}
   m_Name: PlantA
   m_EditorClassIdentifier: 
-  itemSprite: {fileID: 21300000, guid: dd0461e85653b794cb1b089185cee8c4, type: 3}
+  itemSprite: {fileID: 21300000, guid: eed48990f97b4d24a95f53e0885327bb, type: 3}
   itemName: PlantA
   toolTipText: 
-  numInInv: 10
+  numInInv: 12
   itempType: 0
   discoverd: 0
   thisResourceType: 0
+  splashEffect: {fileID: 263368775825912064, guid: 98b908a62830dc1439e1e6b50eafccf5, type: 3}

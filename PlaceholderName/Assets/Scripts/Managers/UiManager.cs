@@ -5,13 +5,18 @@ using UnityEngine.UI;
 
 public class UiManager : MonoBehaviour
 {
-    [Header("UiPanels")] 
+    [Header("UiPanels")]
     public GameObject cauldronPanel;
-    public GameObject shelfStorage;
+    public GameObject ordersBookPanel;
+    public GameObject shelfStorageLeftUp;
+    public GameObject shelfStorageLeftDown;
+    public GameObject shelfStorageMiddleUp;
+    public GameObject shelfStorageMiddleDown;
+    public GameObject shelfStorageRightUp;
+    public GameObject shelfStorageRightDown;
     public Image discoverImg;
     [SerializeField] private Sprite discoverImgDefault; //TOOD: move to a data manager
-
-    private int shelfeStorageSpace = 22; //maximum amount on 1 shelf
+    private int shelfeStorageSpace = 5; //maximum amount on 1 shelf
     [SerializeField] private GameObject cauldronShelfImgPrefab; //the image prefab for a shelf cauldron ingredient
     [SerializeField] private InventoryObj playerInventory; //the player scriptable obj inventory
     public List<GenericInventoryResource> selectedIngredientList = new List<GenericInventoryResource>(); //the ingredients currently selected (updates in runtime)
@@ -38,17 +43,29 @@ public class UiManager : MonoBehaviour
             case "cauldron":
                 //fill up the panel shelfes
                 FillPotionIngredient();
-                SetPanels(true);
+                ChangePredictedSprite(null);
+
+                //activate correct panel
+                SetPanels(true, false);
                 break;
+
+            case "orderBook":
+                //fill the book of orders
+
+                //activate correct panel
+                SetPanels(false, true);
+                break;
+
             default:
                 Debug.LogError("Ui manager could not find a panel with this name: " + uiPanelToActivate);
                 break;
         }
     }
 
-    private void SetPanels(bool isCauldronActive) //[bool1 * bool2 * bool3 *.... bool n] -> set panels 1 - n active acording to the bools (n = num of panels in game) 
+    private void SetPanels(bool isCauldronActive, bool isOrderBookActive) //[bool1 * bool2 * bool3 *.... bool n] -> set panels 1 - n active acording to the bools (n = num of panels in game) 
     {
         cauldronPanel.SetActive(isCauldronActive);
+        ordersBookPanel.SetActive(isOrderBookActive);
         //panelN.SetActive(boolN);
     }
 
@@ -64,55 +81,43 @@ public class UiManager : MonoBehaviour
 
     #endregion
 
-    #region PanelsFunctionality
-    private void FillPotionIngredient()
-    {
-        
-        for (int i = 0; i < playerInventory.playerResources.Count; i++) //for each item
-        {
-            if(playerInventory.playerResources[i].numInInv != 0) //there IS such resource
-            {
-                for(int j = 0; j < playerInventory.playerResources[i].numInInv; j++) //for each of the spesific item
-                {
-                    inventoryIngredientsList.Add(playerInventory.playerResources[i]); //add it to the temp list
-                }
-            }
-        }
+    #region Potions
 
-        //set up the shelf with the temp list
-       
-        for(int i = 0; i < inventoryIngredientsList.Count; i++)
+    public void MakeIngredientsFall()
+    {
+        for (int i = 0; i < selectedGameObjectList.Count; i++)
         {
-            if (inventoryIngredientsList[i].thisResourceType == ResourceType.plant) //only instantiate room for plants
+            Rigidbody2D temp = selectedGameObjectList[i].GetComponent<Rigidbody2D>();
+            temp.bodyType = RigidbodyType2D.Dynamic;
+            temp.AddForce(Vector2.up, ForceMode2D.Impulse);
+        }
+    } //TODO
+    public void ChangePredictedSprite(GenericInventoryProduct product)
+    {
+        if (selectedIngredientList.Count >= 2)
+        {
+            discoverImg.enabled = true;
+            if (product != null)
             {
-                GameObject tempIngredientRef = Instantiate(cauldronShelfImgPrefab, transform.position, Quaternion.identity) as GameObject;
-                tempIngredientRef.GetComponent<ShelfItem>().InitiateItem(inventoryIngredientsList[i]);
-                tempIngredientGameobjectsList.Add(tempIngredientRef);
-                /*if (i < shelfeStorageSpace) Ui panel storage space limiter
+                if (product.discoverd)
                 {
-                    tempIngredientRef.transform.SetParent(shelfStorage.transform, false);
+                    discoverImg.sprite = product.itemSprite;
                 }
                 else
                 {
-                    Debug.Log("No More Room For Me :(");
-                }*/
-                tempIngredientRef.transform.SetParent(shelfStorage.transform, false);
+                    discoverImg.sprite = discoverImgDefault;
+                }
+            }
+            else
+            {
+                discoverImg.sprite = discoverImgDefault;
             }
         }
-    }
-
-    public void ClearUiIngridientList()
-    {
-        for(int i = 0; i < tempIngredientGameobjectsList.Count; i++)
+        else
         {
-            tempIngredientGameobjectsList[i].GetComponent<ShelfItem>().DestroyItem(); //destroy the gameobject 
+            discoverImg.enabled = false;
         }
-        tempIngredientGameobjectsList.Clear();
-        inventoryIngredientsList.Clear();
-        selectedIngredientList.Clear();
-        selectedGameObjectList.Clear();
     }
-
     public void CheckForSelectedIngredients()
     {
         for (int i = 0; i < tempIngredientGameobjectsList.Count; i++)
@@ -137,33 +142,88 @@ public class UiManager : MonoBehaviour
             }
         }
     }
-
-    public void ChangePredictedSprite(GenericInventoryProduct product)
+    public void ClearUiIngridientList()
     {
-        if(selectedIngredientList.Count >= 2)
+        for (int i = 0; i < tempIngredientGameobjectsList.Count; i++)
         {
-            discoverImg.enabled = true;
-            if (product != null)
+            tempIngredientGameobjectsList[i].GetComponent<ShelfItem>().DestroyItem(); //destroy the gameobject 
+        }
+        tempIngredientGameobjectsList.Clear();
+        inventoryIngredientsList.Clear();
+        selectedIngredientList.Clear();
+        selectedGameObjectList.Clear();
+    }
+    private void FillPotionIngredient()
+    {
+
+        for (int i = 0; i < playerInventory.playerResources.Count; i++) //for each item
+        {
+            if (playerInventory.playerResources[i].numInInv != 0) //there IS such resource
             {
-                if (product.discoverd)
+                for (int j = 0; j < playerInventory.playerResources[i].numInInv; j++) //for each of the spesific item
                 {
-                    discoverImg.sprite = product.itemSprite;
+                    inventoryIngredientsList.Add(playerInventory.playerResources[i]); //add it to the temp list
+                }
+            }
+        }
+
+        //set up the shelf with the temp list
+        int itemNum = 1;
+        for (int i = 0; i < inventoryIngredientsList.Count; i++)
+        {
+            if (inventoryIngredientsList[i].thisResourceType == ResourceType.plant) //only instantiate room for plants
+            {
+                GameObject tempIngredientRef = Instantiate(cauldronShelfImgPrefab, transform.position, Quaternion.identity) as GameObject;
+                tempIngredientRef.GetComponent<ShelfItem>().InitiateItem(inventoryIngredientsList[i]);
+                tempIngredientGameobjectsList.Add(tempIngredientRef);
+                if (itemNum <= 5) //left top shelf
+                {
+                    tempIngredientRef.transform.SetParent(shelfStorageLeftUp.transform, false);
+                }
+                else if (itemNum <= 10) //left down shelf
+                {
+                    tempIngredientRef.transform.SetParent(shelfStorageLeftDown.transform, false);
+                }
+                else if (itemNum <= 15) //middle up shelf
+                {
+                    tempIngredientRef.transform.SetParent(shelfStorageMiddleUp.transform, false);
+                }
+                else if (itemNum <= 20) //middle down shelf
+                {
+                    tempIngredientRef.transform.SetParent(shelfStorageMiddleDown.transform, false);
+                }
+                else if (itemNum <= 25) //right up shelf
+                {
+                    tempIngredientRef.transform.SetParent(shelfStorageRightUp.transform, false);
+                }
+                else if (itemNum <= 30) //right down shelf
+                {
+                    tempIngredientRef.transform.SetParent(shelfStorageRightDown.transform, false);
                 }
                 else
                 {
-                    discoverImg.sprite = discoverImgDefault;
+                    Debug.Log("No More Room For Me :(");
                 }
+                itemNum++;
             }
-            else
-            {
-                discoverImg.sprite = discoverImgDefault;
-            }
-        }
-        else
-        {
-            discoverImg.enabled = false;
         }
     }
+
+    private void setUpShelf(GameObject shelfObj) //TODO function need to get a shelf obj (out of 6 available) and a list of n ingredients to set up
+    {
+
+    }
+
+   /* private bool isShelfFull(GameObject shelfObj) //get shelf and check if he is full
+    {
+
+    }*/
+
     #endregion
 
+    #region Orders
+
+
+
+    #endregion
 }

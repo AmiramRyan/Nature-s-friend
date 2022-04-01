@@ -14,7 +14,6 @@ public class ShelfItem : MonoBehaviour
         resourceData = thisResource;
         GetComponent<Image>().sprite = resourceData.itemSprite;
     }
-
     public void DestroyItem()
     {
         Destroy(this.gameObject);
@@ -34,4 +33,15 @@ public class ShelfItem : MonoBehaviour
         highlightStatusChanged?.Invoke();
     }
 
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("cauldronPanelCollider"))
+        {
+            //play splash effect
+            //GameObject effect = Instantiate(resourceData.splashEffect,transform.position,Quaternion.identity) as GameObject;
+            //effect.transform.SetParent(this.transform, false);
+            //destroy the item
+            DestroyItem();
+        }
+    }
 }

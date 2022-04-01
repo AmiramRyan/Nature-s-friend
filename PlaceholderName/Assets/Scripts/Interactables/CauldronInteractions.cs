@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
 
 public class CauldronInteractions : GenericInteractable
@@ -44,6 +45,9 @@ public class CauldronInteractions : GenericInteractable
         }
     }
 
+
+
+    #region Potions
     public void MakePotion() //called when the "make potion" button is pressed
     {
         //get the current list from the uiManager
@@ -54,27 +58,16 @@ public class CauldronInteractions : GenericInteractable
             GenericInventoryProduct potionToMake = CheckRecipe(selectedIngredientList);
             if (potionToMake != null)
             {
-                //make the potion 
-                AddPotionToInv(potionToMake);
-                //consume the ingredients
-                for (int i = 0; i < selectedIngredientList.Count; i++)
-                {
-                    selectedIngredientList[i].DecreaseAmount(1);
-                }
+                //valid potion and ingredients make the potion
+                StartCoroutine(MakePotionCo(potionToMake));
             }
             else
             {
                 Debug.Log("recipe failed");
+                StartCoroutine(MakePotionCo(potionToMake));
             }
 
-            //clear the list
-            selectedIngredientList.Clear();
-
-            //advance time
-            clockManager.TimePass(hoursConsumed, minutesConsumed); //move the clock forward by the time it takes to make a potion
-
-            //disable panels
-            uiManager.DisablePanels();
+            
         }
         else
         {
@@ -82,7 +75,51 @@ public class CauldronInteractions : GenericInteractable
             Debug.Log("No ingredient is selected");
         }
     }
+    public void AddPotionToInv(GenericInventoryProduct makeThisProduct)
+    {
+        makeThisProduct.IncreaseAmount(1);
+    }
+    private void UpdatePredictedResult()
+    {
+        //get the current list from the uiManager
+        selectedIngredientList = uiManager.selectedIngredientList;
+        //calculate the predicted result if the uesr were to press "make potion"
+        GenericInventoryProduct tempPredictedProduct = CheckRecipe(selectedIngredientList);
+        //updtae predicted result sprite
+        uiManager.ChangePredictedSprite(tempPredictedProduct); //can be null if no recipe matches
+    }
+    public IEnumerator MakePotionCo(GenericInventoryProduct potionToMake)
+    {
+        if (potionToMake != null)
+        {
+            //Cursor.visible = false;
+            //play visual representation
+            //uiManager.MakeIngredientsFall();
+            //yield return new WaitForSeconds(3f);
+            //show resault
+            //yield return new WaitForSeconds(0.5f);
 
+            //Add to the inventory 
+            AddPotionToInv(potionToMake);
+        }
+
+        //consume the ingredients
+        for (int i = 0; i < selectedIngredientList.Count; i++)
+        {
+            selectedIngredientList[i].DecreaseAmount(1);
+        }
+        //Clean up
+        //clear the list
+        selectedIngredientList.Clear();
+
+        //advance time
+        clockManager.TimePass(hoursConsumed, minutesConsumed); //move the clock forward by the time it takes to make a potion
+
+        //disable panels
+        uiManager.DisablePanels();
+        //Cursor.visible = true;
+        yield return null;
+    }
     public GenericInventoryProduct CheckRecipe(List<GenericInventoryResource> selectedIng)
     {
         GenericInventoryProduct checkingProductValidity;
@@ -120,19 +157,9 @@ public class CauldronInteractions : GenericInteractable
         return null;
     }
 
-    public void AddPotionToInv(GenericInventoryProduct makeThisProduct)
-    {
-        makeThisProduct.IncreaseAmount(1);
-    }
+    #endregion
 
-    private void UpdatePredictedResult()
-    {
-        //get the current list from the uiManager
-        selectedIngredientList = uiManager.selectedIngredientList;
-        //calculate the predicted result if the uesr were to press "make potion"
-        GenericInventoryProduct tempPredictedProduct = CheckRecipe(selectedIngredientList);
-        //updtae predicted result sprite
-        uiManager.ChangePredictedSprite(tempPredictedProduct); //can be null if no recipe matches
-    }
+
+
 
 }

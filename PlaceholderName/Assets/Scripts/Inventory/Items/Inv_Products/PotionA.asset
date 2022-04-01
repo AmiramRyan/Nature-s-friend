@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac6b93be4a567b1498669e82af1e7bdd, type: 3}
   m_Name: PotionA
   m_EditorClassIdentifier: 
-  itemSprite: {fileID: 21300000, guid: 8d7d970edfd33254998474103aa313ba, type: 3}
+  itemSprite: {fileID: 21300000, guid: cce8eace096bab348830cc5152e0060b, type: 3}
   itemName: PotionA
   toolTipText: 
   numInInv: 0
   itempType: 1
-  discoverd: 1
+  discoverd: 0
   thisProductType: 0
   sellValue: 50
   productRecipe: {fileID: 11400000, guid: 49c1b831e2854de40aa297c71c4c19cb, type: 2}

@@ -32,24 +32,15 @@ public class ClockManager : MonoBehaviour
 
     void Update()
     {
+        
         //for real time
-        /*timer -= Time.deltaTime; 
+        timer -= Time.deltaTime; 
         if(timer <= 0) //if 1 sec of real time passed 
         {
             minute++; //min will go up
-            onMinChange?.Invoke(); //send a signal (IF onMinChange != null)
-            if (minute >= 60) //if min hit 60
-            {
-                hour++;  //hour will go up and min go back to 0
-                minute = 0;
-                if(hour >= 24)
-                {
-                    hour = 0;
-                }
-                onHourChange?.Invoke();
-            }
-            timer = minuteToRealTime; //reset the next timer loop
-        }*/
+            TimePass(0, 1);//send a signal (IF onMinChange != null)
+            timer = 1.5f; //reset the next timer loop
+        }
     }
 
     public void TimePass(int addHours, int addMinutes) //move the time forward by the amounts given

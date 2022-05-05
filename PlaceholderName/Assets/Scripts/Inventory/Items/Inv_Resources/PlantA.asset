@@ -15,7 +15,7 @@ MonoBehaviour:
   itemSprite: {fileID: 21300000, guid: eed48990f97b4d24a95f53e0885327bb, type: 3}
   itemName: PlantA
   toolTipText: 
-  numInInv: 12
+  numInInv: 20
   itempType: 0
   discoverd: 0
   thisResourceType: 0

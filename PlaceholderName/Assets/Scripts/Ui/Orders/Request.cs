@@ -1,14 +1,26 @@
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class Request : MonoBehaviour
 {
-    public Image sprite;
-    public Text Amount;
+    public Image myImg;
+    public TextMeshProUGUI Amount;
 
-    public void SetUpRequest(Sprite sp,int am)
+    private void OnEnable()
     {
-        sprite.sprite = sp;
-        Amount.text = "X"+am;
+        myImg = GetComponentInChildren<Image>();
+        Amount = GetComponentInChildren<TextMeshProUGUI>();
+    }
+    public void SetUpRequest(Sprite sp, string am)
+    {
+        myImg.sprite = sp;
+        Amount.text = 'X' + am;
+        transform.localScale = new Vector3(1, 1, transform.localScale.z);
+    }
+
+    public void DestroyItem()
+    {
+        Destroy(this.gameObject);
     }
 }

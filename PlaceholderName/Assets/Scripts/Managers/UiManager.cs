@@ -14,6 +14,7 @@ public class UiManager : MonoBehaviour
     public GameObject shelfStorageMiddleDown;
     public GameObject shelfStorageRightUp;
     public GameObject shelfStorageRightDown;
+    public GameObject[] cauldronBtns;
     public Image discoverImg;
     [SerializeField] private Sprite discoverImgDefault; //TOOD: move to a data manager
     private int shelfeStorageSpace = 5; //maximum amount on 1 shelf
@@ -46,6 +47,8 @@ public class UiManager : MonoBehaviour
                 ChangePredictedSprite(null);
 
                 //activate correct panel
+                cauldronPanel.GetComponent<CauldronScreen>().GoMiddle();
+                SetCauldronBtn();
                 SetPanels(true, false);
                 break;
 
@@ -72,11 +75,24 @@ public class UiManager : MonoBehaviour
     public void DisablePanels() //disable all game mini panels 
     {
         //disable all panels
+        cauldronPanel.GetComponent<Animator>().SetTrigger("close");
+        for (int i = 0; i < cauldronBtns.Length; i++)
+        {
+            cauldronBtns[i].SetActive(false);
+        }
         cauldronPanel.SetActive(false);
         //clear ui elements
         ClearUiIngridientList();
         //ready all interactables
         CauldronInteractions.readyForInteraction = true;
+    }
+
+    public void SetCauldronBtn()
+    {
+        for (int i = 0; i < cauldronBtns.Length ; i++)
+        {
+            cauldronBtns[i].SetActive(true);
+        }
     }
 
     #endregion
@@ -176,27 +192,27 @@ public class UiManager : MonoBehaviour
                 GameObject tempIngredientRef = Instantiate(cauldronShelfImgPrefab, transform.position, Quaternion.identity) as GameObject;
                 tempIngredientRef.GetComponent<ShelfItem>().InitiateItem(inventoryIngredientsList[i]);
                 tempIngredientGameobjectsList.Add(tempIngredientRef);
-                if (itemNum <= 5) //left top shelf
+                if (itemNum <= 10) //left top shelf
                 {
                     tempIngredientRef.transform.SetParent(shelfStorageLeftUp.transform, false);
                 }
-                else if (itemNum <= 10) //left down shelf
+                else if (itemNum <= 20) //left down shelf
                 {
                     tempIngredientRef.transform.SetParent(shelfStorageLeftDown.transform, false);
                 }
-                else if (itemNum <= 15) //middle up shelf
+                else if (itemNum <= 30) //middle up shelf
                 {
                     tempIngredientRef.transform.SetParent(shelfStorageMiddleUp.transform, false);
                 }
-                else if (itemNum <= 20) //middle down shelf
+                else if (itemNum <= 40) //middle down shelf
                 {
                     tempIngredientRef.transform.SetParent(shelfStorageMiddleDown.transform, false);
                 }
-                else if (itemNum <= 25) //right up shelf
+                else if (itemNum <= 50) //right up shelf
                 {
                     tempIngredientRef.transform.SetParent(shelfStorageRightUp.transform, false);
                 }
-                else if (itemNum <= 30) //right down shelf
+                else if (itemNum <= 60) //right down shelf
                 {
                     tempIngredientRef.transform.SetParent(shelfStorageRightDown.transform, false);
                 }
@@ -208,16 +224,6 @@ public class UiManager : MonoBehaviour
             }
         }
     }
-
-    private void setUpShelf(GameObject shelfObj) //TODO function need to get a shelf obj (out of 6 available) and a list of n ingredients to set up
-    {
-
-    }
-
-   /* private bool isShelfFull(GameObject shelfObj) //get shelf and check if he is full
-    {
-
-    }*/
 
     #endregion
 

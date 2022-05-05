@@ -15,8 +15,9 @@ MonoBehaviour:
   itemSprite: {fileID: 21300000, guid: 8d04bd8371ae2f5438b369f86cc2da15, type: 3}
   itemName: ScrollA
   toolTipText: 
-  numInInv: 0
+  numInInv: 2
   itempType: 1
+  discoverd: 0
   thisProductType: 1
   sellValue: 150
   productRecipe: {fileID: 11400000, guid: 715c227f61cae6049b664d8b06e4bcfa, type: 2}

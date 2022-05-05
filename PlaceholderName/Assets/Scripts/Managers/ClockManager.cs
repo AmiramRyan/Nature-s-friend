@@ -76,4 +76,19 @@ public class ClockManager : MonoBehaviour
         onTimeChange?.Invoke();
         onDayChange?.Invoke();
     }
+
+    public int GetHour()
+    {
+        return hour;
+    }
+
+    public int GetMin()
+    {
+        return minute;
+    }
+
+    public int GetDay()
+    {
+        return day;
+    }
 }

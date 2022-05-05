@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <LangVersion>8.0</LangVersion>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -53,11 +53,7 @@
     <UnityVersion>2020.3.21f1</UnityVersion>
   </PropertyGroup>
   <ItemGroup>
-    <Analyzer Include="F:\VisualStudio\VisualStudioMain\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Assets\Scripts\Debuging\DebugBtn.cs" />
-    <Compile Include="Assets\Scripts\Managers\DataManager.cs" />
     <Compile Include="Assets\Scripts\Orders\GenericOrder.cs" />
     <Compile Include="Assets\Scripts\Debuging\DebugBtns.cs" />
     <Compile Include="Assets\Scripts\Orders\GenericOrderProduct.cs" />
@@ -66,6 +62,7 @@
     <Compile Include="Assets\Scripts\Interactables\CauldronInteractions.cs" />
     <Compile Include="Assets\Scripts\Orders\PremadeRequests\GenericRequest.cs" />
     <Compile Include="Assets\Scripts\Inventory\Items\Inv_Products\GenericInventoryProduct.cs" />
+    <Compile Include="Assets\Scripts\Ui\CameraMovement.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerMovement.cs" />
     <Compile Include="Assets\Scripts\Ui\Orders\Request.cs" />
     <Compile Include="Assets\Scripts\Ui\ShelfItem.cs" />
@@ -74,13 +71,15 @@
     <Compile Include="Assets\Scripts\Inventory\Items\GenericInventoryItem.cs" />
     <Compile Include="Assets\Scripts\Interactables\GenericInteractable.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerInteractions.cs" />
+    <Compile Include="Assets\Scripts\Ui\CauldronScreen.cs" />
     <Compile Include="Assets\Scripts\Managers\GameManager.cs" />
     <Compile Include="Assets\Scripts\Ui\TimeUI.cs" />
     <Compile Include="Assets\Scripts\Managers\InventoryManager.cs" />
     <Compile Include="Assets\Scripts\Inventory\InventoryObj.cs" />
     <Compile Include="Assets\Scripts\Inventory\Recipes\GenericRecipeIngredient.cs" />
     <Compile Include="Assets\Scripts\Managers\OrderManager.cs" />
-    <Compile Include="Assets\Scripts\Ui\CameraMovement.cs" />
+    <Compile Include="Assets\Scripts\Managers\CostumerManager.cs" />
+    <Compile Include="Assets\Scripts\Interactables\Costumer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
@@ -738,6 +737,12 @@
     </Reference>
     <Reference Include="Unity.2D.IK.Runtime">
       <HintPath>Library\ScriptAssemblies\Unity.2D.IK.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="Cinemachine">
+      <HintPath>Library\ScriptAssemblies\Cinemachine.dll</HintPath>
+    </Reference>
+    <Reference Include="com.unity.cinemachine.editor">
+      <HintPath>Library\ScriptAssemblies\com.unity.cinemachine.editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.2D.Animation.Triangle.Runtime">
       <HintPath>Library\ScriptAssemblies\Unity.2D.Animation.Triangle.Runtime.dll</HintPath>

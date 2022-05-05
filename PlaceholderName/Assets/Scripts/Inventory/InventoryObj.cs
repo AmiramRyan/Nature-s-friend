@@ -9,8 +9,8 @@ public class InventoryObj : ScriptableObject
     public List<GenericInventoryResource> playerResources;
     public List<GenericInventoryProduct> playerProducts;
 
-    public void UesItem(GenericInventoryItem thisItem)
+    public void UesItem(GenericInventoryItem thisItem, int amount)
     {
-        thisItem.DecreaseAmount();
+        thisItem.DecreaseAmount(amount);
     }
 }

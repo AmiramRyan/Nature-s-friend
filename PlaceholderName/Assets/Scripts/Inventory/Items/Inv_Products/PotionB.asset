@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: PotionB
   m_EditorClassIdentifier: 
   itemSprite: {fileID: 21300000, guid: 9e110d91ce4b25c49927234719df9afb, type: 3}
-  itemName: PotionA
+  itemName: PotionB
   toolTipText: 
   numInInv: 0
   itempType: 1

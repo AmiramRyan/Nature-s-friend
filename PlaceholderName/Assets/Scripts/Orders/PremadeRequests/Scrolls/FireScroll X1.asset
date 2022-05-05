@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b85228a7674ed5e458fda9431acdcf1f, type: 3}
   m_Name: FireScroll X1
   m_EditorClassIdentifier: 
-  theProduct: {fileID: 11400000, guid: eca83db4ade392b4f963b973e76c884d, type: 2}
+  theOrderProduct: {fileID: 11400000, guid: eca83db4ade392b4f963b973e76c884d, type: 2}
+  theInvProduct: {fileID: 11400000, guid: 6b97f7d570af1684d8c15150e29c421a, type: 2}
   amount: 1

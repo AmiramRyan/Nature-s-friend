@@ -14,6 +14,14 @@ public class Costumer : GenericInteractable
     {
         base.OnEnable();
         orderManager = GameObject.FindGameObjectWithTag("orderManager");
+        ClockManager.onTimeChange += ToLateToStay;
+        StartCoroutine(TimeToLeave()); //start timer
+    }
+
+    public override void OnDisable()
+    {
+        base.OnDisable();
+        ClockManager.onTimeChange -= ToLateToStay;
     }
 
     //---Only for main characters---
@@ -64,4 +72,25 @@ public class Costumer : GenericInteractable
 
     #endregion
 
+    public void LeaveStore()
+    {
+        //play animation
+        //despawn object
+        Debug.Log("Costumer Leaving....");
+        Destroy(this.gameObject);
+    }
+
+    public void ToLateToStay()
+    {
+        if (ClockManager.hour >= 22)
+        {
+            LeaveStore();
+        }
+    }
+
+    public IEnumerator TimeToLeave()
+    {
+        yield return new WaitForSeconds(20); //costumer will wait X seconds before leaving
+        LeaveStore();
+    }
 }

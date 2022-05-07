@@ -6,14 +6,14 @@ public class CostumerManager : MonoBehaviour
 {
     //-----Referances----
     public ClockManager clockManager;
+    public OrderManager orderManager;
     public int openingTime = 10; //time the store can start accepting costumers
     public int closingTime = 22; //time the store stops getting costumers
     public int[] workDays = { 0, 1, 2, 3, 4, 5 };
     //-----State variables-----
-    public int MaxOrdersPerDay = 3;
-    public int MinOrdersPerDay = 1;
     public bool spawnActive;
     public Vector3 spawnPos;
+
     //-----Orders Bank-----
     public GenericOrder[] earthOrders;
     public GenericOrder[] waterOrders;
@@ -21,19 +21,22 @@ public class CostumerManager : MonoBehaviour
     public GenericOrder[] windOrders;
     public GenericOrder[] storyOrders;
     private int storyOrdersIndex = 0;
-    private int dailySpawnIndex = 0;
+
     //----Costumers Bank-----
     [SerializeField]private List<GameObject> costumerQueForDay;
+    public List<GameObject> costumerBank;
+    public int stateSpawnIndex;
+    public GameObject currentCostumer;
+
     //----Debug costumers prefabs----
     public GameObject cos1;
     public GameObject cos2;
     public GameObject cos3;
+
     //list all story characters
     //TODO import the body parts bank
     private void OnEnable()
     {
-        //ClockManager.onDayChange += NewDay;
-        ClockManager.onTimeChange += SpawnCostumer;
         //debug REMOVETHIS
         costumerQueForDay.Add(cos1);
         costumerQueForDay.Add(cos2);
@@ -42,27 +45,12 @@ public class CostumerManager : MonoBehaviour
 
     }
 
-    private void OnDisable()
+    public void SpawnRandomCostumer()
     {
-        //ClockManager.onDayChange -= NewDay;
-        ClockManager.onTimeChange -= SpawnCostumer;
-    }
-
-    public void NewDay()
-    {
-        int costumersToSpawn = Random.RandomRange(MinOrdersPerDay, MaxOrdersPerDay);
-        dailySpawnIndex = 0;
-        /*for (int i = 0; i < costumersToSpawn; i++)
-        {
-            costumerQueForDay.Add(MakeCostumer());
-            costumerQueForDay[i].SetAttributes(Sprite, newElement, newPossibleOrders, false);
-        }*/
-
-        //For Debug
-        costumerQueForDay.Add(cos1);
-        costumerQueForDay.Add(cos2);
-        costumerQueForDay.Add(cos3);
-        spawnActive = true;
+        int rnd = Random.Range(0, costumerBank.Count - 1);
+        GameObject costumerToSpawn = costumerBank[rnd];
+        currentCostumer = Instantiate(costumerToSpawn, spawnPos, Quaternion.identity);
+        Debug.Log("time pass check");
     }
 
     public void ClearDayData()
@@ -70,12 +58,28 @@ public class CostumerManager : MonoBehaviour
         costumerQueForDay.Clear();
     }
 
+    public void MakeCostumerLeave()
+    {
+        orderManager.DisableChoiceBtns();
+        orderManager.ClearActiveOrder();
+        currentCostumer.GetComponent<Costumer>().LeaveStore();
+    }
+
+    public void AcceptOrder()
+    {
+        //add to order book
+        Debug.Log("order have been added to the orderbook");
+        orderManager.DisableChoiceBtns();
+        //costumer leave
+        currentCostumer.GetComponent<Costumer>().LeaveStore();
+    }
+
     /*public GameObject MakeCostumer() //TODO creats a random costumer from the bank
     {
         
     }*/
 
-    public void SpawnCostumer()
+    /*public void SpawnCostumer()
     {
         if (spawnActive)
         {
@@ -91,9 +95,9 @@ public class CostumerManager : MonoBehaviour
                 spawnActive = false;
             }
         }
-    }
+    }*/
 
-    private bool isTimeToSpawn(GameObject costumerToSpawn)
+    /*private bool isTimeToSpawn(GameObject costumerToSpawn)
     {
         Costumer tempCos = costumerToSpawn.GetComponent<Costumer>();
         if (tempCos.arriveHour == clockManager.GetHour() && Mathf.Approximately(tempCos.arriveMin,clockManager.GetMin())) //on time
@@ -118,5 +122,5 @@ public class CostumerManager : MonoBehaviour
         {
             return false;
         }
-    }
+    }*/
 }

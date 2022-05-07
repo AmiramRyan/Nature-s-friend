@@ -97,7 +97,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minutesConsumed: 0
   hoursConsumed: 0
-  possibleOrders: []
+  costumerSprite: {fileID: 21300000, guid: a53bd151bdba3624a8a953662d7c8843, type: 3}
+  orderManager: {fileID: 0}
+  possibleOrders:
+  - {fileID: 11400000, guid: ee5aea97ea989a04b91281aadd2ddc23, type: 2}
+  - {fileID: 11400000, guid: ee5aea97ea989a04b91281aadd2ddc23, type: 2}
   mainCharacter: 1
   arriveHour: 10
   arriveMin: 10

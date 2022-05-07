@@ -24,11 +24,11 @@ public class ShelfItem : MonoBehaviour
         highlighted = !highlighted;
         if (highlighted)
         {
-            GetComponent<Image>().color = Color.red;
+            GetComponent<Animator>().SetBool("selected", true);
         }
         else
         {
-            GetComponent<Image>().color = Color.white;
+            GetComponent<Animator>().SetBool("selected", false);
         }
         highlightStatusChanged?.Invoke();
     }

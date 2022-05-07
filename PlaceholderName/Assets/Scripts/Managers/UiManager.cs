@@ -7,7 +7,7 @@ public class UiManager : MonoBehaviour
 {
     [Header("UiPanels")]
     public GameObject cauldronPanel;
-    public GameObject ordersBookPanel;
+    public GameObject bookPanel;
     public GameObject shelfStorageLeftUp;
     public GameObject shelfStorageLeftDown;
     public GameObject shelfStorageMiddleUp;
@@ -15,16 +15,23 @@ public class UiManager : MonoBehaviour
     public GameObject shelfStorageRightUp;
     public GameObject shelfStorageRightDown;
     public GameObject[] cauldronBtns;
+    public GameObject orderBookBtn;
+
+    [Header("Refrances")]
     public Image discoverImg;
     [SerializeField] private Sprite discoverImgDefault; //TOOD: move to a data manager
-    private int shelfeStorageSpace = 5; //maximum amount on 1 shelf
     [SerializeField] private GameObject cauldronShelfImgPrefab; //the image prefab for a shelf cauldron ingredient
     [SerializeField] private InventoryObj playerInventory; //the player scriptable obj inventory
     public List<GenericInventoryResource> selectedIngredientList = new List<GenericInventoryResource>(); //the ingredients currently selected (updates in runtime)
     private List<GameObject> selectedGameObjectList = new List<GameObject>(); //the ingredients currently selected GAME OBJECTS
-
     public List<GenericInventoryResource> inventoryIngredientsList = new List<GenericInventoryResource>(); //spread out the ingrideint from the inventory into a list
     public List<GameObject> tempIngredientGameobjectsList = new List<GameObject>(); // a refarance to the actual gameobjects renderd on screen
+    public GameObject orderBookPrefab;
+    public List<GenericOrder> ordersList; //orders register soon as you hit accept on an order
+    public List<GameObject> ordersListOnUi; //the gameobjects renderd on the UI pulls from the ordersList and instantiate
+    public GameObject OrdersBookContainer;
+    [SerializeField] private GameObject requestPrefab;
+    [SerializeField] private GameObject requestHolderBook;
 
     private void OnEnable()
     {
@@ -48,15 +55,35 @@ public class UiManager : MonoBehaviour
 
                 //activate correct panel
                 cauldronPanel.GetComponent<CauldronScreen>().GoMiddle();
-                SetCauldronBtn();
                 SetPanels(true, false);
+                SetCauldronBtn();
                 break;
 
             case "orderBook":
                 //fill the book of orders
+                orderBookBtn.SetActive(true);
+                for (int i = 0; i < ordersList.Count; i++)
+                {
+                    GameObject order = Instantiate(orderBookPrefab);
+                    order.transform.parent = OrdersBookContainer.transform;
 
+                    GenericOrder orderData = order.GetComponent<GenericOrder>();
+                    orderData.title = ordersList[i].title;
+                    orderData.description = ordersList[i].description;
+                    //pass Image
+
+                    //setup the products requierments
+                    for (int j = 0; j < orderData.OrderRequests.Count; j++)
+                    {
+                        var thisRequest = orderData.OrderRequests[j];
+                        GameObject req = Instantiate(requestPrefab, requestHolderBook.transform.position, Quaternion.identity) as GameObject;
+                        req.transform.SetParent(requestHolderBook.transform);
+                        req.GetComponent<Request>().SetUpRequest(thisRequest.theOrderProduct.productSprite, thisRequest.amount.ToString());
+                        ordersListOnUi.Add(req);
+                    }
+                }
                 //activate correct panel
-                SetPanels(false, true);
+                OpenPanel(bookPanel);
                 break;
 
             default:
@@ -68,19 +95,26 @@ public class UiManager : MonoBehaviour
     private void SetPanels(bool isCauldronActive, bool isOrderBookActive) //[bool1 * bool2 * bool3 *.... bool n] -> set panels 1 - n active acording to the bools (n = num of panels in game) 
     {
         cauldronPanel.SetActive(isCauldronActive);
-        ordersBookPanel.SetActive(isOrderBookActive);
+        bookPanel.SetActive(isOrderBookActive);
         //panelN.SetActive(boolN);
     }
 
     public void DisablePanels() //disable all game mini panels 
     {
         //disable all panels
+        //Cauldron panel
         cauldronPanel.GetComponent<Animator>().SetTrigger("close");
         for (int i = 0; i < cauldronBtns.Length; i++)
         {
             cauldronBtns[i].SetActive(false);
         }
         cauldronPanel.SetActive(false);
+
+        //order panel
+        orderBookBtn.SetActive(false);
+        bookPanel.SetActive(false);
+
+
         //clear ui elements
         ClearUiIngridientList();
         //ready all interactables
@@ -93,6 +127,45 @@ public class UiManager : MonoBehaviour
         {
             cauldronBtns[i].SetActive(true);
         }
+    }
+
+    public void OpenPanel(GameObject panel)
+    {
+        panel.SetActive(true);
+    }
+
+    public void CloseCauldronPanel()
+    {
+        StartCoroutine(ClosingAnimationCauldronPanelCo());
+    }
+
+    public void CloseOrderPanel()
+    {
+        StartCoroutine(ClosingAnimationBookPanelCo());
+    }
+
+    public IEnumerator ClosingAnimationBookPanelCo()
+    {
+        
+        bookPanel.GetComponent<Animator>().SetTrigger("close");
+        yield return new WaitForSeconds(0.4f);
+        bookPanel.SetActive(false);
+        orderBookBtn.SetActive(false);
+    }
+
+    public IEnumerator ClosingAnimationCauldronPanelCo()
+    {
+        for (int i = 0; i < cauldronBtns.Length; i++)
+        {
+            cauldronBtns[i].SetActive(false);
+        }
+        cauldronPanel.GetComponent<Animator>().SetTrigger("close");
+        yield return new WaitForSeconds(0.4f);
+        //clear ui elements
+        ClearUiIngridientList();
+        cauldronPanel.SetActive(false);
+        //ready all interactables
+        CauldronInteractions.readyForInteraction = true;
     }
 
     #endregion
@@ -227,9 +300,4 @@ public class UiManager : MonoBehaviour
 
     #endregion
 
-    #region Orders
-
-
-
-    #endregion
 }

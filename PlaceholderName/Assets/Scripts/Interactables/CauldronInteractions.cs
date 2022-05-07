@@ -41,7 +41,8 @@ public class CauldronInteractions : GenericInteractable
         else
         {
             //the player has inputed the interaction button -> close the window
-            uiManager.DisablePanels();
+            //uiManager.DisablePanels();
+            uiManager.CloseCauldronPanel();
         }
     }
 
@@ -116,7 +117,8 @@ public class CauldronInteractions : GenericInteractable
         clockManager.TimePass(hoursConsumed, minutesConsumed); //move the clock forward by the time it takes to make a potion
 
         //disable panels
-        uiManager.DisablePanels();
+        //uiManager.DisablePanels();
+        uiManager.CloseCauldronPanel();
         //Cursor.visible = true;
         yield return null;
     }

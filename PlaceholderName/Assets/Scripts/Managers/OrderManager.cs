@@ -76,24 +76,11 @@ public class OrderManager : MonoBehaviour
         activeOrder = null;
     }
 
-
-    //TODO
-    private void AcceptOrder()
+    public void DisableChoiceBtns()
     {
         acceptBtn.SetActive(false);
         rejectBtn.SetActive(false);
-        //add to order book
-        Debug.Log("Added to order book");
     }
-
-    private void RejectOrder()
-    {
-        acceptBtn.SetActive(false);
-        rejectBtn.SetActive(false);
-        //change relationship
-        Debug.Log("RelationShip changed");
-    }
-
 
     public bool CanCompleateOrder(GenericOrder order) //can be used when the order book is called to activate/deactivate "Send Order" btn
     {

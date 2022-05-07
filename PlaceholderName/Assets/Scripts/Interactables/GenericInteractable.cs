@@ -42,7 +42,6 @@ public class GenericInteractable : MonoBehaviour
     {
         if (inRangeOfPlayer)
         {
-            Debug.Log("inr1");
             InteractAction();
         }
     }

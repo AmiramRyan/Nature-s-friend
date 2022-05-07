@@ -19,7 +19,16 @@ public class PlayerMovement : MonoBehaviour
         change = Vector3.zero;
         change.x = Input.GetAxisRaw("Horizontal");
         change.y = Input.GetAxisRaw("Vertical");
-        MoveCharacter();
+        if (change != Vector3.zero)
+        {
+            MoveCharacter();
+            Float.idle = false;
+        }
+        else
+        {
+            Float.originalY = this.transform.position.y;
+            Float.idle = true;
+        }
     }
         /*private Vector2 PosToAsim(Vector2 position) //convert point to asimetric point
     {

@@ -19,28 +19,32 @@ public class ClockManager : MonoBehaviour
     #region private vars
 
     private string[] daysStrings = { "Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"}; //names of the day of the week
-    //private float minuteToRealTime = 1f; //every sec is in game min
-    private float timer;
+    private float minuteToRealTime = 1f; //every sec is in game min
+    private bool ticking;
 
     #endregion
 
     void Start()
     {
-        SetTime(8, 30, 0); // (hour,min,day) dayMap = {0 -> Sunday ,1 -> Monday,2 -> Tuesday,3 -> Wednesday,4 -> Thursday,5 -> Friday,6 -> Saturday}
-        //timer = minuteToRealTime; for real time
+        SetTime(21, 50, 0); // (hour,min,day) dayMap = {0 -> Sunday ,1 -> Monday,2 -> Tuesday,3 -> Wednesday,4 -> Thursday,5 -> Friday,6 -> Saturday}
+        ticking = true;
     }
 
     void Update()
     {
-        
-        //for real time
+        if (ticking)
+        {
+            ticking = false;
+            StartCoroutine(TickCo());
+        }
+        /*//for real time
         timer -= Time.deltaTime; 
         if(timer <= 0) //if 1 sec of real time passed 
         {
             minute++; //min will go up
             TimePass(0, 1);//send a signal (IF onMinChange != null)
-            timer = 1.5f; //reset the next timer loop
-        }
+            timer = minuteToRealTime; //reset the next timer loop
+        }*/
     }
 
     public void TimePass(int addHours, int addMinutes) //move the time forward by the amounts given
@@ -90,5 +94,12 @@ public class ClockManager : MonoBehaviour
     public int GetDay()
     {
         return day;
+    }
+
+    public IEnumerator TickCo()
+    {
+        yield return new WaitForSecondsRealtime(1f);
+        TimePass(0, 1);
+        ticking = true;
     }
 }

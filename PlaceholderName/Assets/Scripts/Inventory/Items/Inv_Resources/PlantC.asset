@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 543e3db47cfbb2c4289c14ae642f496a, type: 3}
   m_Name: PlantC
   m_EditorClassIdentifier: 
-  itemSprite: {fileID: 21300000, guid: a9a076eefe83af14d83cbbd4fc1c5f8b, type: 3}
+  itemSprite: {fileID: 21300000, guid: a00d7923e602978408991f00d02d7a32, type: 3}
   itemName: PlantC
   toolTipText: 
   numInInv: 20

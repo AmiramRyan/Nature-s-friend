@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 9028382533128044992}
   - component: {fileID: 5755938486870346179}
   - component: {fileID: 7082612780695154608}
+  - component: {fileID: 8993245741637573138}
   m_Layer: 0
   m_Name: Costumer 1
   m_TagString: interactable
@@ -102,7 +103,33 @@ MonoBehaviour:
   possibleOrders:
   - {fileID: 11400000, guid: ee5aea97ea989a04b91281aadd2ddc23, type: 2}
   - {fileID: 11400000, guid: ee5aea97ea989a04b91281aadd2ddc23, type: 2}
-  mainCharacter: 1
+  mainCharacter: 0
   arriveHour: 10
   arriveMin: 10
   arriveDay: 7
+--- !u!61 &8993245741637573138
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 235164997775736702}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: -0.22592044}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 2.03125, y: 2.6875}
+    newSize: {x: 3.03125, y: 3.1875}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 3.03125, y: 3.6393409}
+  m_EdgeRadius: 0

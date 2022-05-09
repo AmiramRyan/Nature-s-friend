@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dba435cf4cdcf8b48acc746c94b8511d, type: 3}
   m_Name: Order1
   m_EditorClassIdentifier: 
-  title: Make me somthing
-  description: bla bla?
+  title: Growing Catnip
+  description: Im trying to grow homemade catnip for my pet but it wont grow. Is
+    there somthing you can do?
   affectRelationship: 0
   OrderRequests:
   - {fileID: 11400000, guid: 2378888d10e2f234288784da85e96588, type: 2}

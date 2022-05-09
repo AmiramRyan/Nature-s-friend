@@ -47,7 +47,7 @@ public class CostumerManager : MonoBehaviour
 
     public void SpawnRandomCostumer()
     {
-        int rnd = Random.Range(0, costumerBank.Count - 1);
+        int rnd = Random.Range(0, costumerBank.Count);
         GameObject costumerToSpawn = costumerBank[rnd];
         currentCostumer = Instantiate(costumerToSpawn, spawnPos, Quaternion.identity);
         Debug.Log("time pass check");

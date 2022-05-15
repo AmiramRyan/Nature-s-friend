@@ -13,10 +13,14 @@ public class TimeStateManager : MonoBehaviour
     public NoonTimeState noonTimeState = new NoonTimeState();
     public EveningTimeState  evneningTimeState= new EveningTimeState();
     public DaySwitchState daySwitchState = new DaySwitchState();
+    public PauseTimeState pauseTimeState = new PauseTimeState();
 
     //Managers
-    public CostumerManager costumerManager;
-    public ClockManager clockManager;
+    public GameManager gameManager;
+    private void OnEnable()
+    {
+        gameManager = GameObject.FindGameObjectWithTag("gameManager").GetComponent<GameManager>();
+    }
 
     public void Start()
     {

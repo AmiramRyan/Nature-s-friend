@@ -5,6 +5,7 @@ using UnityEngine;
 public class MorningTimeState : BaseTimeState
 {
     bool isMorning;
+    bool pause;
     int costumerIndex = 0;
     public List<Vector2> morningCostumersTime; //arrive time for the costumers
     public override void EnterState(TimeStateManager timeManager)
@@ -14,6 +15,8 @@ public class MorningTimeState : BaseTimeState
         isMorning = true;
         timeManager.readyToSpawn = true;
         ClockManager.onTimeChange += isMorningStill;
+        GameManager.pauseTime += PauseState;
+        pause = false;
         //Restart the forest flowers
         //make a costumer que
         morningCostumersTime = timeManager.CostumerTimeToArrive(1, 10, 13);
@@ -24,21 +27,29 @@ public class MorningTimeState : BaseTimeState
         morningCostumersTime.Clear();
         timeManager.timesList.Clear();
         ClockManager.onTimeChange -= isMorningStill;
+        GameManager.pauseTime -= PauseState;
     }
 
     public override void UpdateState(TimeStateManager timeManager)
     {
-        if (!isMorning)
+        if (pause)
         {
-            ExitState(timeManager);
-            timeManager.SwtichState(timeManager.noonTimeState);
+            timeManager.SwtichState(timeManager.pauseTimeState);
         }
-        else if (TimeToSpawnCostumer() && timeManager.readyToSpawn)
+        else
         {
-            timeManager.readyToSpawn = false;
-            timeManager.StartSpawnDelayCo();
-            Debug.Log("spawn costumer");
-            timeManager.costumerManager.SpawnRandomCostumer();
+            if (!isMorning)
+            {
+                ExitState(timeManager);
+                timeManager.SwtichState(timeManager.noonTimeState);
+            }
+            else if (TimeToSpawnCostumer() && timeManager.readyToSpawn)
+            {
+                timeManager.readyToSpawn = false;
+                timeManager.StartSpawnDelayCo();
+                Debug.Log("spawn costumer");
+                timeManager.gameManager.costumerManager.SpawnRandomCostumer();
+            }
         }
     }
 
@@ -67,6 +78,11 @@ public class MorningTimeState : BaseTimeState
             }
         }
         return false;
+    }
+
+    public void PauseState()
+    {
+        pause = true;
     }
 
 }

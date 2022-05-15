@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CauldronInteractions : GenericInteractable
 {
@@ -8,20 +9,24 @@ public class CauldronInteractions : GenericInteractable
 
     public static bool readyForInteraction { get; set; }
 
-    [Header("Managers refrances")] //TODO: connect the game manager
-    public ClockManager clockManager;
-    public UiManager uiManager;
-    public InventoryObj myInventory;
+    [Header("Managers refrances")]
+    public GameManager gameManager;
     public List<GenericInventoryResource> selectedIngredientList = new List<GenericInventoryResource>();
+    public GameObject MakePotionParticles;
+    public GameObject resultObj;
+    public GameObject cauldronScreen;
 
     private void Start()
     {
         readyForInteraction = true;
         UpdatePredictedResult();
+        resultObj.SetActive(false);
+        MakePotionParticles.SetActive(false);
     }
     public override void OnEnable()
     {
         base.OnEnable();
+        gameManager = GameObject.FindGameObjectWithTag("gameManager").GetComponent<GameManager>();
         ShelfItem.highlightStatusChanged += UpdatePredictedResult;
     }
 
@@ -35,14 +40,14 @@ public class CauldronInteractions : GenericInteractable
     {
         if (readyForInteraction)
         {
-            uiManager.ActivateUiPanel("cauldron"); //opens the Ui potion making window
+            gameManager.uiManager.ActivateUiPanel("cauldron"); //opens the Ui potion making window
             readyForInteraction = false;
         }
         else
         {
             //the player has inputed the interaction button -> close the window
             //uiManager.DisablePanels();
-            uiManager.CloseCauldronPanel();
+            gameManager.uiManager.CloseCauldronPanel();
         }
     }
 
@@ -51,8 +56,9 @@ public class CauldronInteractions : GenericInteractable
     #region Potions
     public void MakePotion() //called when the "make potion" button is pressed
     {
+        cauldronScreen.GetComponent<CauldronScreen>().GoMiddle();
         //get the current list from the uiManager
-        selectedIngredientList = uiManager.selectedIngredientList;
+        selectedIngredientList = gameManager.uiManager.selectedIngredientList;
         //check if the combination is a valid potion
         if (selectedIngredientList != null && selectedIngredientList.Count >= 2) //if enough ingrediant is selected
         {
@@ -83,43 +89,51 @@ public class CauldronInteractions : GenericInteractable
     private void UpdatePredictedResult()
     {
         //get the current list from the uiManager
-        selectedIngredientList = uiManager.selectedIngredientList;
+        selectedIngredientList = gameManager.uiManager.selectedIngredientList;
         //calculate the predicted result if the uesr were to press "make potion"
         GenericInventoryProduct tempPredictedProduct = CheckRecipe(selectedIngredientList);
         //updtae predicted result sprite
-        uiManager.ChangePredictedSprite(tempPredictedProduct); //can be null if no recipe matches
+        gameManager.uiManager.ChangePredictedSprite(tempPredictedProduct); //can be null if no recipe matches
     }
     public IEnumerator MakePotionCo(GenericInventoryProduct potionToMake)
     {
+        Cursor.visible = false;
+        gameManager.uiManager.CloseConfirmPanel();
         if (potionToMake != null)
         {
-            //Cursor.visible = false;
-            //play visual representation
-            //uiManager.MakeIngredientsFall();
-            //yield return new WaitForSeconds(3f);
-            //show resault
-            //yield return new WaitForSeconds(0.5f);
-
+            resultObj.GetComponent<Image>().sprite = potionToMake.itemSprite;
             //Add to the inventory 
             AddPotionToInv(potionToMake);
+            MakePotionParticles.SetActive(true);
+            MakePotionParticles.GetComponent<ParticleSystem>().Play();
+            yield return new WaitForSeconds(1.2f);
+            resultObj.SetActive(true);
         }
-
+        else
+        {
+            //play visual representation
+            MakePotionParticles.SetActive(true);
+            MakePotionParticles.GetComponent<ParticleSystem>().Play();
+            //uiManager.MakeIngredientsFall();
+        }
         //consume the ingredients
         for (int i = 0; i < selectedIngredientList.Count; i++)
         {
             selectedIngredientList[i].DecreaseAmount(1);
         }
+
+        yield return new WaitForSeconds(3f);
+        resultObj.SetActive(false);
         //Clean up
         //clear the list
         selectedIngredientList.Clear();
 
         //advance time
-        clockManager.TimePass(hoursConsumed, minutesConsumed); //move the clock forward by the time it takes to make a potion
+        gameManager.clockManager.TimePass(gameManager.hoursConsumed, 0); //move the clock forward by the time it takes to make a potion
 
         //disable panels
-        //uiManager.DisablePanels();
-        uiManager.CloseCauldronPanel();
-        //Cursor.visible = true;
+        gameManager.uiManager.CloseCauldronPanel();
+        Cursor.visible = true;
         yield return null;
     }
     public GenericInventoryProduct CheckRecipe(List<GenericInventoryResource> selectedIng)
@@ -127,9 +141,9 @@ public class CauldronInteractions : GenericInteractable
         GenericInventoryProduct checkingProductValidity;
         GenericRecipe thisProductRecipe;
         bool isCorrect = false;
-        for (int i = 0; i < myInventory.playerProducts.Count; i++) //for each product
+        for (int i = 0; i < gameManager.inventoryManager.playerInventory.playerProducts.Count; i++) //for each product
         {
-            checkingProductValidity = myInventory.playerProducts[i];
+            checkingProductValidity = gameManager.inventoryManager.playerInventory.playerProducts[i];
             if (checkingProductValidity.thisProductType == ProductType.potion) //skip non potion recipes
             {
                 thisProductRecipe = checkingProductValidity.productRecipe;
@@ -149,7 +163,7 @@ public class CauldronInteractions : GenericInteractable
                 if (isCorrect) //passed all the tests
                 {
                     //make an item ref
-                    GenericInventoryProduct recipeResult = myInventory.playerProducts.Find(product => product == checkingProductValidity);
+                    GenericInventoryProduct recipeResult = gameManager.inventoryManager.playerInventory.playerProducts.Find(product => product == checkingProductValidity);
                     //Debug.Log(recipeResult.itemName + " product has been made!");
                     //recipeResult.IncreaseAmount(1);
                     return recipeResult;

@@ -15,9 +15,9 @@ MonoBehaviour:
   itemSprite: {fileID: 21300000, guid: cce8eace096bab348830cc5152e0060b, type: 3}
   itemName: PotionA
   toolTipText: 
-  numInInv: 2
+  numInInv: 0
   itempType: 1
-  discoverd: 0
+  discoverd: 1
   thisProductType: 0
   sellValue: 50
   productRecipe: {fileID: 11400000, guid: 49c1b831e2854de40aa297c71c4c19cb, type: 2}

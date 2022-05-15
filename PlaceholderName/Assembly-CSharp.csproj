@@ -78,16 +78,19 @@
     <Compile Include="Assets\Scripts\Inventory\Items\GenericInventoryItem.cs" />
     <Compile Include="Assets\Scripts\Interactables\GenericInteractable.cs" />
     <Compile Include="Assets\Scripts\Interactables\Costumer.cs" />
+    <Compile Include="Assets\Scripts\Ui\Bubble.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerInteractions.cs" />
     <Compile Include="Assets\Scripts\Ui\CauldronScreen.cs" />
     <Compile Include="Assets\Scripts\Managers\GameManager.cs" />
     <Compile Include="Assets\Scripts\StateMachine\NoonTimeState.cs" />
     <Compile Include="Assets\Scripts\Ui\TimeUI.cs" />
     <Compile Include="Assets\Scripts\Managers\InventoryManager.cs" />
+    <Compile Include="Assets\Scripts\Ui\BubbleSpawner.cs" />
     <Compile Include="Assets\Scripts\Inventory\InventoryObj.cs" />
     <Compile Include="Assets\Scripts\Inventory\Recipes\GenericRecipeIngredient.cs" />
     <Compile Include="Assets\Scripts\Managers\OrderManager.cs" />
     <Compile Include="Assets\Scripts\Ui\Orders\OrderInfoBlock.cs" />
+    <Compile Include="Assets\Scripts\StateMachine\PauseTimeState.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

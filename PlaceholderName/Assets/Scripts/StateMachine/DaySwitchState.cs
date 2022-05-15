@@ -9,7 +9,7 @@ public class DaySwitchState : BaseTimeState
         //reset everything day related
         //black screen to signfy day
         //forward the clock
-        timeManager.clockManager.TimePass(12,0);
+        timeManager.gameManager.clockManager.TimePass(12,0);
         timeManager.readyToSpawn = false;
         ExitState(timeManager);
     }

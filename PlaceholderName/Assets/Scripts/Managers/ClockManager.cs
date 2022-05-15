@@ -21,30 +21,35 @@ public class ClockManager : MonoBehaviour
     private string[] daysStrings = { "Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"}; //names of the day of the week
     private float minuteToRealTime = 1f; //every sec is in game min
     private bool ticking;
+    [SerializeField] private bool isRunning;
 
     #endregion
 
     void Start()
     {
-        SetTime(21, 50, 0); // (hour,min,day) dayMap = {0 -> Sunday ,1 -> Monday,2 -> Tuesday,3 -> Wednesday,4 -> Thursday,5 -> Friday,6 -> Saturday}
+        isRunning = true;
+        SetTime(11, 50, 0); // (hour,min,day) dayMap = {0 -> Sunday ,1 -> Monday,2 -> Tuesday,3 -> Wednesday,4 -> Thursday,5 -> Friday,6 -> Saturday}
         ticking = true;
     }
 
     void Update()
     {
-        if (ticking)
+        if (isRunning)
         {
-            ticking = false;
-            StartCoroutine(TickCo());
+            if (ticking)
+            {
+                ticking = false;
+                StartCoroutine(TickCo());
+            }
+            /*//for real time
+            timer -= Time.deltaTime; 
+            if(timer <= 0) //if 1 sec of real time passed 
+            {
+                minute++; //min will go up
+                TimePass(0, 1);//send a signal (IF onMinChange != null)
+                timer = minuteToRealTime; //reset the next timer loop
+            }*/
         }
-        /*//for real time
-        timer -= Time.deltaTime; 
-        if(timer <= 0) //if 1 sec of real time passed 
-        {
-            minute++; //min will go up
-            TimePass(0, 1);//send a signal (IF onMinChange != null)
-            timer = minuteToRealTime; //reset the next timer loop
-        }*/
     }
 
     public void TimePass(int addHours, int addMinutes) //move the time forward by the amounts given
@@ -101,5 +106,15 @@ public class ClockManager : MonoBehaviour
         yield return new WaitForSecondsRealtime(1f);
         TimePass(0, 1);
         ticking = true;
+    }
+
+    public void StopTheClock()
+    {
+        isRunning = false;
+    }
+
+    public void ResumeTheClock()
+    {
+        isRunning = true;
     }
 }

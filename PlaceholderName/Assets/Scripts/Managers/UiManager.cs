@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
+
 
 public class UiManager : MonoBehaviour
 {
@@ -16,6 +18,7 @@ public class UiManager : MonoBehaviour
     public GameObject shelfStorageRightDown;
     public GameObject[] cauldronBtns;
     public GameObject orderBookBtn;
+    public GameManager gameManager;
 
     [Header("Refrances")]
     public Image discoverImg;
@@ -33,9 +36,12 @@ public class UiManager : MonoBehaviour
     [SerializeField] private GameObject requestPrefab;
     [SerializeField] private GameObject requestHolderBook;
     [SerializeField] private GameObject costumerManager;
+    [SerializeField] private GameObject ConfirmPanel;
+    [SerializeField] private TextMeshProUGUI timeToBrewText;
 
     private void OnEnable()
     {
+        gameManager = GameObject.FindGameObjectWithTag("gameManager").GetComponent<GameManager>();
         ShelfItem.highlightStatusChanged += CheckForSelectedIngredients;
     }
 
@@ -47,6 +53,7 @@ public class UiManager : MonoBehaviour
     #region PanelsControls
     public void ActivateUiPanel(string uiPanelToActivate) //activates the slected panel while closing others using the panels name string
     {
+        GameManager.pauseTime?.Invoke();
         switch (uiPanelToActivate)
         {
             case "cauldron":
@@ -94,8 +101,10 @@ public class UiManager : MonoBehaviour
 
     public void DisablePanels() //disable all game mini panels 
     {
+        GameManager.resumeTime?.Invoke();
         //disable all panels
         //Cauldron panel
+        ConfirmPanel.SetActive(false);
         cauldronPanel.GetComponent<Animator>().SetTrigger("close");
         for (int i = 0; i < cauldronBtns.Length; i++)
         {
@@ -130,6 +139,8 @@ public class UiManager : MonoBehaviour
 
     public void CloseCauldronPanel()
     {
+        GameManager.resumeTime?.Invoke();
+        ConfirmPanel.SetActive(false);
         StartCoroutine(ClosingAnimationCauldronPanelCo());
     }
 
@@ -152,6 +163,19 @@ public class UiManager : MonoBehaviour
             Destroy(ordersListOnUi[i]);
         }
         ordersListOnUi.Clear();
+        GameManager.resumeTime?.Invoke();
+    }
+
+    public void OpenConfirmPanel()
+    {
+        timeToBrewText.text = "Will finish at: " + (ClockManager.hour + gameManager.hoursConsumed) + ":" + (ClockManager.minute);
+        ConfirmPanel.SetActive(true);
+
+    }
+
+    public void CloseConfirmPanel()
+    {
+        ConfirmPanel.SetActive(false);
     }
 
     public IEnumerator ClosingAnimationBookPanelCo()

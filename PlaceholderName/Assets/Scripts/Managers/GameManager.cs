@@ -13,9 +13,19 @@ public enum GamseState
 
 public class GameManager : MonoBehaviour
 {
+    public ClockManager clockManager;
+    public CostumerManager costumerManager;
+    public InventoryManager inventoryManager;
+    public OrderManager orderManager;
+    public UiManager uiManager;
+
     [SerializeField]private GamseState currentGameState;
     public static Action gameStateChanged;
     public GamseState newGameState;
+    public int hoursConsumed;
+    public int minutesConsumed;
+    public static Action pauseTime;
+    public static Action resumeTime;
 
     private void OnEnable()
     {

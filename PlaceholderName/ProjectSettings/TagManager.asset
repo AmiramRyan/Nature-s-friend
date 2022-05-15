@@ -9,6 +9,7 @@ TagManager:
   - orderManager
   - orderRequestContainer
   - uiManager
+  - gameManager
   layers:
   - Default
   - TransparentFX

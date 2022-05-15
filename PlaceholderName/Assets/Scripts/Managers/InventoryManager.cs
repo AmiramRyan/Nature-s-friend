@@ -4,7 +4,13 @@ using UnityEngine;
 
 public class InventoryManager : MonoBehaviour
 {
+    public GameManager gameManager;
     public InventoryObj playerInventory;
+
+    private void OnEnable()
+    {
+        gameManager = GameObject.FindGameObjectWithTag("gameManager").GetComponent<GameManager>();
+    }
     public void UpdateResourceCount(int amount, GenericInventoryResource resourceToAdd, bool increase) //amount=> how much the value is changed, resource scriptableoobj, to increase or decrease
     {
         int I = playerInventory.playerResources.IndexOf(resourceToAdd); //get the index of this item 

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class EveningTimeState : BaseTimeState
 {
+    bool pause;
     bool isEvning;
     public List<Vector2> morningCostumersTime; //arrive time for the costumers
     public override void EnterState(TimeStateManager timeManager)
@@ -11,6 +12,8 @@ public class EveningTimeState : BaseTimeState
         Debug.Log("Evening State");
         isEvning = true;
         ClockManager.onTimeChange += isEvningStill;
+        GameManager.pauseTime += PauseState;
+        pause = false;
         //Rest the forest flowers
 
         //chance to spawn quest costumer
@@ -22,6 +25,7 @@ public class EveningTimeState : BaseTimeState
         morningCostumersTime.Clear();
         timeManager.timesList.Clear();
         ClockManager.onTimeChange -= isEvningStill;
+        GameManager.pauseTime -= PauseState;
         timeManager.readyToSpawn = true;
     }
 
@@ -37,7 +41,7 @@ public class EveningTimeState : BaseTimeState
             timeManager.readyToSpawn = false;
             timeManager.StartSpawnDelayCo();
             Debug.Log("spawn costumer");
-            timeManager.costumerManager.SpawnRandomCostumer();
+            timeManager.gameManager.costumerManager.SpawnRandomCostumer();
         }
     }
 
@@ -67,5 +71,9 @@ public class EveningTimeState : BaseTimeState
             }
         }
         return false;
+    }
+    public void PauseState()
+    {
+        pause = true;
     }
 }

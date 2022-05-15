@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class NoonTimeState : BaseTimeState
 {
+    bool pause;
     bool isNoon;
     public List<Vector2> morningCostumersTime; //arrive time for the costumers
     public override void EnterState(TimeStateManager timeManager)
@@ -11,6 +12,8 @@ public class NoonTimeState : BaseTimeState
         Debug.Log("Noon State");
         isNoon = true;
         ClockManager.onTimeChange += isNoonStill;
+        GameManager.pauseTime += PauseState;
+        pause = false;
         timeManager.readyToSpawn = true;
         //make a costumer que
         morningCostumersTime = timeManager.CostumerTimeToArrive(2, 14, 17);
@@ -21,22 +24,31 @@ public class NoonTimeState : BaseTimeState
         morningCostumersTime.Clear();
         timeManager.timesList.Clear();
         ClockManager.onTimeChange -= isNoonStill;
+        GameManager.pauseTime -= PauseState;
     }
 
     public override void UpdateState(TimeStateManager timeManager)
     {
-        if (!isNoon)
+
+        if (pause)
         {
-            ExitState(timeManager);
-            timeManager.SwtichState(timeManager.evneningTimeState);
+            timeManager.SwtichState(timeManager.pauseTimeState);
         }
-        else if (TimeToSpawnCostumer())
+        else
         {
-            if (timeManager.readyToSpawn)
+            if (!isNoon)
             {
-                timeManager.readyToSpawn = false;
-                timeManager.StartSpawnDelayCo();
-                timeManager.costumerManager.SpawnRandomCostumer();
+                ExitState(timeManager);
+                timeManager.SwtichState(timeManager.evneningTimeState);
+            }
+            else if (TimeToSpawnCostumer())
+            {
+                if (timeManager.readyToSpawn)
+                {
+                    timeManager.readyToSpawn = false;
+                    timeManager.StartSpawnDelayCo();
+                    timeManager.gameManager.costumerManager.SpawnRandomCostumer();
+                }
             }
         }
     }
@@ -67,5 +79,8 @@ public class NoonTimeState : BaseTimeState
         }
         return false;
     }
-
+    public void PauseState()
+    {
+        pause = true;
+    }
 }

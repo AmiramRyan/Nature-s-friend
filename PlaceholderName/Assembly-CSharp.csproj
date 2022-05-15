@@ -54,16 +54,22 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\Debuging\DebugBtn.cs" />
+    <Compile Include="Assets\Scripts\StateMachine\BaseTimeState.cs" />
     <Compile Include="Assets\Scripts\Orders\GenericOrder.cs" />
     <Compile Include="Assets\Scripts\Debuging\DebugBtns.cs" />
     <Compile Include="Assets\Scripts\Orders\GenericOrderProduct.cs" />
     <Compile Include="Assets\Scripts\Inventory\Recipes\GenericRecipe.cs" />
     <Compile Include="Assets\Scripts\Managers\ClockManager.cs" />
     <Compile Include="Assets\Scripts\Interactables\CauldronInteractions.cs" />
+    <Compile Include="Assets\Scripts\StateMachine\DaySwitchState.cs" />
+    <Compile Include="Assets\Scripts\Player\Float.cs" />
+    <Compile Include="Assets\Scripts\StateMachine\EveningTimeState.cs" />
     <Compile Include="Assets\Scripts\Orders\PremadeRequests\GenericRequest.cs" />
     <Compile Include="Assets\Scripts\Inventory\Items\Inv_Products\GenericInventoryProduct.cs" />
     <Compile Include="Assets\Scripts\Ui\CameraMovement.cs" />
+    <Compile Include="Assets\Scripts\StateMachine\TimeStateManager.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerMovement.cs" />
+    <Compile Include="Assets\Scripts\StateMachine\MorningTimeState.cs" />
     <Compile Include="Assets\Scripts\Ui\Orders\Request.cs" />
     <Compile Include="Assets\Scripts\Ui\ShelfItem.cs" />
     <Compile Include="Assets\Scripts\Managers\CostumerManager.cs" />
@@ -75,18 +81,13 @@
     <Compile Include="Assets\Scripts\Player\PlayerInteractions.cs" />
     <Compile Include="Assets\Scripts\Ui\CauldronScreen.cs" />
     <Compile Include="Assets\Scripts\Managers\GameManager.cs" />
+    <Compile Include="Assets\Scripts\StateMachine\NoonTimeState.cs" />
     <Compile Include="Assets\Scripts\Ui\TimeUI.cs" />
     <Compile Include="Assets\Scripts\Managers\InventoryManager.cs" />
     <Compile Include="Assets\Scripts\Inventory\InventoryObj.cs" />
     <Compile Include="Assets\Scripts\Inventory\Recipes\GenericRecipeIngredient.cs" />
     <Compile Include="Assets\Scripts\Managers\OrderManager.cs" />
-    <Compile Include="Assets\Scripts\StateMachine\TimeStateManager.cs" />
-    <Compile Include="Assets\Scripts\StateMachine\BaseTimeState.cs" />
-    <Compile Include="Assets\Scripts\StateMachine\MorningTimeState.cs" />
-    <Compile Include="Assets\Scripts\StateMachine\NoonTimeState.cs" />
-    <Compile Include="Assets\Scripts\StateMachine\EveningTimeState.cs" />
-    <Compile Include="Assets\Scripts\StateMachine\DaySwitchState.cs" />
-    <Compile Include="Assets\Scripts\Player\Float.cs" />
+    <Compile Include="Assets\Scripts\Ui\Orders\OrderInfoBlock.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

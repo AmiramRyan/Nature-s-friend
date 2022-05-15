@@ -7,6 +7,7 @@ public class CostumerManager : MonoBehaviour
     //-----Referances----
     public ClockManager clockManager;
     public OrderManager orderManager;
+    public UiManager uiManager;
     public int openingTime = 10; //time the store can start accepting costumers
     public int closingTime = 22; //time the store stops getting costumers
     public int[] workDays = { 0, 1, 2, 3, 4, 5 };
@@ -27,6 +28,7 @@ public class CostumerManager : MonoBehaviour
     public List<GameObject> costumerBank;
     public int stateSpawnIndex;
     public GameObject currentCostumer;
+    private Costumer currCostumerReff;
 
     //----Debug costumers prefabs----
     public GameObject cos1;
@@ -49,7 +51,9 @@ public class CostumerManager : MonoBehaviour
     {
         int rnd = Random.Range(0, costumerBank.Count);
         GameObject costumerToSpawn = costumerBank[rnd];
-        currentCostumer = Instantiate(costumerToSpawn, spawnPos, Quaternion.identity);
+        GameObject objCostumer = Instantiate(costumerToSpawn, spawnPos, Quaternion.identity);
+        currentCostumer = objCostumer;
+        currentCostumer.GetComponent<Costumer>().possibleOrders[0].costumerSprite = currentCostumer.GetComponent<Costumer>().costumerSprite;
         Debug.Log("time pass check");
     }
 
@@ -69,6 +73,7 @@ public class CostumerManager : MonoBehaviour
     {
         //add to order book
         Debug.Log("order have been added to the orderbook");
+        uiManager.ordersList.Add(currentCostumer.GetComponent<Costumer>().possibleOrders[0]); //TOODO 0? SET IT UP!
         orderManager.DisableChoiceBtns();
         //costumer leave
         currentCostumer.GetComponent<Costumer>().LeaveStore();

@@ -91,14 +91,14 @@ public class OrderManager : MonoBehaviour
             int indexOfItem = FindIndexOfProduct(i, order);
             if(myInventory.playerProducts[indexOfItem].numInInv < order.OrderRequests[i].amount)
             {
-                Debug.Log("You dont have enough items to compleate this order");
+                Debug.LogError("No item of this kind is found in inventory: " + activeOrder.OrderRequests[i].theInvProduct.itemName);
                 return false;
             }
         }
         return true;
     }
 
-    public void CompleateOrder()
+    public bool CompleateOrder()
     {
         if (CanCompleateOrder(activeOrder))
         {
@@ -111,6 +111,7 @@ public class OrderManager : MonoBehaviour
                 if(indexOfItem == 999)
                 {
                     Debug.LogError("No item of this kind is found in inventory: " + activeOrder.OrderRequests[i].theInvProduct.itemName);
+                    return false;
                 }
                 else 
                 { 
@@ -119,8 +120,10 @@ public class OrderManager : MonoBehaviour
             }
             //clean up the order panel and remove from order book
             ClearActiveOrder();
-            Debug.Log("Order compleat");
+            Debug.Log("Order Sent");
+            return true;
         }
+        return false;
     }
 
     public int FindIndexOfProduct(int indexOfRequest , GenericOrder order)

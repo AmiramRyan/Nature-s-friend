@@ -32,6 +32,7 @@ public class UiManager : MonoBehaviour
     public GameObject OrdersBookContainer;
     [SerializeField] private GameObject requestPrefab;
     [SerializeField] private GameObject requestHolderBook;
+    [SerializeField] private GameObject costumerManager;
 
     private void OnEnable()
     {
@@ -64,22 +65,14 @@ public class UiManager : MonoBehaviour
                 orderBookBtn.SetActive(true);
                 for (int i = 0; i < ordersList.Count; i++)
                 {
-                    GameObject order = Instantiate(orderBookPrefab);
-                    order.transform.parent = OrdersBookContainer.transform;
-
-                    GenericOrder orderData = order.GetComponent<GenericOrder>();
-                    orderData.title = ordersList[i].title;
-                    orderData.description = ordersList[i].description;
-                    //pass Image
-
-                    //setup the products requierments
-                    for (int j = 0; j < orderData.OrderRequests.Count; j++)
+                    if (ordersList[i])
                     {
-                        var thisRequest = orderData.OrderRequests[j];
-                        GameObject req = Instantiate(requestPrefab, requestHolderBook.transform.position, Quaternion.identity) as GameObject;
-                        req.transform.SetParent(requestHolderBook.transform);
-                        req.GetComponent<Request>().SetUpRequest(thisRequest.theOrderProduct.productSprite, thisRequest.amount.ToString());
-                        ordersListOnUi.Add(req);
+                        GameObject order = Instantiate(orderBookPrefab);
+                        order.transform.position = new Vector3(order.transform.position.x, order.transform.position.y, 0);
+                        order.transform.SetParent(OrdersBookContainer.transform);
+                        order.GetComponent<OrderInfoBlock>().orderData = ordersList[i];
+                        order.GetComponent<OrderInfoBlock>().ID = i;
+                        ordersListOnUi.Add(order);
                     }
                 }
                 //activate correct panel
@@ -115,6 +108,7 @@ public class UiManager : MonoBehaviour
         bookPanel.SetActive(false);
 
 
+
         //clear ui elements
         ClearUiIngridientList();
         //ready all interactables
@@ -142,6 +136,22 @@ public class UiManager : MonoBehaviour
     public void CloseOrderPanel()
     {
         StartCoroutine(ClosingAnimationBookPanelCo());
+        //Arrange the order list to contain no null index
+        List<GenericOrder> temp = new List<GenericOrder>();
+        for (int i = 0; i < ordersList.Count; i++)
+        {
+            if (ordersList[i])
+            {
+                temp.Add(ordersList[i]);
+            }
+        }
+        ordersList.Clear();
+        ordersList = temp;
+        for (int i = 0; i < ordersListOnUi.Count; i++)
+        {
+            Destroy(ordersListOnUi[i]);
+        }
+        ordersListOnUi.Clear();
     }
 
     public IEnumerator ClosingAnimationBookPanelCo()
@@ -166,6 +176,11 @@ public class UiManager : MonoBehaviour
         cauldronPanel.SetActive(false);
         //ready all interactables
         CauldronInteractions.readyForInteraction = true;
+    }
+
+    public void RemoveOrderFromList(int ID)
+    {
+        ordersList.RemoveAt(ID);
     }
 
     #endregion

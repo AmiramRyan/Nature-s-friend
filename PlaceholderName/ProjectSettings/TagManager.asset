@@ -8,6 +8,7 @@ TagManager:
   - cauldronPanelCollider
   - orderManager
   - orderRequestContainer
+  - uiManager
   layers:
   - Default
   - TransparentFX

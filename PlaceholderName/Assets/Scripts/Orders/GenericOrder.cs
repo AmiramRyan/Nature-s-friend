@@ -9,4 +9,5 @@ public class GenericOrder : ScriptableObject
     public string description;
     public bool affectRelationship;
     public List<GenericRequest> OrderRequests;
+    public Sprite costumerSprite;
 }

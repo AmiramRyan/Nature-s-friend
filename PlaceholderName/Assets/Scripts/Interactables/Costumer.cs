@@ -90,7 +90,7 @@ public class Costumer : GenericInteractable
 
     public IEnumerator TimeToLeave()
     {
-        yield return new WaitForSeconds(20); //costumer will wait X seconds before leaving
+        yield return new WaitForSeconds(60); //costumer will wait X seconds before leaving
         LeaveStore();
     }
 }

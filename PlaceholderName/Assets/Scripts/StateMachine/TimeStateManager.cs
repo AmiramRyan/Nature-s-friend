@@ -15,11 +15,26 @@ public class TimeStateManager : MonoBehaviour
     public DaySwitchState daySwitchState = new DaySwitchState();
     public PauseTimeState pauseTimeState = new PauseTimeState();
 
+    //States Data
+    public bool timesSetForTheDayMorning;
+    public bool timesSetForTheDayNoon;
+    public bool timesSetForTheDayEvening;
+
     //Managers
     public GameManager gameManager;
     private void OnEnable()
     {
         gameManager = GameObject.FindGameObjectWithTag("gameManager").GetComponent<GameManager>();
+        GameManager.MorningQueDone += MorningQue;
+        GameManager.NoonQueDone += NoonQue;
+        GameManager.EveningQueDone += EvningQue;
+    }
+
+    private void OnDisable()
+    {
+        GameManager.MorningQueDone -= MorningQue;
+        GameManager.NoonQueDone -= NoonQue;
+        GameManager.EveningQueDone -= EvningQue;
     }
 
     public void Start()
@@ -57,4 +72,28 @@ public class TimeStateManager : MonoBehaviour
         yield return new WaitForSeconds(2f);
         readyToSpawn = true;
     }
+
+    public void ResetSpawnQue() //from the dayswitch state only
+    {
+        timesSetForTheDayMorning = false;
+        timesSetForTheDayNoon = false;
+        timesSetForTheDayEvening = false;
+    }
+
+    #region StateQueResets
+
+    public void MorningQue()
+    {
+        timesSetForTheDayMorning = true;
+    }
+
+    public void NoonQue()
+    {
+        timesSetForTheDayNoon = true;
+    }
+    public void EvningQue()
+    {
+        timesSetForTheDayEvening = true;
+    }
+    #endregion
 }

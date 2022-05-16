@@ -5,7 +5,7 @@ using System;
 
 public class GenericInteractable : MonoBehaviour
 {
-    private bool inRangeOfPlayer; //updated every tick
+    public bool inRangeOfPlayer; //updated every tick
     public int minutesConsumed = 0; //time to consume in minutes
     public int hoursConsumed = 0; //time to cunsome in hours
 

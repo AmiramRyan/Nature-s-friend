@@ -33,11 +33,9 @@ public class UiManager : MonoBehaviour
     public List<GenericOrder> ordersList; //orders register soon as you hit accept on an order
     public List<GameObject> ordersListOnUi; //the gameobjects renderd on the UI pulls from the ordersList and instantiate
     public GameObject OrdersBookContainer;
-    [SerializeField] private GameObject requestPrefab;
-    [SerializeField] private GameObject requestHolderBook;
-    [SerializeField] private GameObject costumerManager;
-    [SerializeField] private GameObject ConfirmPanel;
+    [SerializeField] private GameObject ConfirmPanelCauldron;
     [SerializeField] private TextMeshProUGUI timeToBrewText;
+    [SerializeField] private GameObject ConfirmPanelTransition;
 
     private void OnEnable()
     {
@@ -54,6 +52,7 @@ public class UiManager : MonoBehaviour
     public void ActivateUiPanel(string uiPanelToActivate) //activates the slected panel while closing others using the panels name string
     {
         GameManager.pauseTime?.Invoke();
+        GameManager.StopPlayerMovement?.Invoke();
         switch (uiPanelToActivate)
         {
             case "cauldron":
@@ -102,9 +101,10 @@ public class UiManager : MonoBehaviour
     public void DisablePanels() //disable all game mini panels 
     {
         GameManager.resumeTime?.Invoke();
+        GameManager.ResumePlayerMovement?.Invoke();
         //disable all panels
         //Cauldron panel
-        ConfirmPanel.SetActive(false);
+        ConfirmPanelCauldron.SetActive(false);
         cauldronPanel.GetComponent<Animator>().SetTrigger("close");
         for (int i = 0; i < cauldronBtns.Length; i++)
         {
@@ -135,12 +135,14 @@ public class UiManager : MonoBehaviour
     public void OpenPanel(GameObject panel)
     {
         panel.SetActive(true);
+        GameManager.StopPlayerMovement?.Invoke();
     }
 
     public void CloseCauldronPanel()
     {
         GameManager.resumeTime?.Invoke();
-        ConfirmPanel.SetActive(false);
+        GameManager.ResumePlayerMovement.Invoke();
+        ConfirmPanelCauldron.SetActive(false);
         StartCoroutine(ClosingAnimationCauldronPanelCo());
     }
 
@@ -164,20 +166,32 @@ public class UiManager : MonoBehaviour
         }
         ordersListOnUi.Clear();
         GameManager.resumeTime?.Invoke();
+        GameManager.ResumePlayerMovement?.Invoke();
     }
 
     public void OpenConfirmPanel()
     {
         timeToBrewText.text = "Will finish at: " + (ClockManager.hour + gameManager.hoursConsumed) + ":" + (ClockManager.minute);
-        ConfirmPanel.SetActive(true);
+        ConfirmPanelCauldron.SetActive(true);
 
     }
 
     public void CloseConfirmPanel()
     {
-        ConfirmPanel.SetActive(false);
+        ConfirmPanelCauldron.SetActive(false);
     }
 
+    public void OpenTransitionPanel()
+    {
+        ConfirmPanelTransition.SetActive(true);
+        GameManager.StopPlayerMovement?.Invoke();
+    }
+
+    public void CloseTransitionPanel()
+    {
+        ConfirmPanelTransition.SetActive(false);
+        GameManager.ResumePlayerMovement?.Invoke();
+    }
     public IEnumerator ClosingAnimationBookPanelCo()
     {
         

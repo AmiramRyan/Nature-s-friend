@@ -9599,7 +9599,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.4394902, y: 0.23228537}
   m_AnchorMax: {x: 0.56165355, y: 0.261}
-  m_AnchoredPosition: {x: -65.13074, y: 18.709908}
+  m_AnchoredPosition: {x: -65.13074, y: 18.7099}
   m_SizeDelta: {x: 48.28952, y: -2.3528214}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &740801398
@@ -25205,7 +25205,6 @@ GameObject:
   - component: {fileID: 1687529499}
   - component: {fileID: 1687529503}
   - component: {fileID: 1687529502}
-  - component: {fileID: 1687529505}
   - component: {fileID: 1687529504}
   m_Layer: 0
   m_Name: Player
@@ -25227,18 +25226,18 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.062663555, y: -0.97454923}
+  m_Offset: {x: 0.39600503, y: -1.2619816}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 4.4107137, y: 4.7145834}
+    oldSize: {x: 8, y: 4.5}
     newSize: {x: 0.64, y: 0.64}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 3.2867732, y: 1.8233062}
+  m_Size: {x: 3.8127139, y: 1.4930646}
   m_EdgeRadius: 0
 --- !u!212 &1687529500
 SpriteRenderer:
@@ -25280,7 +25279,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: bddbfaea24da9e749a0d8d31631f9a14, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 933063c77785a9a4eab6293030842346, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -25324,6 +25323,7 @@ MonoBehaviour:
   particleTrail: {fileID: 458925565}
   particleIdle: {fileID: 1027015450}
   floatStrength: 0.5
+  stopMoving: 0
 --- !u!50 &1687529503
 Rigidbody2D:
   serializedVersion: 4
@@ -25364,19 +25364,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &1687529505
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1687529498}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c36b1211f9dbf6a418472a1675350959, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  floatStrength: 0.3
 --- !u!1 &1692273149
 GameObject:
   m_ObjectHideFlags: 0
@@ -26056,7 +26043,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.027158618, y: -0.6392441}
+  m_Offset: {x: 0.3551674, y: -0.7858006}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -26067,7 +26054,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 5.360832, y: 4.1396213}
+  m_Size: {x: 4.202335, y: 3.120703}
   m_EdgeRadius: 0
 --- !u!114 &1792444581
 MonoBehaviour:
@@ -26478,6 +26465,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timesList: []
   readyToSpawn: 0
+  timesSetForTheDayMorning: 0
+  timesSetForTheDayNoon: 0
+  timesSetForTheDayEvening: 0
   gameManager: {fileID: 0}
 --- !u!1 &1898352738
 GameObject:
@@ -27618,8 +27608,6 @@ MonoBehaviour:
   orderManager: {fileID: 551906831}
   uiManager: {fileID: 944280704}
   timeStateManager: {fileID: 0}
-  currentGameState: 0
-  newGameState: 0
   hoursConsumed: 2
   minutesConsumed: 0
 --- !u!1 &2136786733

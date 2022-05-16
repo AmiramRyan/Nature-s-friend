@@ -63,7 +63,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 particleTrail.SetActive(false);
                 particleIdle.SetActive(true);
-                float floatValue = (float)Mathf.Sin(Time.time) * floatStrength;
+                /*float floatValue = (float)Mathf.Sin(Time.time) * floatStrength;
                 if (transform.position.y >= transform.position.y + 5f) //go down
                 {
                     transform.position = new Vector3(transform.position.x, lastYpos - floatValue, transform.position.z);
@@ -71,11 +71,11 @@ public class PlayerMovement : MonoBehaviour
                 else //go up
                 {
                     transform.position = new Vector3(transform.position.x, lastYpos + floatValue, transform.position.z);
-                }
+                }*/
             }
         }
 
-    }
+        }
     public void StopPlayerMovement()
     {
         stopMoving = true;

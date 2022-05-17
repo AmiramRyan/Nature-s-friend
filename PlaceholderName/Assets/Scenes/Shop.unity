@@ -206,7 +206,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 944280704}
+      - m_Target: {fileID: 1218872423}
         m_TargetAssemblyTypeName: UiManager, Assembly-CSharp
         m_MethodName: CloseOrderPanel
         m_Mode: 1
@@ -1234,7 +1234,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 944280704}
+      - m_Target: {fileID: 1218872423}
         m_TargetAssemblyTypeName: UiManager, Assembly-CSharp
         m_MethodName: OpenConfirmPanel
         m_Mode: 1
@@ -7524,6 +7524,7 @@ GameObject:
   - component: {fileID: 519420031}
   - component: {fileID: 519420029}
   - component: {fileID: 519420030}
+  - component: {fileID: 519420033}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -7630,6 +7631,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &519420033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74347c556baf06d41bdee79bef7423f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &540722246
 GameObject:
   m_ObjectHideFlags: 0
@@ -8055,12 +8068,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 551906829}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 912915897}
-  m_RootOrder: 1
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &551906831
 MonoBehaviour:
@@ -11224,7 +11237,7 @@ GameObject:
   m_Component:
   - component: {fileID: 912915897}
   m_Layer: 0
-  m_Name: Managers
+  m_Name: ---Managers----
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11240,15 +11253,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 2125385115}
-  - {fileID: 551906830}
-  - {fileID: 2020243323}
-  - {fileID: 1575346143}
-  - {fileID: 944280703}
-  - {fileID: 1623026861}
-  - {fileID: 1554515484}
-  - {fileID: 1896791395}
+  m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -11353,77 +11358,6 @@ Canvas:
   m_SortingLayerID: -1113036065
   m_SortingOrder: 2
   m_TargetDisplay: 0
---- !u!1 &944280702
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 944280703}
-  - component: {fileID: 944280704}
-  m_Layer: 0
-  m_Name: UiManager
-  m_TagString: uiManager
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &944280703
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 944280702}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 63.6}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 912915897}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &944280704
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 944280702}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc2f1d5a97807a24fbc80f8cfd226041, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cauldronPanel: {fileID: 980647932}
-  bookPanel: {fileID: 348505681}
-  shelfStorageLeftUp: {fileID: 11043310}
-  shelfStorageLeftDown: {fileID: 1598367370}
-  shelfStorageMiddleUp: {fileID: 227739902}
-  shelfStorageMiddleDown: {fileID: 1424800258}
-  shelfStorageRightUp: {fileID: 1957651168}
-  shelfStorageRightDown: {fileID: 1898352738}
-  cauldronBtns:
-  - {fileID: 850799790}
-  - {fileID: 415428960}
-  - {fileID: 241090037}
-  orderBookBtn: {fileID: 10660368}
-  gameManager: {fileID: 0}
-  discoverImg: {fileID: 726403290}
-  discoverImgDefault: {fileID: 21300000, guid: 567ff7d96b04b35499d8f82d23d1aef6, type: 3}
-  cauldronShelfImgPrefab: {fileID: 2557711108981577426, guid: f1b460494a439754ea262fb36d788c9a, type: 3}
-  playerInventory: {fileID: 11400000, guid: 929f17e469e271f44b3c232bcaa59dc5, type: 2}
-  selectedIngredientList: []
-  inventoryIngredientsList: []
-  tempIngredientGameobjectsList: []
-  orderBookPrefab: {fileID: 1419565959502127887, guid: 65c39318f3a3d394b81936c6a2111d46, type: 3}
-  ordersList: []
-  ordersListOnUi: []
-  OrdersBookContainer: {fileID: 131254574}
-  ConfirmPanelCauldron: {fileID: 1692273149}
-  timeToBrewText: {fileID: 1951111085}
-  ConfirmPanelTransition: {fileID: 2092296101}
 --- !u!1 &969593677
 GameObject:
   m_ObjectHideFlags: 0
@@ -21923,9 +21857,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1575346142}
-        m_TargetAssemblyTypeName: DebugBtns, Assembly-CSharp
-        m_MethodName: OpenOrdersPanel
+      - m_Target: {fileID: 1218872423}
+        m_TargetAssemblyTypeName: UiManager, Assembly-CSharp
+        m_MethodName: OpenOrderPanel
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -22289,6 +22223,59 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1136531207}
   m_CullTransparentMesh: 1
+--- !u!1 &1140590906
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1140590908}
+  - component: {fileID: 1140590907}
+  m_Layer: 0
+  m_Name: ForestManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1140590907
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1140590906}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ba0a67be08324242ad4c6be354fd009, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  treeFather: {fileID: 0}
+  groundFather: {fileID: 0}
+  forestSpawns:
+  - {fileID: 11400000, guid: 2bfa3ae5cd4b96f4297ea964976ddb2e, type: 2}
+  - {fileID: 11400000, guid: 00ba44d0ffea6eb4c8b0cb4dfa42795c, type: 2}
+  timeOfDay: 0
+  PlantsList:
+  - {fileID: 7299837655431865993, guid: 2dc23cdcc5a38da419e59411d6b63ae2, type: 3}
+  - {fileID: 5277891627683087547, guid: c0b04dfa804598344acaaca36f56b58d, type: 3}
+  - {fileID: 3745545038364183116, guid: fc4c8a5bc5fa1904381f00bf05b64768, type: 3}
+--- !u!4 &1140590908
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1140590906}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -5.4628496, y: -2.1616077, z: 23.2565}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 15
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1218872421
 GameObject:
   m_ObjectHideFlags: 0
@@ -22298,6 +22285,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1218872422}
+  - component: {fileID: 1218872423}
   m_Layer: 0
   m_Name: Canvas
   m_TagString: Untagged
@@ -22305,8 +22293,8 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1218872422
-Transform:
+--- !u!224 &1218872422
+RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -22320,6 +22308,57 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1218872423
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1218872421}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc2f1d5a97807a24fbc80f8cfd226041, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cauldronPanel: {fileID: 980647932}
+  bookPanel: {fileID: 348505681}
+  shelfStorageLeftUp: {fileID: 11043310}
+  shelfStorageLeftDown: {fileID: 1598367370}
+  shelfStorageMiddleUp: {fileID: 227739902}
+  shelfStorageMiddleDown: {fileID: 1424800258}
+  shelfStorageRightUp: {fileID: 1957651168}
+  shelfStorageRightDown: {fileID: 1898352738}
+  cauldronBtns:
+  - {fileID: 241090037}
+  - {fileID: 850799790}
+  - {fileID: 415428960}
+  orderBookBtn: {fileID: 10660368}
+  gameManager: {fileID: 2125385116}
+  canvasObj: {fileID: 717282102}
+  discoverImg: {fileID: 726403290}
+  discoverImgDefault: {fileID: 21300000, guid: 567ff7d96b04b35499d8f82d23d1aef6, type: 3}
+  cauldronShelfImgPrefab: {fileID: 2557711108981577426, guid: f1b460494a439754ea262fb36d788c9a, type: 3}
+  playerInventory: {fileID: 11400000, guid: 929f17e469e271f44b3c232bcaa59dc5, type: 2}
+  selectedIngredientList: []
+  inventoryIngredientsList:
+  - {fileID: 11400000, guid: 64db0500d74f24744bc5992771474c24, type: 2}
+  - {fileID: 11400000, guid: 9d1b686420167f44faf4938a1afd63da, type: 2}
+  - {fileID: 11400000, guid: 002a3a14ba08dd14dbb9a5bc9736b557, type: 2}
+  - {fileID: 11400000, guid: 938932caa0f3fae42be1fdfb44d5b8d2, type: 2}
+  - {fileID: 11400000, guid: f8cda8c030f6f8042901264c778cc2c0, type: 2}
+  tempIngredientGameobjectsList: []
+  orderBookPrefab: {fileID: 1419565959502127887, guid: 65c39318f3a3d394b81936c6a2111d46, type: 3}
+  ordersList: []
+  ordersListOnUi: []
+  OrdersBookContainer: {fileID: 131254574}
+  ConfirmPanelCauldron: {fileID: 1692273149}
+  timeToBrewText: {fileID: 1951111085}
+  ConfirmPanelTransition: {fileID: 2092296101}
 --- !u!1 &1256055439
 GameObject:
   m_ObjectHideFlags: 0
@@ -22612,7 +22651,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 944280704}
+      - m_Target: {fileID: 1218872423}
         m_TargetAssemblyTypeName: UiManager, Assembly-CSharp
         m_MethodName: CloseTransitionPanel
         m_Mode: 1
@@ -23742,8 +23781,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 912915897}
-  m_RootOrder: 6
+  m_Father: {fileID: 0}
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1554515485
 MonoBehaviour:
@@ -23759,7 +23798,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   clockManager: {fileID: 2020243322}
   orderManager: {fileID: 551906831}
-  uiManager: {fileID: 944280704}
+  uiManager: {fileID: 0}
   openingTime: 10
   closingTime: 22
   workDays: 000000000100000002000000030000000400000005000000
@@ -24006,7 +24045,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1575346142
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24020,7 +24059,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clockManager: {fileID: 2020243322}
-  uiManager: {fileID: 944280704}
+  uiManager: {fileID: 1218872423}
 --- !u!4 &1575346143
 Transform:
   m_ObjectHideFlags: 0
@@ -24032,8 +24071,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 912915897}
-  m_RootOrder: 3
+  m_Father: {fileID: 0}
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1582930747
 GameObject:
@@ -24197,7 +24236,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 944280704}
+      - m_Target: {fileID: 1218872423}
         m_TargetAssemblyTypeName: UiManager, Assembly-CSharp
         m_MethodName: CloseConfirmPanel
         m_Mode: 1
@@ -24837,8 +24876,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 912915897}
-  m_RootOrder: 5
+  m_Father: {fileID: 0}
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1628996846
 GameObject:
@@ -26448,8 +26487,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 912915897}
-  m_RootOrder: 7
+  m_Father: {fileID: 0}
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1896791396
 MonoBehaviour:
@@ -26980,6 +27019,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2000032433}
+  - component: {fileID: 2000032435}
   - component: {fileID: 2000032432}
   - component: {fileID: 2000032434}
   m_Layer: 0
@@ -27056,6 +27096,18 @@ MonoBehaviour:
   m_BoundingShape2D: {fileID: 1642619892}
   m_ConfineScreenEdges: 1
   m_Damping: 0
+--- !u!114 &2000032435
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2000032431}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 132d585915472494ba24851ca5d37ef3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2016001273
 GameObject:
   m_ObjectHideFlags: 0
@@ -27199,8 +27251,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 912915897}
-  m_RootOrder: 2
+  m_Father: {fileID: 0}
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2030360246
 GameObject:
@@ -27583,12 +27635,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2125385114}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 912915897}
-  m_RootOrder: 0
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2125385116
 MonoBehaviour:
@@ -27606,8 +27658,9 @@ MonoBehaviour:
   costumerManager: {fileID: 1554515485}
   inventoryManager: {fileID: 1623026860}
   orderManager: {fileID: 551906831}
-  uiManager: {fileID: 944280704}
-  timeStateManager: {fileID: 0}
+  uiManager: {fileID: 1218872423}
+  timeStateManager: {fileID: 1896791396}
+  forestManager: {fileID: 1140590907}
   hoursConsumed: 2
   minutesConsumed: 0
 --- !u!1 &2136786733

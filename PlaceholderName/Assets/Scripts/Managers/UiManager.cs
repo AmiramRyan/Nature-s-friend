@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 
 
-public class UiManager : MonoBehaviour
+public class UiManager : GenericSingletonClass_UI<MonoBehaviour>
 {
     [Header("UiPanels")]
     public GameObject cauldronPanel;
@@ -19,6 +19,7 @@ public class UiManager : MonoBehaviour
     public GameObject[] cauldronBtns;
     public GameObject orderBookBtn;
     public GameManager gameManager;
+    public GameObject canvasObj;
 
     [Header("Refrances")]
     public Image discoverImg;
@@ -39,6 +40,8 @@ public class UiManager : MonoBehaviour
 
     private void OnEnable()
     {
+        Camera cam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
+        canvasObj.GetComponent<Canvas>().worldCamera = cam;
         gameManager = GameObject.FindGameObjectWithTag("gameManager").GetComponent<GameManager>();
         ShelfItem.highlightStatusChanged += CheckForSelectedIngredients;
     }
@@ -144,6 +147,11 @@ public class UiManager : MonoBehaviour
         GameManager.ResumePlayerMovement.Invoke();
         ConfirmPanelCauldron.SetActive(false);
         StartCoroutine(ClosingAnimationCauldronPanelCo());
+    }
+
+    public void OpenOrderPanel()
+    {
+        ActivateUiPanel("orderBook");
     }
 
     public void CloseOrderPanel()

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class ClockManager : MonoBehaviour
+public class ClockManager : GenericSingletonClass_Clock<MonoBehaviour>
 {
     public static Action onTimeChange; //time has changed
     public static Action onDayChange; //day has changed

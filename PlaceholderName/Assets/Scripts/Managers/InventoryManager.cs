@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InventoryManager : MonoBehaviour
+public class InventoryManager : GenericSingletonClass_Inventory<MonoBehaviour>
 {
     public GameManager gameManager;
     public InventoryObj playerInventory;

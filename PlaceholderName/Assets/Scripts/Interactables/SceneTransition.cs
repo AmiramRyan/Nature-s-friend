@@ -34,8 +34,10 @@ public class SceneTransition : GenericInteractable
 
     public void GoToForest()
     {
+        //gameManager.timeStateManager.SwtichState(gameManager.timeStateManager.pauseTimeState); // switch to pauseTimeState
         gameManager.clockManager.TimePass(hoursConsumed, minutesConsumed); //forward time
-        gameManager.timeStateManager.SwtichState(gameManager.timeStateManager.pauseTimeState); // switch to pauseTimeState
-        SceneManager.LoadScene("ForestScene"); //load the scene (after scene is loaded need to resume time)
+        gameManager.uiManager.CloseTransitionPanel();
+        SceneManager.LoadScene("Forest"); //load the scene (after scene is loaded need to resume time)
+        gameManager.forestManager.SpawnPlants();
     }
 }

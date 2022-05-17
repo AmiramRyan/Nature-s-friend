@@ -53,33 +53,46 @@
     <UnityVersion>2020.3.21f1</UnityVersion>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\Interactables\Forest\ForestSpawn.cs" />
     <Compile Include="Assets\Scripts\Debuging\DebugBtn.cs" />
+    <Compile Include="Assets\Scripts\Singelton\GenericSingletonClass_Forest.cs" />
     <Compile Include="Assets\Scripts\StateMachine\BaseTimeState.cs" />
+    <Compile Include="Assets\Scripts\Singelton\GenericSingletonClass_TimeState.cs" />
     <Compile Include="Assets\Scripts\Orders\GenericOrder.cs" />
     <Compile Include="Assets\Scripts\Debuging\DebugBtns.cs" />
+    <Compile Include="Assets\Scripts\Managers\ForestManager.cs" />
     <Compile Include="Assets\Scripts\Orders\GenericOrderProduct.cs" />
     <Compile Include="Assets\Scripts\Inventory\Recipes\GenericRecipe.cs" />
     <Compile Include="Assets\Scripts\Managers\ClockManager.cs" />
+    <Compile Include="Assets\Scripts\Singelton\GenericSingletonClass.cs" />
     <Compile Include="Assets\Scripts\Interactables\CauldronInteractions.cs" />
     <Compile Include="Assets\Scripts\StateMachine\States\DaySwitchState.cs" />
     <Compile Include="Assets\Scripts\Player\Float.cs" />
     <Compile Include="Assets\Scripts\StateMachine\States\EveningTimeState.cs" />
+    <Compile Include="Assets\Scripts\Singelton\GenericSingletonClass_GameManager.cs" />
+    <Compile Include="Assets\Scripts\Interactables\Forest\Plant.cs" />
     <Compile Include="Assets\Scripts\Orders\PremadeRequests\GenericRequest.cs" />
+    <Compile Include="Assets\Scripts\Interactables\SceneTransition.cs" />
+    <Compile Include="Assets\Scripts\Singelton\GenericSingletonClass_Order.cs" />
     <Compile Include="Assets\Scripts\Inventory\Items\Inv_Products\GenericInventoryProduct.cs" />
     <Compile Include="Assets\Scripts\Ui\CameraMovement.cs" />
     <Compile Include="Assets\Scripts\StateMachine\TimeStateManager.cs" />
+    <Compile Include="Assets\Scripts\Singelton\GenericSingletonClass_Clock.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerMovement.cs" />
     <Compile Include="Assets\Scripts\StateMachine\States\MorningTimeState.cs" />
     <Compile Include="Assets\Scripts\Ui\Orders\Request.cs" />
     <Compile Include="Assets\Scripts\Ui\ShelfItem.cs" />
+    <Compile Include="Assets\Scripts\Singelton\GenericSingletonClass_Costumers.cs" />
     <Compile Include="Assets\Scripts\Managers\CostumerManager.cs" />
     <Compile Include="Assets\Scripts\Managers\UiManager.cs" />
     <Compile Include="Assets\Scripts\StateMachine\States\PauseTimeState.cs" />
     <Compile Include="Assets\Scripts\Inventory\Items\Inv_Resources\GenericInventoryResource.cs" />
+    <Compile Include="Assets\Scripts\Singelton\GenericSingletonClass_Inventory.cs" />
     <Compile Include="Assets\Scripts\Inventory\Items\GenericInventoryItem.cs" />
     <Compile Include="Assets\Scripts\Interactables\GenericInteractable.cs" />
     <Compile Include="Assets\Scripts\Interactables\Costumer.cs" />
     <Compile Include="Assets\Scripts\Ui\Bubble.cs" />
+    <Compile Include="Assets\Scripts\Singelton\GenericSingletonClass_UI.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerInteractions.cs" />
     <Compile Include="Assets\Scripts\Ui\CauldronScreen.cs" />
     <Compile Include="Assets\Scripts\Managers\GameManager.cs" />
@@ -90,8 +103,13 @@
     <Compile Include="Assets\Scripts\Inventory\InventoryObj.cs" />
     <Compile Include="Assets\Scripts\Inventory\Recipes\GenericRecipeIngredient.cs" />
     <Compile Include="Assets\Scripts\Managers\OrderManager.cs" />
+    <Compile Include="Assets\Scripts\Singelton\GenericSingletonClass_Canvas.cs" />
     <Compile Include="Assets\Scripts\Ui\Orders\OrderInfoBlock.cs" />
-    <Compile Include="Assets\Scripts\Interactables\SceneTransition.cs" />
+    <Compile Include="Assets\Scripts\Managers\Canvas_Script.cs" />
+    <Compile Include="Assets\Scripts\Managers\Camera_Script.cs" />
+    <Compile Include="Assets\Scripts\Singelton\GenericSingletonClass_cam.cs" />
+    <Compile Include="Assets\Scripts\Managers\VtCamera_script.cs" />
+    <Compile Include="Assets\Scripts\Singelton\GenericSingletonClass_vc.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class GameManager : MonoBehaviour
+public class GameManager : GenericSingletonClass_GameManager<MonoBehaviour>
 {
     //Managers
     public ClockManager clockManager;
@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     public OrderManager orderManager;
     public UiManager uiManager;
     public TimeStateManager timeStateManager;
+    public ForestManager forestManager;
 
     //Data
     public int hoursConsumed;

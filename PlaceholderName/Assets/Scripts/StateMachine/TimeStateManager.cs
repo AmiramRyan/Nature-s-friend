@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TimeStateManager : MonoBehaviour
+public class TimeStateManager : GenericSingletonClass_TimeState<MonoBehaviour>
 {
-    BaseTimeState currentTimeState;
+    public BaseTimeState currentTimeState;
     public List <Vector2> timesList;
     public bool readyToSpawn;
 

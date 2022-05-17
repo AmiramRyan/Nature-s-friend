@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class OrderManager : MonoBehaviour
+public class OrderManager : GenericSingletonClass_Order<MonoBehaviour>
 {
     public InventoryObj myInventory;
     [SerializeField] private TextMeshProUGUI title; //order title

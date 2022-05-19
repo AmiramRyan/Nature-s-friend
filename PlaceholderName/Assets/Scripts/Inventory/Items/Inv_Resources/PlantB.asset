@@ -15,8 +15,8 @@ MonoBehaviour:
   itemSprite: {fileID: 21300000, guid: 21bf00a6786ba2d4297a7b7ce80441e4, type: 3}
   itemName: PlantB
   toolTipText: 
-  numInInv: 20
+  numInInv: 10
   itempType: 0
-  discoverd: 0
+  discoverd: 1
   thisResourceType: 0
   splashEffect: {fileID: 263368775825912064, guid: 98b908a62830dc1439e1e6b50eafccf5, type: 3}

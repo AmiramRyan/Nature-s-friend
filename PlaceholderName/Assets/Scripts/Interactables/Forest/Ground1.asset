@@ -14,10 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnType: 1
   possibleSpawns:
-  - {x: 0.46, y: -2.66, z: 40.98438}
-  - {x: -1.66, y: -3.27, z: 40.98438}
-  - {x: -3.16, y: -3.7, z: 40.98438}
-  - {x: -4.6, y: -2.54, z: 40.98438}
-  - {x: -8.35, y: -3.49, z: 40.98438}
+  - {x: 0.46, y: -2.66, z: 100}
+  - {x: -1.66, y: -3.27, z: 100}
+  - {x: -3.16, y: -3.7, z: 100}
+  - {x: -4.6, y: -2.54, z: 100}
+  - {x: -8.35, y: -3.49, z: 100}
+  spotFilled: 0100010100
   maxSpotsToSpawn: 5
-  availableSpotsToSpawn: 0
+  availableSpotsToSpawn: 2

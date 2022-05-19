@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 
 public class UiManager : GenericSingletonClass_UI<MonoBehaviour>
@@ -20,6 +21,7 @@ public class UiManager : GenericSingletonClass_UI<MonoBehaviour>
     public GameObject orderBookBtn;
     public GameManager gameManager;
     public GameObject canvasObj;
+    public GameObject goToShopBtn;
 
     [Header("Refrances")]
     public Image discoverImg;
@@ -361,4 +363,9 @@ public class UiManager : GenericSingletonClass_UI<MonoBehaviour>
 
     #endregion
 
+    public void GotToShop()
+    {
+        gameManager.clockManager.TimePass(2, 30); //forward time TODOO smart
+        SceneManager.LoadScene("Shop"); //load the scene (after scene is loaded need to resume time)
+    }
 }

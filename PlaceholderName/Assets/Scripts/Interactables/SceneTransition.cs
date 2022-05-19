@@ -40,4 +40,5 @@ public class SceneTransition : GenericInteractable
         SceneManager.LoadScene("Forest"); //load the scene (after scene is loaded need to resume time)
         gameManager.forestManager.SpawnPlants();
     }
+
 }

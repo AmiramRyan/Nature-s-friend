@@ -4,81 +4,132 @@ using UnityEngine;
 
 public class ForestManager : GenericSingletonClass_Forest<MonoBehaviour>
 {
-    private GameManager gameManager = GameObject.FindGameObjectWithTag("gameManager").GetComponent<GameManager>();
+    public GameManager gameManager;
     //data
     public GameObject treeFather;
     public GameObject groundFather;
     public ForestSpawn[] forestSpawns;
     [SerializeField] private SpawnTime timeOfDay;
     [SerializeField] private List<GameObject> PlantsList = new List<GameObject>(); //stores all the plants spawned
-    
+    private bool spawnedMorning;
+    private bool spawnedNoon;
+    private bool spawnedEvening;
+    private bool spawnNow;
+
+    private void OnEnable()
+    {
+        gameManager = GameObject.FindGameObjectWithTag("gameManager").GetComponent<GameManager>();
+        spawnedMorning = false;
+        spawnedNoon = false;
+        spawnedEvening = false;
+        spawnNow = true;
+    }
     public void SpawnPlants()
     {
         //Deside time of day
-        if(gameManager.timeStateManager.currentTimeState == gameManager.timeStateManager.morningTimeState)
+        if (gameManager.timeStateManager.currentTimeState == gameManager.timeStateManager.morningTimeState)
         {
-            timeOfDay = SpawnTime.morning;
+            if (!spawnedMorning)
+            {
+                timeOfDay = SpawnTime.morning;
+                spawnedMorning = true;
+                spawnNow = true;
+            }
         }
-        else if(gameManager.timeStateManager.currentTimeState == gameManager.timeStateManager.noonTimeState)
+        else if (gameManager.timeStateManager.currentTimeState == gameManager.timeStateManager.noonTimeState)
         {
-            timeOfDay = SpawnTime.noon;
+            if (!spawnedNoon)
+            {
+                timeOfDay = SpawnTime.noon;
+                spawnedNoon = true;
+                spawnNow = true;
+            }
         }
-        else if(gameManager.timeStateManager.currentTimeState == gameManager.timeStateManager.evneningTimeState)
+        else if (gameManager.timeStateManager.currentTimeState == gameManager.timeStateManager.evneningTimeState)
         {
-            timeOfDay = SpawnTime.evning;
+            if (!spawnedEvening)
+            {
+                timeOfDay = SpawnTime.evning;
+                spawnedEvening = true;
+                spawnNow = true;
+            }
         }
         else
         {
             Debug.LogError("not a valid Spawn State");
         }
-
-        //Start the spawn
-        int spawnIndex;
-        int index = Random.Range(8, 15);
-        for (int i = 0; i < index; i++) //random amount of plants each time state
+        if (spawnNow)
         {
-            GameObject plant = Instantiate(RollForPlant()); //choose a plant
-
-            /*//Set Father Object
-            if(plant.GetComponent<Plant>().growsOn == "tree")
+            spawnNow = false;
+            //Start the spawn
+            int index = Random.Range(8, 12);//random amount of plants each time state
+            Debug.Log("how much flowers? :" + index);
+            for (int i = 0; i < index; i++)
             {
-                plant.transform.SetParent(treeFather.transform);
+                GameObject plant = RollForPlant();
 
-            }
-            else
-            {
-                plant.transform.SetParent(groundFather.transform);
-            }*/
-
-            //Give the plant a random place to spawn 
-            spawnIndex = Random.Range(0, forestSpawns.Length); //try random place
-            if (forestSpawns[spawnIndex].isFull()) //place is full 
-            {
-                if (spawnIndex != 0) //start from 0
+                if (plant)
                 {
-                    spawnIndex = 0;
-                }
-                while (forestSpawns[spawnIndex].isFull()) //iterate the arr to find an empty spot to spawn
-                {
-                    spawnIndex++;
+                    GameObject actualPlant = Instantiate(plant, this.transform); //choose a plant
+
+                    /*//Set Father Object
+                    if(plant.GetComponent<Plant>().growsOn == "tree")
+                    {
+                        plant.transform.SetParent(treeFather.transform);
+
+                    }
+                    else
+                    {
+                        plant.transform.SetParent(groundFather.transform);
+                    }*/
+
+                    //Give the plant a random place to spawn 
+                    ForestSpawn thisSpawnParent = GetRandomParentSpawn(actualPlant.GetComponent<Plant>().growsOn);
+                    //Give the plant a random spot to spawn on parent 
+                    Vector3 spawnLocation = thisSpawnParent.GetRandomV3(); //try random spot on place
+                    if (spawnLocation != Vector3.zero)
+                    {
+                        actualPlant.transform.position = spawnLocation;
+                    }
                 }
             }
-            //Found a spawn
-            Vector3 spawnLocation = forestSpawns[spawnIndex].GetRandomV3(); //generate random spawn based on space stats
-            plant.transform.position = spawnLocation;
         }
+    }
 
+    public ForestSpawn GetRandomParentSpawn(SpawnType spawnType)
+    {
+        int spawnIndex; //random parent
+        spawnIndex = Random.Range(0, forestSpawns.Length - 1); //try random place
+        if (forestSpawns[spawnIndex].isFull() || spawnType != forestSpawns[spawnIndex].spawnType) //spot is full on that parent OR not the correct spawn type
+        {
+            if (spawnIndex != 0) //start from 0
+            {
+                spawnIndex = 0;
+            }
+            while (forestSpawns[spawnIndex].isFull() || spawnType != forestSpawns[spawnIndex].spawnType) //iterate the arr to find an empty spot to spawn
+            {
+                spawnIndex++;
+                if (spawnIndex == forestSpawns.Length) //no more places to spawn
+                {
+                    Debug.Log("No valid spawn parent was found");
+                    return null;
+                }
+            }
+        }
+        return forestSpawns[spawnIndex];
     }
 
     public GameObject RollForPlant()
     {
         int cumulativeProbs = 0;
         int currentProbs = Random.Range(0, 100);
+        //Debug.Log("CurrentPorb: " + currentProbs);
         for (int i = 0; i < PlantsList.Count; i++)
         {
             Plant plant = PlantsList[i].GetComponent<Plant>();
             if (timeOfDay == plant.spawnTime) {
                 cumulativeProbs += plant.spawnChance;
+               // Debug.Log("cumulative: " + cumulativeProbs);
                 if (currentProbs <= cumulativeProbs)
                 {
                     return PlantsList[i];
@@ -86,5 +137,12 @@ public class ForestManager : GenericSingletonClass_Forest<MonoBehaviour>
             }
         }
         return null;
+    }
+
+    public void ResetDaySpawns()
+    {
+        spawnedMorning = false;
+        spawnedNoon = false;
+        spawnedEvening = false;
     }
 }

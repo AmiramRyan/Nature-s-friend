@@ -13,6 +13,7 @@ public class GameManager : GenericSingletonClass_GameManager<MonoBehaviour>
     public UiManager uiManager;
     public TimeStateManager timeStateManager;
     public ForestManager forestManager;
+    public RelationsManager relationsManager;
 
     //Data
     public int hoursConsumed;

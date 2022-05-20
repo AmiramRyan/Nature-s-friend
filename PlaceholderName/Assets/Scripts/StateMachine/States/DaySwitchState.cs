@@ -6,8 +6,10 @@ public class DaySwitchState : BaseTimeState
 {
     public override void EnterState(TimeStateManager timeManager)
     {
+        Debug.Log("TimeSwitchState");
         //reset everything day related
         timeManager.gameManager.forestManager.ResetDaySpawns();
+        timeManager.gameManager.relationsManager.GenerateRelationForToday();
         //resetSpawnQue
         timeManager.ResetSpawnQue();
         //black screen to signfy day

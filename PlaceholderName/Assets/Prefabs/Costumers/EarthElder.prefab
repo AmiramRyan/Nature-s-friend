@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 9028382533128044992}
   - component: {fileID: 5755938486870346179}
   - component: {fileID: 7082612780695154608}
-  - component: {fileID: 9177279777576886026}
+  - component: {fileID: 8993245741637573138}
   m_Layer: 0
-  m_Name: Costumer
+  m_Name: EarthElder
   m_TagString: interactable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -73,7 +73,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 3c1235d6d7593d047b42f93c852cedcb, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8fae89f92ef6b1149b3f559c90c2c3b1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -96,19 +96,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac9b19169bb9d8940944ad9b6e793569, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inRangeOfPlayer: 0
   minutesConsumed: 0
   hoursConsumed: 0
-  costumerSprite: {fileID: 21300000, guid: 3c1235d6d7593d047b42f93c852cedcb, type: 3}
+  costumerSprite: {fileID: 21300000, guid: 8fae89f92ef6b1149b3f559c90c2c3b1, type: 3}
   orderManager: {fileID: 0}
   possibleOrders:
-  - {fileID: 11400000, guid: d2634443c98bbe84482b8c8af5799c86, type: 2}
-  - {fileID: 11400000, guid: 4274e1ef57abb604c9af3a4858e7eace, type: 2}
-  - {fileID: 11400000, guid: d2634443c98bbe84482b8c8af5799c86, type: 2}
+  - {fileID: 11400000, guid: ee5aea97ea989a04b91281aadd2ddc23, type: 2}
+  - {fileID: 11400000, guid: ee5aea97ea989a04b91281aadd2ddc23, type: 2}
   mainCharacter: 0
-  arriveHour: 8
-  arriveMin: 40
-  arriveDay: 0
---- !u!61 &9177279777576886026
+  arriveHour: 10
+  arriveMin: 10
+  arriveDay: 7
+--- !u!61 &8993245741637573138
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -125,7 +125,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 3.03125, y: 3.1875}
+    oldSize: {x: 3.3775, y: 2.695}
     newSize: {x: 3.03125, y: 3.1875}
     adaptiveTilingThreshold: 0.5
     drawMode: 0

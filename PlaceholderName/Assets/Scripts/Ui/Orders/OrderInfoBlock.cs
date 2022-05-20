@@ -11,16 +11,14 @@ public class OrderInfoBlock : MonoBehaviour
     public int ID;
 
     //Reffrances
-    public OrderManager orderManager;
-    public UiManager uiManager;
+    private GameManager gameManager;
     [SerializeField] private GameObject Image;
     [SerializeField] private GameObject RewardsContainer;
     [SerializeField] private GameObject RequiermentsContainer;
 
     private void Start()
     {
-        orderManager = GameObject.FindGameObjectWithTag("orderManager").GetComponent<OrderManager>();
-        uiManager = GameObject.FindGameObjectWithTag("uiManager").GetComponent<UiManager>();
+        gameManager = GameObject.FindGameObjectWithTag("gameManager").GetComponent<GameManager>();
         SetUpInfoBlock();
     }
 
@@ -46,15 +44,15 @@ public class OrderInfoBlock : MonoBehaviour
 
     public void SetActive()
     {
-        orderManager.SetActiveOrder(orderData, orderData.costumerSprite, false);
+        gameManager.orderManager.SetActiveOrder(orderData, orderData.costumerSprite, false);
     }
 
     public void CompleateOrder()
     {
         SetActive();
-        if (orderManager.CompleateOrder())
+        if (gameManager.orderManager.CompleateOrder())
         {
-            uiManager.RemoveOrderFromList(ID);
+            gameManager.uiManager.RemoveOrderFromList(ID);
             Destroy(gameObject); //Done
         }
     }

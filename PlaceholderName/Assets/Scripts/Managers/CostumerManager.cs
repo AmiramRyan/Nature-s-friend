@@ -5,9 +5,7 @@ using UnityEngine;
 public class CostumerManager : GenericSingletonClass_Costumers<MonoBehaviour>
 {
     //-----Referances----
-    public ClockManager clockManager;
-    public OrderManager orderManager;
-    public UiManager uiManager;
+    private GameManager gameManager;
     public int openingTime = 10; //time the store can start accepting costumers
     public int closingTime = 22; //time the store stops getting costumers
     public int[] workDays = { 0, 1, 2, 3, 4, 5 };
@@ -30,21 +28,12 @@ public class CostumerManager : GenericSingletonClass_Costumers<MonoBehaviour>
     public GameObject currentCostumer;
     private Costumer currCostumerReff;
 
-    //----Debug costumers prefabs----
-    public GameObject cos1;
-    public GameObject cos2;
-    public GameObject cos3;
 
     //list all story characters
-    //TODO import the body parts bank
     private void OnEnable()
     {
-        //debug REMOVETHIS
-        costumerQueForDay.Add(cos1);
-        costumerQueForDay.Add(cos2);
-        costumerQueForDay.Add(cos3);
+        gameManager = GameObject.FindGameObjectWithTag("gameManager").GetComponent<GameManager>();
         spawnActive = true;
-
     }
 
     public void SpawnRandomCostumer()
@@ -64,8 +53,8 @@ public class CostumerManager : GenericSingletonClass_Costumers<MonoBehaviour>
 
     public void MakeCostumerLeave()
     {
-        orderManager.DisableChoiceBtns();
-        orderManager.ClearActiveOrder();
+        gameManager.orderManager.DisableChoiceBtns();
+        gameManager.orderManager.ClearActiveOrder();
         currentCostumer.GetComponent<Costumer>().LeaveStore();
     }
 
@@ -73,8 +62,8 @@ public class CostumerManager : GenericSingletonClass_Costumers<MonoBehaviour>
     {
         //add to order book
         Debug.Log("order have been added to the orderbook");
-        uiManager.ordersList.Add(currentCostumer.GetComponent<Costumer>().possibleOrders[0]); //TOODO 0? SET IT UP!
-        orderManager.DisableChoiceBtns();
+        gameManager.uiManager.ordersList.Add(currentCostumer.GetComponent<Costumer>().possibleOrders[0]); //TOODO 0? SET IT UP!
+        gameManager.orderManager.DisableChoiceBtns();
         //costumer leave
         currentCostumer.GetComponent<Costumer>().LeaveStore();
     }

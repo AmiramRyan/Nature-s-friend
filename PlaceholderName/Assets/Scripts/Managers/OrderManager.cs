@@ -6,6 +6,7 @@ using TMPro;
 
 public class OrderManager : GenericSingletonClass_Order<MonoBehaviour>
 {
+    public GameManager gameManager;
     public InventoryObj myInventory;
     [SerializeField] private TextMeshProUGUI title; //order title
     [SerializeField] private TextMeshProUGUI description; //order description
@@ -17,6 +18,11 @@ public class OrderManager : GenericSingletonClass_Order<MonoBehaviour>
     [SerializeField] private GameObject acceptBtn, rejectBtn;
     public List<GameObject> activeRequests;
     private GenericOrder activeOrder;
+
+    private void OnEnable()
+    {
+        gameManager = GameObject.FindGameObjectWithTag("gameManager").GetComponent<GameManager>();
+    }
 
     public void SetActiveOrder(GenericOrder orderToSetup , Sprite newCostumerPortrait, bool newQuest)
     {
@@ -118,6 +124,8 @@ public class OrderManager : GenericSingletonClass_Order<MonoBehaviour>
                     myInventory.UesItem(myInventory.playerProducts[indexOfItem], activeOrder.OrderRequests[i].amount); //subtract the amount
                 }
             }
+            //Adjust relationships with elements
+            gameManager.relationsManager.AdjustRelationShips(activeOrder.thisOrderElement,activeOrder.PositiveRelationEffect,activeOrder.NegetiveRelationEffect);
             //clean up the order panel and remove from order book
             ClearActiveOrder();
             Debug.Log("Order Sent");

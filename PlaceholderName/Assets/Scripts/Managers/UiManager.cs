@@ -8,9 +8,17 @@ using UnityEngine.SceneManagement;
 
 public class UiManager : GenericSingletonClass_UI<MonoBehaviour>
 {
+    public GameManager gameManager;
+    public GameObject canvasObj;
+
     [Header("UiPanels")]
-    public GameObject cauldronPanel;
-    public GameObject bookPanel;
+    [SerializeField] private GameObject cauldronPanel;
+    [SerializeField] private GameObject bookPanel;
+    [SerializeField] private GameObject InventoryPanel;
+    [SerializeField] private GameObject ConfirmPanelCauldron;
+    [SerializeField] private GameObject ConfirmPanelTransition;
+
+    [Header("PanelsComponents")]
     public GameObject shelfStorageLeftUp;
     public GameObject shelfStorageLeftDown;
     public GameObject shelfStorageMiddleUp;
@@ -19,26 +27,30 @@ public class UiManager : GenericSingletonClass_UI<MonoBehaviour>
     public GameObject shelfStorageRightDown;
     public GameObject[] cauldronBtns;
     public GameObject orderBookBtn;
-    public GameManager gameManager;
-    public GameObject canvasObj;
     public GameObject goToShopBtn;
+    public GameObject InventoryBookProductContainer;
+    public GameObject InventoryBookIngredientContainer;
+    public GameObject OrdersBookContainer;
+
+    [Header("Prefabs")]
+    [SerializeField] private GameObject cauldronShelfImgPrefab; //the image prefab for a shelf cauldron ingredient
+    [SerializeField] private GameObject orderBookPrefab;
+    [SerializeField] private GameObject inventoryBookPrefab;
+
 
     [Header("Refrances")]
     public Image discoverImg;
-    [SerializeField] private Sprite discoverImgDefault; //TOOD: move to a data manager
-    [SerializeField] private GameObject cauldronShelfImgPrefab; //the image prefab for a shelf cauldron ingredient
+    [SerializeField] private Sprite discoverImgDefault; 
     [SerializeField] private InventoryObj playerInventory; //the player scriptable obj inventory
     public List<GenericInventoryResource> selectedIngredientList = new List<GenericInventoryResource>(); //the ingredients currently selected (updates in runtime)
     private List<GameObject> selectedGameObjectList = new List<GameObject>(); //the ingredients currently selected GAME OBJECTS
     public List<GenericInventoryResource> inventoryIngredientsList = new List<GenericInventoryResource>(); //spread out the ingrideint from the inventory into a list
     public List<GameObject> tempIngredientGameobjectsList = new List<GameObject>(); // a refarance to the actual gameobjects renderd on screen
-    public GameObject orderBookPrefab;
     public List<GenericOrder> ordersList; //orders register soon as you hit accept on an order
     public List<GameObject> ordersListOnUi; //the gameobjects renderd on the UI pulls from the ordersList and instantiate
-    public GameObject OrdersBookContainer;
-    [SerializeField] private GameObject ConfirmPanelCauldron;
+    public List<GameObject> ingredientListOnUi; //the gameobjects renderd on the UI pulls from the ingredientList and instantiate
+    public List<GameObject> productListOnUi; //the gameobjects renderd on the UI pulls from the products and instantiate
     [SerializeField] private TextMeshProUGUI timeToBrewText;
-    [SerializeField] private GameObject ConfirmPanelTransition;
 
     private void OnEnable()
     {
@@ -90,6 +102,34 @@ public class UiManager : GenericSingletonClass_UI<MonoBehaviour>
                 OpenPanel(bookPanel);
                 break;
 
+            case "inventory":
+                //fill the inventory book
+                //ingredients
+                for (int i = 0; i < inventoryIngredientsList.Count; i++)
+                {
+                    if (inventoryIngredientsList[i].numInInv > 0)
+                    {
+                        GameObject item = Instantiate(inventoryBookPrefab);
+                        item.transform.SetParent(InventoryBookIngredientContainer.transform);
+                        item.transform.position = new Vector3(item.transform.position.x, item.transform.position.y, 1000);
+                        item.GetComponent<Request>().SetUpRequest(inventoryIngredientsList[i].itemSprite, inventoryIngredientsList[i].numInInv.ToString());
+                        ingredientListOnUi.Add(item);
+                    }
+                }
+                //products
+                for (int i = 0; i < gameManager.inventoryManager.playerInventory.playerProducts.Count; i++)
+                {
+                    if (gameManager.inventoryManager.playerInventory.playerProducts[i].numInInv > 0)
+                    {
+                        GameObject item = Instantiate(inventoryBookPrefab);
+                        item.transform.SetParent(InventoryBookProductContainer.transform);
+                        item.transform.position = new Vector3(item.transform.position.x, item.transform.position.y, 1000);
+                        item.GetComponent<Request>().SetUpRequest(gameManager.inventoryManager.playerInventory.playerProducts[i].itemSprite, gameManager.inventoryManager.playerInventory.playerProducts[i].numInInv.ToString());
+                        productListOnUi.Add(item);
+                    }
+                }
+                OpenPanel(InventoryPanel);
+                break;
             default:
                 Debug.LogError("Ui manager could not find a panel with this name: " + uiPanelToActivate);
                 break;
@@ -231,6 +271,29 @@ public class UiManager : GenericSingletonClass_UI<MonoBehaviour>
         ordersList.RemoveAt(ID);
     }
 
+    public void OpenInventoryPanel()
+    {
+        ActivateUiPanel("inventory");
+    }
+
+    public void CloseInventoryPanel()
+    {
+        //corutine
+        //delete from screen
+        for (int i = 0; i < ingredientListOnUi.Count; i++)
+        {
+            Destroy(ingredientListOnUi[i]);
+        }
+        for (int i = 0; i < productListOnUi.Count; i++)
+        {
+            Destroy(productListOnUi[i]);
+        }
+        ingredientListOnUi.Clear();
+        productListOnUi.Clear();
+        GameManager.resumeTime?.Invoke();
+        GameManager.ResumePlayerMovement?.Invoke();
+        InventoryPanel.SetActive(false);
+    }
     #endregion
 
     #region Potions

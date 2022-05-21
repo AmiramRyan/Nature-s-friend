@@ -1,7 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class OrderInfoBlock : MonoBehaviour
 {
@@ -13,7 +12,7 @@ public class OrderInfoBlock : MonoBehaviour
     //Reffrances
     private GameManager gameManager;
     [SerializeField] private GameObject Image;
-    [SerializeField] private GameObject RewardsContainer;
+    [SerializeField] private TextMeshProUGUI RewardsContainer;
     [SerializeField] private GameObject RequiermentsContainer;
 
     private void Start()
@@ -39,7 +38,7 @@ public class OrderInfoBlock : MonoBehaviour
         Image.GetComponent<Image>().sprite = orderData.costumerSprite; //Picture
 
         //SetUp rewards
-
+        RewardsContainer.text = orderData.goldAmountWorth + "";
     }
 
     public void SetActive()

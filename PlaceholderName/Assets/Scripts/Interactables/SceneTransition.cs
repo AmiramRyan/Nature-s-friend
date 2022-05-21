@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Cinemachine;
 
 public class SceneTransition : GenericInteractable
 {
@@ -32,13 +33,5 @@ public class SceneTransition : GenericInteractable
         gameManager.uiManager.OpenTransitionPanel();
     }
 
-    public void GoToForest()
-    {
-        //gameManager.timeStateManager.SwtichState(gameManager.timeStateManager.pauseTimeState); // switch to pauseTimeState
-        gameManager.clockManager.TimePass(hoursConsumed, minutesConsumed); //forward time
-        gameManager.uiManager.CloseTransitionPanel();
-        SceneManager.LoadScene("Forest"); //load the scene (after scene is loaded need to resume time)
-        gameManager.forestManager.SpawnPlants();
-    }
-
+    
 }

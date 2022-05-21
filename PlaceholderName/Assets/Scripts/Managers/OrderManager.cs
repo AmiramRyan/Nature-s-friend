@@ -12,12 +12,16 @@ public class OrderManager : GenericSingletonClass_Order<MonoBehaviour>
     [SerializeField] private TextMeshProUGUI description; //order description
     [SerializeField] private Image costumerPortrait;
     [SerializeField] private GameObject requestHolderLeft;
-    [SerializeField] private GameObject requestHolderRight;
+    [SerializeField] private Image OrderElement;
     //[SerializeField] private List<GenericOrder> ordersList; //for random debug, TODO take the right(randomly?) order based on the character asking for it
     [SerializeField] private GameObject requestPrefab;
     [SerializeField] private GameObject acceptBtn, rejectBtn;
     public List<GameObject> activeRequests;
     private GenericOrder activeOrder;
+
+    [SerializeField] private Sprite fireSp;
+    [SerializeField] private Sprite waterSp;
+    [SerializeField] private Sprite earthSp;
 
     private void OnEnable()
     {
@@ -38,23 +42,22 @@ public class OrderManager : GenericSingletonClass_Order<MonoBehaviour>
         for (int i = 0; i< currentOrder.OrderRequests.Count; i++)
         {
             var thisRequest = currentOrder.OrderRequests[i];
-           
-            if (i <= 1) //left side
-            {
-                GameObject req = Instantiate(requestPrefab, requestHolderLeft.transform.position, Quaternion.identity) as GameObject;
-                req.transform.SetParent(requestHolderLeft.transform);
-                req.GetComponent<Request>().SetUpRequest(thisRequest.theOrderProduct.productSprite, thisRequest.amount.ToString());
-                activeRequests.Add(req);
-            }
-            else //right side
+            GameObject req = Instantiate(requestPrefab, requestHolderLeft.transform.position, Quaternion.identity) as GameObject;
+            req.transform.SetParent(requestHolderLeft.transform);
+            req.GetComponent<Request>().SetUpRequest(thisRequest.theOrderProduct.productSprite, thisRequest.amount.ToString());
+            activeRequests.Add(req);
+            /*else //right side
             {
                 GameObject req = Instantiate(requestPrefab, requestHolderRight.transform.position, Quaternion.identity) as GameObject;
                 req.transform.SetParent(requestHolderRight.transform);
                 req.GetComponent<Request>().SetUpRequest(thisRequest.theOrderProduct.productSprite, thisRequest.amount.ToString());
                 activeRequests.Add(req);
-            }
-            
+            }*/
         }
+
+        //set element and money preview
+        OrderElement.sprite = MatchSpriteToElement(currentOrder.thisOrderElement);
+        OrderElement.gameObject.SetActive(true);
         if (newQuest)
         {
             acceptBtn.SetActive(true);
@@ -128,6 +131,10 @@ public class OrderManager : GenericSingletonClass_Order<MonoBehaviour>
             gameManager.relationsManager.AdjustRelationShips(activeOrder.thisOrderElement,activeOrder.PositiveRelationEffect,activeOrder.NegetiveRelationEffect);
             //clean up the order panel and remove from order book
             ClearActiveOrder();
+            OrderElement.gameObject.SetActive(false);
+            gameManager.taskManager.coinsEarned += activeOrder.goldAmountWorth;
+            gameManager.taskManager.ordersComplete++;
+            GameManager.taskRelated?.Invoke();
             Debug.Log("Order Sent");
             return true;
         }
@@ -146,6 +153,21 @@ public class OrderManager : GenericSingletonClass_Order<MonoBehaviour>
             }
         }
         return 999;
+    }
+
+    public Sprite MatchSpriteToElement(Element element)
+    {
+        switch (element)
+        {
+            case Element.fire:
+                return fireSp;
+            case Element.water:
+                return waterSp;
+            case Element.earth:
+                return earthSp;
+            default:
+                return null;
+        }
     }
 
     /*public void SetActiveOrder()

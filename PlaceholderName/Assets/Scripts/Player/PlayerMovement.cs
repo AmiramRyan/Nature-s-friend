@@ -12,9 +12,6 @@ public class PlayerMovement : MonoBehaviour
     public GameObject particleIdle;
 
     private Vector3 change; //from input 
-    private Vector3 motionVector; //after calculations
-    [SerializeField]private float floatStrength = 0.5f;
-    private float lastYpos;
     public bool stopMoving;
 
     private void OnEnable()
@@ -54,7 +51,6 @@ public class PlayerMovement : MonoBehaviour
                     transform.localScale = new Vector3(1f, transform.localScale.y, transform.localScale.z);
                     particleTrail.transform.localScale = new Vector3(1f, 1f, particleTrail.transform.localScale.z);
                 }
-                lastYpos = transform.position.y;
                 particleIdle.SetActive(false);
                 particleTrail.SetActive(true);
                 MoveCharacter();
@@ -63,19 +59,10 @@ public class PlayerMovement : MonoBehaviour
             {
                 particleTrail.SetActive(false);
                 particleIdle.SetActive(true);
-                /*float floatValue = (float)Mathf.Sin(Time.time) * floatStrength;
-                if (transform.position.y >= transform.position.y + 5f) //go down
-                {
-                    transform.position = new Vector3(transform.position.x, lastYpos - floatValue, transform.position.z);
-                }
-                else //go up
-                {
-                    transform.position = new Vector3(transform.position.x, lastYpos + floatValue, transform.position.z);
-                }*/
             }
         }
 
-        }
+    }
     public void StopPlayerMovement()
     {
         stopMoving = true;

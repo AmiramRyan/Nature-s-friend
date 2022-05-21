@@ -48,7 +48,8 @@ public class RelationsManager : GenericSingletonClass_Relation<MonoBehaviour>
     public void GenerateRelationForToday() //randomise the conflicts
     {
         int con1Index;
-        int naturalIndex = Random.Range(0, elementTypeArr.Length - 1);
+        int naturalIndex = Random.Range(0, elementTypeArr.Length);
+        Debug.Log(naturalIndex + " Index Natural");
         Element[] whatsLeftArr = new Element[2];
         int whatsLeftIndex = 0;
         for (int i = 0; i < elementTypeArr.Length; i++)
@@ -59,8 +60,7 @@ public class RelationsManager : GenericSingletonClass_Relation<MonoBehaviour>
                 whatsLeftIndex++;
             }
         }
-        int con2Index = Random.Range(0, 1);
-        Debug.Log(con2Index);
+        int con2Index = Random.Range(0, 2);
         if(con2Index == 0)
         {
             con1Index = 1;
@@ -71,9 +71,10 @@ public class RelationsManager : GenericSingletonClass_Relation<MonoBehaviour>
         }
 
         //Set conflicts
-        conlfict1Type = elementTypeArr[con1Index];
+        neutralType = elementTypeArr[naturalIndex];
+        conlfict1Type = whatsLeftArr[con1Index];
         conlfict2Type = whatsLeftArr[con2Index];
-        neutralType = whatsLeftArr[naturalIndex];
+
         //Set UI view for conflicts
         SetSprites(conlfict1Type, conlfict1);
         SetSprites(conlfict2Type, conlfict2);

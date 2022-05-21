@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dba435cf4cdcf8b48acc746c94b8511d, type: 3}
+  m_Name: WE2
+  m_EditorClassIdentifier: 
+  title: Cant light the stove
+  description: Hey zoe the fire element is angry again.. and my kids are hungry,
+    I need some help.
+  OrderRequests:
+  - {fileID: 11400000, guid: cf5e02868b13d744c9ada4b61585212a, type: 2}
+  - {fileID: 11400000, guid: 2378888d10e2f234288784da85e96588, type: 2}
+  - {fileID: 11400000, guid: d3d6663946ae445418d4e80e88ee309c, type: 2}
+  costumerSprite: {fileID: 21300000, guid: 253c5a73f3ba574409b5c1b50abb1e3c, type: 3}
+  thisOrderElement: 0
+  PositiveRelationEffect: -10
+  NegetiveRelationEffect: 0
+  goldAmountWorth: 17000

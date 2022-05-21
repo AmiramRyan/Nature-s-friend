@@ -39,7 +39,6 @@ public class TimeStateManager : GenericSingletonClass_TimeState<MonoBehaviour>
 
     public void Start()
     {
-        currentTimeState = noonTimeState;
         currentTimeState.EnterState(this);
     }
 

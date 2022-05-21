@@ -19,4 +19,14 @@ public class GenericOrder : ScriptableObject
     public Element thisOrderElement;
     public int PositiveRelationEffect;
     public int NegetiveRelationEffect;
+    public int goldAmountWorth;
+
+    private void OnEnable()
+    {
+        //set worth
+        for (int i = 0; i < OrderRequests.Count; i++)
+        {
+            goldAmountWorth += OrderRequests[i].theInvProduct.sellValue * OrderRequests[i].amount;
+        }
+    }
 }

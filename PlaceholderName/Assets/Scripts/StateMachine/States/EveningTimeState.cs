@@ -21,6 +21,8 @@ public class EveningTimeState : BaseTimeState
         //chance to spawn quest costumer
         if (!timesSetForTheDayEvening)
         {
+            timeManager.gameManager.forestManager.SpawnPlants();
+            timeManager.gameManager.forestManager.DeactivePlants();
             morningCostumersTime = timeManager.CostumerTimeToArrive(1, 18, 21);
             GameManager.EveningQueDone?.Invoke();
             timesSetForTheDayEvening = true;

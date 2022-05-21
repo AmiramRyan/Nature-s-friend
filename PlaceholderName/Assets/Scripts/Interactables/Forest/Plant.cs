@@ -37,7 +37,7 @@ public class Plant : MonoBehaviour
         //Always try to get back to 0 on the x scale
         if (proggresBar.transform.localScale.x > 0f)
         {
-            proggresBar.transform.localScale = new Vector3(proggresBar.transform.localScale.x - 0.001f, proggresBar.transform.localScale.y, proggresBar.transform.localScale.z);
+            proggresBar.transform.localScale = new Vector3(proggresBar.transform.localScale.x - 0.1f * Time.deltaTime, proggresBar.transform.localScale.y, proggresBar.transform.localScale.z);
         }
         else
         {
@@ -50,8 +50,8 @@ public class Plant : MonoBehaviour
         proggresBar.transform.localScale = new Vector3(proggresBar.transform.localScale.x + clickEffectivnes, proggresBar.transform.localScale.y, proggresBar.transform.localScale.z);
         if (proggresBar.transform.localScale.x > 1f) //overClick
         {
-            Debug.Log("Plant is Picked!!");
-            //play effect
+            gameManager.taskManager.plantsGatherd++;
+            GameManager.taskRelated?.Invoke();
             //add to inventory 
             gameManager.inventoryManager.UpdateResourceCount(1, thisPlant, true);
             //destroy this gameobject

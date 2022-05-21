@@ -102,9 +102,9 @@ MonoBehaviour:
   costumerSprite: {fileID: 21300000, guid: 253c5a73f3ba574409b5c1b50abb1e3c, type: 3}
   orderManager: {fileID: 0}
   possibleOrders:
-  - {fileID: 11400000, guid: d2634443c98bbe84482b8c8af5799c86, type: 2}
-  - {fileID: 11400000, guid: 4274e1ef57abb604c9af3a4858e7eace, type: 2}
-  - {fileID: 11400000, guid: d2634443c98bbe84482b8c8af5799c86, type: 2}
+  - {fileID: 11400000, guid: cecace2899b54b145817d7d1f8891004, type: 2}
+  - {fileID: 11400000, guid: 2168a96254b48d8459a9abc51c92554b, type: 2}
+  - {fileID: 11400000, guid: 0a03d5a0769da544da581519abaa0af9, type: 2}
   mainCharacter: 0
   arriveHour: 8
   arriveMin: 40

@@ -99,7 +99,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnChance: 30
   thisPlant: {fileID: 11400000, guid: 64db0500d74f24744bc5992771474c24, type: 2}
-  spawnTime: 1
+  spawnTime: 0
   growsOn: 1
   clickEffectivnes: 0.25
   proggresBar: {fileID: 8704134655759295644}

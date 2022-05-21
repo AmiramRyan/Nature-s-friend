@@ -11,10 +11,11 @@ public class ForestManager : GenericSingletonClass_Forest<MonoBehaviour>
     public ForestSpawn[] forestSpawns;
     [SerializeField] private SpawnTime timeOfDay;
     [SerializeField] private List<GameObject> PlantsList = new List<GameObject>(); //stores all the plants spawned
-    private bool spawnedMorning;
-    private bool spawnedNoon;
-    private bool spawnedEvening;
+    [SerializeField] private bool spawnedMorning;
+    [SerializeField] private bool spawnedNoon;
+    [SerializeField] private bool spawnedEvening;
     private bool spawnNow;
+    public List<GameObject> plantsOnForest = new List<GameObject>();
 
     private void OnEnable()
     {
@@ -26,6 +27,8 @@ public class ForestManager : GenericSingletonClass_Forest<MonoBehaviour>
     }
     public void SpawnPlants()
     {
+        //reset
+        DestroyPlants();
         //Deside time of day
         if (gameManager.timeStateManager.currentTimeState == gameManager.timeStateManager.morningTimeState)
         {
@@ -58,6 +61,7 @@ public class ForestManager : GenericSingletonClass_Forest<MonoBehaviour>
         {
             Debug.LogError("not a valid Spawn State");
         }
+
         if (spawnNow)
         {
             spawnNow = false;
@@ -72,17 +76,6 @@ public class ForestManager : GenericSingletonClass_Forest<MonoBehaviour>
                 {
                     GameObject actualPlant = Instantiate(plant, this.transform); //choose a plant
 
-                    /*//Set Father Object
-                    if(plant.GetComponent<Plant>().growsOn == "tree")
-                    {
-                        plant.transform.SetParent(treeFather.transform);
-
-                    }
-                    else
-                    {
-                        plant.transform.SetParent(groundFather.transform);
-                    }*/
-
                     //Give the plant a random place to spawn 
                     ForestSpawn thisSpawnParent = GetRandomParentSpawn(actualPlant.GetComponent<Plant>().growsOn);
                     //Give the plant a random spot to spawn on parent 
@@ -90,6 +83,7 @@ public class ForestManager : GenericSingletonClass_Forest<MonoBehaviour>
                     if (spawnLocation != Vector3.zero)
                     {
                         actualPlant.transform.position = spawnLocation;
+                        plantsOnForest.Add(actualPlant);
                     }
                 }
             }
@@ -144,5 +138,39 @@ public class ForestManager : GenericSingletonClass_Forest<MonoBehaviour>
         spawnedMorning = false;
         spawnedNoon = false;
         spawnedEvening = false;
+    }
+
+    public void ActivePlants()
+    {
+        for (int i = 0; i < plantsOnForest.Count; i++)
+        {
+            if (plantsOnForest[i])
+            {
+                plantsOnForest[i].SetActive(true);
+            }
+        }
+    }
+
+    public void DeactivePlants()
+    {
+        for (int i = 0; i < plantsOnForest.Count; i++)
+        {
+            if (plantsOnForest[i])
+            {
+                plantsOnForest[i].SetActive(false);
+            }
+        }
+    }
+
+    public void DestroyPlants()
+    {
+        for (int i = 0; i < plantsOnForest.Count; i++)
+        {
+            if (plantsOnForest[i])
+            {
+                Destroy(plantsOnForest[i]);
+            }
+        }
+        plantsOnForest.Clear();
     }
 }

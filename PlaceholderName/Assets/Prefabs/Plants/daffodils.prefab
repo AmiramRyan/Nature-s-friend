@@ -73,7 +73,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 21bf00a6786ba2d4297a7b7ce80441e4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -99,7 +99,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnChance: 50
   thisPlant: {fileID: 11400000, guid: 002a3a14ba08dd14dbb9a5bc9736b557, type: 2}
-  spawnTime: 1
+  spawnTime: 0
   growsOn: 0
   clickEffectivnes: 0.3
   proggresBar: {fileID: 7920527285442142714}

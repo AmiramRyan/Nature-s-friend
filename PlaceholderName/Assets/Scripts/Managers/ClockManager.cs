@@ -28,7 +28,7 @@ public class ClockManager : GenericSingletonClass_Clock<MonoBehaviour>
     void Start()
     {
         isRunning = true;
-        SetTime(21, 55, 0); // (hour,min,day) dayMap = {0 -> Sunday ,1 -> Monday,2 -> Tuesday,3 -> Wednesday,4 -> Thursday,5 -> Friday,6 -> Saturday}
+        SetTime(10, 0, 0); // (hour,min,day) dayMap = {0 -> Sunday ,1 -> Monday,2 -> Tuesday,3 -> Wednesday,4 -> Thursday,5 -> Friday,6 -> Saturday}
         ticking = true;
     }
 

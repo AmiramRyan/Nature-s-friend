@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CauldronInteractions : GenericInteractable
+public class CauldronInteractions : GenericSingletonClass_Caludron<MonoBehaviour>
 {
     //Specific script that dictate the action taken once the player interacted with the cauldron
 
@@ -15,6 +15,7 @@ public class CauldronInteractions : GenericInteractable
     public GameObject MakePotionParticles;
     public GameObject resultObj;
     public GameObject cauldronScreen;
+    public GameObject highlight;
 
     private void Start()
     {
@@ -22,6 +23,7 @@ public class CauldronInteractions : GenericInteractable
         UpdatePredictedResult();
         resultObj.SetActive(false);
         MakePotionParticles.SetActive(false);
+        highlight.SetActive(false);
     }
     public override void OnEnable()
     {
@@ -34,6 +36,18 @@ public class CauldronInteractions : GenericInteractable
     {
         base.OnDisable();
         ShelfItem.highlightStatusChanged -= UpdatePredictedResult;
+    }
+
+    private void Update()
+    {
+        if (inRangeOfPlayer)
+        {
+            highlight.SetActive(true);
+        }
+        else
+        {
+            highlight.SetActive(false);
+        }
     }
 
     public override void InteractAction()
@@ -104,6 +118,7 @@ public class CauldronInteractions : GenericInteractable
             resultObj.GetComponent<Image>().sprite = potionToMake.itemSprite;
             //Add to the inventory 
             AddPotionToInv(potionToMake);
+            gameManager.clockManager.TimePass(gameManager.hoursConsumed, 0); //move the clock forward by the time it takes to make a potion
             MakePotionParticles.SetActive(true);
             MakePotionParticles.GetComponent<ParticleSystem>().Play();
             yield return new WaitForSeconds(1.2f);
@@ -112,6 +127,7 @@ public class CauldronInteractions : GenericInteractable
         else
         {
             //play visual representation
+            gameManager.clockManager.TimePass(gameManager.hoursConsumed, 0); //move the clock forward by the time it takes to make a potion
             MakePotionParticles.SetActive(true);
             MakePotionParticles.GetComponent<ParticleSystem>().Play();
             //uiManager.MakeIngredientsFall();
@@ -127,9 +143,6 @@ public class CauldronInteractions : GenericInteractable
         //Clean up
         //clear the list
         selectedIngredientList.Clear();
-
-        //advance time
-        gameManager.clockManager.TimePass(gameManager.hoursConsumed, 0); //move the clock forward by the time it takes to make a potion
 
         //disable panels
         gameManager.uiManager.CloseCauldronPanel();
@@ -174,8 +187,5 @@ public class CauldronInteractions : GenericInteractable
     }
 
     #endregion
-
-
-
 
 }

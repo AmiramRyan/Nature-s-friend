@@ -10,6 +10,8 @@ TagManager:
   - orderRequestContainer
   - uiManager
   - gameManager
+  - vmCam1
+  - vmCam2
   layers:
   - Default
   - TransparentFX
@@ -17,8 +19,8 @@ TagManager:
   - 
   - Water
   - UI
-  - UiForeground
-  - 
+  - Ui1
+  - Ui2
   - 
   - 
   - 

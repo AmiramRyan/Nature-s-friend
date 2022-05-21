@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemSprite: {fileID: 21300000, guid: eed48990f97b4d24a95f53e0885327bb, type: 3}
   itemName: PlantA
-  toolTipText: 
-  numInInv: 10
+  toolTipText: Usually grows at noon
+  numInInv: 5
   itempType: 0
   discoverd: 1
   thisResourceType: 0

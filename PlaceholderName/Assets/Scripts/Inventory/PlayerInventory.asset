@@ -16,6 +16,15 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 64db0500d74f24744bc5992771474c24, type: 2}
   - {fileID: 11400000, guid: 002a3a14ba08dd14dbb9a5bc9736b557, type: 2}
   - {fileID: 11400000, guid: 9d1b686420167f44faf4938a1afd63da, type: 2}
+  - {fileID: 11400000, guid: 4f946dca3d77ef843bb9c5e9cd20422b, type: 2}
+  - {fileID: 11400000, guid: 2a496f25657116c4f81435e1ec96ed4f, type: 2}
+  - {fileID: 11400000, guid: 6096bd15d8055ce4db4deb41050bd064, type: 2}
+  - {fileID: 11400000, guid: 5c76487688cd9f94b85937480f0bf78d, type: 2}
+  - {fileID: 11400000, guid: 36f486057d2ed8c4b9b738bc9dfb3bdf, type: 2}
   playerProducts:
   - {fileID: 11400000, guid: 194675b871a7b684eb99aef8364187c5, type: 2}
   - {fileID: 11400000, guid: 1aed0f604c0b8dd4ea53a63e681d8847, type: 2}
+  - {fileID: 11400000, guid: e334b52c4884e2f498be629f75af0e6f, type: 2}
+  - {fileID: 11400000, guid: 8919f5d46fae3fb469b4c9b8e9e39e6f, type: 2}
+  - {fileID: 11400000, guid: 6d9944a13346ae64cb61b189db0f3681, type: 2}
+  - {fileID: 11400000, guid: 2d852d02f234b7444bf805f508e6e489, type: 2}

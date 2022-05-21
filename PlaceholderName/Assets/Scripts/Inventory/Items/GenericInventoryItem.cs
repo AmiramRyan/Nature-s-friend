@@ -13,7 +13,7 @@ public class GenericInventoryItem : ScriptableObject
 
     public Sprite itemSprite; //image of the resource
     public string itemName; //name of the resource
-    [SerializeField] private string toolTipText; //tooltip
+    public string toolTipText; //tooltip
     private static int maxNumInInv = 999; //maximum amount of the item inventory can hold
 
     #endregion

@@ -7,6 +7,7 @@ public class DaySwitchState : BaseTimeState
     public override void EnterState(TimeStateManager timeManager)
     {
         Debug.Log("TimeSwitchState");
+        timeManager.gameManager.uiManager.fadePanel.GetComponent<Animator>().SetTrigger("fadeIn");
         //reset everything day related
         timeManager.gameManager.forestManager.ResetDaySpawns();
         timeManager.gameManager.relationsManager.GenerateRelationForToday();
@@ -21,6 +22,7 @@ public class DaySwitchState : BaseTimeState
 
     public override void ExitState(TimeStateManager timeManager)
     {
+        timeManager.gameManager.uiManager.fadePanel.GetComponent<Animator>().SetTrigger("fadeOut");
         timeManager.SwtichState(timeManager.morningTimeState);
     }
 

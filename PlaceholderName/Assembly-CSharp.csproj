@@ -60,6 +60,8 @@
     <Compile Include="Assets\Scripts\Singelton\GenericSingletonClass_TimeState.cs" />
     <Compile Include="Assets\Scripts\Orders\GenericOrder.cs" />
     <Compile Include="Assets\Scripts\Debuging\DebugBtns.cs" />
+    <Compile Include="Assets\Scripts\Singelton\GenericSingletonClass_Player.cs" />
+    <Compile Include="Assets\Scripts\Managers\Events.cs" />
     <Compile Include="Assets\Scripts\Managers\Canvas_Script.cs" />
     <Compile Include="Assets\Scripts\Managers\ForestManager.cs" />
     <Compile Include="Assets\Scripts\Orders\GenericOrderProduct.cs" />
@@ -68,6 +70,8 @@
     <Compile Include="Assets\Scripts\Singelton\GenericSingletonClass.cs" />
     <Compile Include="Assets\Scripts\Interactables\CauldronInteractions.cs" />
     <Compile Include="Assets\Scripts\StateMachine\States\DaySwitchState.cs" />
+    <Compile Include="Assets\Scripts\Managers\RelationsManager.cs" />
+    <Compile Include="Assets\Scripts\Ui\Orders\ToolTipRequset.cs" />
     <Compile Include="Assets\Scripts\Player\Float.cs" />
     <Compile Include="Assets\Scripts\Singelton\GenericSingletonClass_vc.cs" />
     <Compile Include="Assets\Scripts\StateMachine\States\EveningTimeState.cs" />
@@ -82,6 +86,7 @@
     <Compile Include="Assets\Scripts\Singelton\GenericSingletonClass_Clock.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerMovement.cs" />
     <Compile Include="Assets\Scripts\StateMachine\States\MorningTimeState.cs" />
+    <Compile Include="Assets\Scripts\Singelton\GenericSingletonClass_Caludron.cs" />
     <Compile Include="Assets\Scripts\Ui\Orders\Request.cs" />
     <Compile Include="Assets\Scripts\Ui\ShelfItem.cs" />
     <Compile Include="Assets\Scripts\Singelton\GenericSingletonClass_Costumers.cs" />
@@ -97,8 +102,10 @@
     <Compile Include="Assets\Scripts\Ui\Bubble.cs" />
     <Compile Include="Assets\Scripts\Singelton\GenericSingletonClass_UI.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerInteractions.cs" />
-    <Compile Include="Assets\Scripts\Ui\CauldronScreen.cs" />
+    <Compile Include="Assets\Scripts\Singelton\GenericSingletonClass_Relation.cs" />
     <Compile Include="Assets\Scripts\Managers\GameManager.cs" />
+    <Compile Include="Assets\Scripts\Ui\CauldronScreen.cs" />
+    <Compile Include="Assets\Scripts\Singelton\GenericSingletonClass_events.cs" />
     <Compile Include="Assets\Scripts\StateMachine\States\NoonTimeState.cs" />
     <Compile Include="Assets\Scripts\Ui\TimeUI.cs" />
     <Compile Include="Assets\Scripts\Managers\Camera_Script.cs" />
@@ -109,10 +116,12 @@
     <Compile Include="Assets\Scripts\Inventory\Recipes\GenericRecipeIngredient.cs" />
     <Compile Include="Assets\Scripts\Managers\VtCamera_script.cs" />
     <Compile Include="Assets\Scripts\Managers\OrderManager.cs" />
+    <Compile Include="Assets\Scripts\Player\PlayerLike.cs" />
     <Compile Include="Assets\Scripts\Singelton\GenericSingletonClass_Canvas.cs" />
+    <Compile Include="Assets\Scripts\Ui\MainMenu.cs" />
     <Compile Include="Assets\Scripts\Ui\Orders\OrderInfoBlock.cs" />
-    <Compile Include="Assets\Scripts\Managers\RelationsManager.cs" />
-    <Compile Include="Assets\Scripts\Singelton\GenericSingletonClass_Relation.cs" />
+    <Compile Include="Assets\Scripts\Singelton\GenericSingletonClass_Task.cs" />
+    <Compile Include="Assets\Scripts\Managers\TaskManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

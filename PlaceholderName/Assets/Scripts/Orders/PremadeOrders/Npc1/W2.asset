@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dba435cf4cdcf8b48acc746c94b8511d, type: 3}
+  m_Name: W2
+  m_EditorClassIdentifier: 
+  title: Wush
+  description: Blublublublbulub??
+  OrderRequests:
+  - {fileID: 11400000, guid: cf5e02868b13d744c9ada4b61585212a, type: 2}
+  - {fileID: 11400000, guid: 12521467ac3e2be469bdf8629d834227, type: 2}
+  - {fileID: 11400000, guid: e7a0519bf9401d94784ec19ed596f010, type: 2}
+  costumerSprite: {fileID: 21300000, guid: 2cf009f784a8b1d4387ce6bb006e2836, type: 3}
+  thisOrderElement: 1
+  PositiveRelationEffect: 5
+  NegetiveRelationEffect: 0
+  goldAmountWorth: 19850

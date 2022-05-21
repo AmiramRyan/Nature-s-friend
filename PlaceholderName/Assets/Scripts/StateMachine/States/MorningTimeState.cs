@@ -23,6 +23,8 @@ public class MorningTimeState : BaseTimeState
         //make a costumer que
         if (!timesSetForTheDayMorning)
         {
+            timeManager.gameManager.forestManager.SpawnPlants();
+            timeManager.gameManager.forestManager.DeactivePlants();
             morningCostumersTime = timeManager.CostumerTimeToArrive(1, 10, 13);
             GameManager.MorningQueDone?.Invoke();
             timesSetForTheDayMorning = true;

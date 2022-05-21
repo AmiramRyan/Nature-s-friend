@@ -103,7 +103,8 @@ MonoBehaviour:
   orderManager: {fileID: 0}
   possibleOrders:
   - {fileID: 11400000, guid: ee5aea97ea989a04b91281aadd2ddc23, type: 2}
-  - {fileID: 11400000, guid: ee5aea97ea989a04b91281aadd2ddc23, type: 2}
+  - {fileID: 11400000, guid: ccfe79316b3c204428b9c6539d8b51e5, type: 2}
+  - {fileID: 11400000, guid: c656c42bf7cc36047a312251bd0297a1, type: 2}
   mainCharacter: 0
   arriveHour: 10
   arriveMin: 10

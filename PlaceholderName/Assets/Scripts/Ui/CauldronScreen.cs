@@ -28,7 +28,7 @@ public class CauldronScreen : MonoBehaviour
     {
         if (moving)
         {
-            cauldronPanel.anchoredPosition = Vector2.Lerp(cauldronPanel.anchoredPosition, targetPos, 0.05f);
+            cauldronPanel.anchoredPosition = Vector2.Lerp(cauldronPanel.anchoredPosition, targetPos, 0.001f);
             if (cauldronPanel.anchoredPosition.x == targetPos.x){
                 moving = false;
             }

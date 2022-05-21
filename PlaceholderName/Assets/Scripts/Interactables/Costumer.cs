@@ -31,7 +31,7 @@ public class Costumer : GenericInteractable
     public override void InteractAction()
     {
         //get the order manager to set up an order object on screen
-        orderManager.GetComponent<OrderManager>().SetActiveOrder(possibleOrders[0], costumerSprite , true);
+        orderManager.GetComponent<OrderManager>().SetActiveOrder(possibleOrders[Random.Range(0, possibleOrders.Length)], costumerSprite , true);
     }
 
     public void SetAttributes(Sprite newSprite, string newElement, GenericOrder[] newPossibleOrders, bool newMainCharacter)

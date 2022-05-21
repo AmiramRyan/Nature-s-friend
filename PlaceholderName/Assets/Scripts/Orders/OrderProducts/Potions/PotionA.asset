@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   thisProductType: 0
   productSprite: {fileID: 21300000, guid: cce8eace096bab348830cc5152e0060b, type: 3}
-  productName: Potion A
+  productName: PotionA

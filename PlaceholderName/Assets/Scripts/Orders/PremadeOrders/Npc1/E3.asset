@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dba435cf4cdcf8b48acc746c94b8511d, type: 3}
+  m_Name: E3
+  m_EditorClassIdentifier: 
+  title: WANT TO SMASH LIKE HULK
+  description: YAYY ROCK!
+  OrderRequests:
+  - {fileID: 11400000, guid: ed66a28b4162f6146b99c2361d8f00b7, type: 2}
+  costumerSprite: {fileID: 21300000, guid: 54234205c00c0a54795bcbd3a1d068ce, type: 3}
+  thisOrderElement: 2
+  PositiveRelationEffect: 5
+  NegetiveRelationEffect: 0
+  goldAmountWorth: 22600

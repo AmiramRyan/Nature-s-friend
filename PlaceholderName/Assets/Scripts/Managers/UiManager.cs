@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
+using Cinemachine;
 
 
 public class UiManager : GenericSingletonClass_UI<MonoBehaviour>
@@ -17,6 +18,9 @@ public class UiManager : GenericSingletonClass_UI<MonoBehaviour>
     [SerializeField] private GameObject InventoryPanel;
     [SerializeField] private GameObject ConfirmPanelCauldron;
     [SerializeField] private GameObject ConfirmPanelTransition;
+    [SerializeField] private GameObject TaskPanel;
+    public GameObject endPanel;
+
 
     [Header("PanelsComponents")]
     public GameObject shelfStorageLeftUp;
@@ -31,6 +35,7 @@ public class UiManager : GenericSingletonClass_UI<MonoBehaviour>
     public GameObject InventoryBookProductContainer;
     public GameObject InventoryBookIngredientContainer;
     public GameObject OrdersBookContainer;
+    public GameObject fadePanel;
 
     [Header("Prefabs")]
     [SerializeField] private GameObject cauldronShelfImgPrefab; //the image prefab for a shelf cauldron ingredient
@@ -41,7 +46,6 @@ public class UiManager : GenericSingletonClass_UI<MonoBehaviour>
     [Header("Refrances")]
     public Image discoverImg;
     [SerializeField] private Sprite discoverImgDefault; 
-    [SerializeField] private InventoryObj playerInventory; //the player scriptable obj inventory
     public List<GenericInventoryResource> selectedIngredientList = new List<GenericInventoryResource>(); //the ingredients currently selected (updates in runtime)
     private List<GameObject> selectedGameObjectList = new List<GameObject>(); //the ingredients currently selected GAME OBJECTS
     public List<GenericInventoryResource> inventoryIngredientsList = new List<GenericInventoryResource>(); //spread out the ingrideint from the inventory into a list
@@ -51,6 +55,7 @@ public class UiManager : GenericSingletonClass_UI<MonoBehaviour>
     public List<GameObject> ingredientListOnUi; //the gameobjects renderd on the UI pulls from the ingredientList and instantiate
     public List<GameObject> productListOnUi; //the gameobjects renderd on the UI pulls from the products and instantiate
     [SerializeField] private TextMeshProUGUI timeToBrewText;
+    public GameObject cauldron;
 
     private void OnEnable()
     {
@@ -101,31 +106,39 @@ public class UiManager : GenericSingletonClass_UI<MonoBehaviour>
                 //activate correct panel
                 OpenPanel(bookPanel);
                 break;
-
+            case "taskPanel":
+                //activate correct panel
+                OpenPanel(TaskPanel);
+                break;
+                
             case "inventory":
                 //fill the inventory book
                 //ingredients
-                for (int i = 0; i < inventoryIngredientsList.Count; i++)
+                for (int i = 0; i < gameManager.inventoryManager.playerInventory.playerResources.Count; i++)
                 {
-                    if (inventoryIngredientsList[i].numInInv > 0)
-                    {
+                    if (gameManager.inventoryManager.playerInventory.playerResources[i])  //if exist
+                    { 
                         GameObject item = Instantiate(inventoryBookPrefab);
                         item.transform.SetParent(InventoryBookIngredientContainer.transform);
                         item.transform.position = new Vector3(item.transform.position.x, item.transform.position.y, 1000);
-                        item.GetComponent<Request>().SetUpRequest(inventoryIngredientsList[i].itemSprite, inventoryIngredientsList[i].numInInv.ToString());
+                        item.GetComponent<Request>().SetUpRequest(gameManager.inventoryManager.playerInventory.playerResources[i].itemSprite, gameManager.inventoryManager.playerInventory.playerResources[i].numInInv.ToString());
                         ingredientListOnUi.Add(item);
+                        item.GetComponent<ToolTipRequset>().ToolTipTextContainertext.text = gameManager.inventoryManager.playerInventory.playerResources[i].toolTipText; //set tool tip
                     }
                 }
                 //products
                 for (int i = 0; i < gameManager.inventoryManager.playerInventory.playerProducts.Count; i++)
                 {
-                    if (gameManager.inventoryManager.playerInventory.playerProducts[i].numInInv > 0)
+                    if (gameManager.inventoryManager.playerInventory.playerProducts[i])
                     {
-                        GameObject item = Instantiate(inventoryBookPrefab);
-                        item.transform.SetParent(InventoryBookProductContainer.transform);
-                        item.transform.position = new Vector3(item.transform.position.x, item.transform.position.y, 1000);
-                        item.GetComponent<Request>().SetUpRequest(gameManager.inventoryManager.playerInventory.playerProducts[i].itemSprite, gameManager.inventoryManager.playerInventory.playerProducts[i].numInInv.ToString());
-                        productListOnUi.Add(item);
+                        if (gameManager.inventoryManager.playerInventory.playerProducts[i].numInInv > 0)
+                        {
+                            GameObject item = Instantiate(inventoryBookPrefab);
+                            item.transform.SetParent(InventoryBookProductContainer.transform);
+                            item.transform.position = new Vector3(item.transform.position.x, item.transform.position.y, 1000);
+                            item.GetComponent<Request>().SetUpRequest(gameManager.inventoryManager.playerInventory.playerProducts[i].itemSprite, gameManager.inventoryManager.playerInventory.playerProducts[i].numInInv.ToString());
+                            productListOnUi.Add(item);
+                        }
                     }
                 }
                 OpenPanel(InventoryPanel);
@@ -193,7 +206,14 @@ public class UiManager : GenericSingletonClass_UI<MonoBehaviour>
 
     public void OpenOrderPanel()
     {
-        ActivateUiPanel("orderBook");
+        if (!bookPanel.activeInHierarchy && !InventoryPanel.activeInHierarchy)
+        {
+            ActivateUiPanel("orderBook");
+        }
+        else
+        {
+            CloseInventoryPanel();
+        }
     }
 
     public void CloseOrderPanel()
@@ -219,6 +239,21 @@ public class UiManager : GenericSingletonClass_UI<MonoBehaviour>
         GameManager.ResumePlayerMovement?.Invoke();
     }
 
+    public void OpenTaskPanel()
+    {
+        if (!bookPanel.activeInHierarchy && !InventoryPanel.activeInHierarchy)
+        {
+            ActivateUiPanel("taskPanel");
+
+        }
+    }
+
+    public void CloseTaksPanel()
+    {
+        StartCoroutine(ClosingAnimationTaskPanelCo());
+        GameManager.resumeTime?.Invoke();
+        GameManager.ResumePlayerMovement.Invoke();
+    }
     public void OpenConfirmPanel()
     {
         timeToBrewText.text = "Will finish at: " + (ClockManager.hour + gameManager.hoursConsumed) + ":" + (ClockManager.minute);
@@ -233,14 +268,19 @@ public class UiManager : GenericSingletonClass_UI<MonoBehaviour>
 
     public void OpenTransitionPanel()
     {
-        ConfirmPanelTransition.SetActive(true);
-        GameManager.StopPlayerMovement?.Invoke();
+        if(!bookPanel.activeInHierarchy && !InventoryPanel.activeInHierarchy)
+        {
+            ConfirmPanelTransition.SetActive(true);
+            GameManager.StopPlayerMovement?.Invoke();
+            GameManager.pauseTime?.Invoke();
+        }
     }
 
     public void CloseTransitionPanel()
     {
         ConfirmPanelTransition.SetActive(false);
         GameManager.ResumePlayerMovement?.Invoke();
+        GameManager.resumeTime?.Invoke();
     }
     public IEnumerator ClosingAnimationBookPanelCo()
     {
@@ -266,6 +306,13 @@ public class UiManager : GenericSingletonClass_UI<MonoBehaviour>
         CauldronInteractions.readyForInteraction = true;
     }
 
+    public IEnumerator ClosingAnimationTaskPanelCo()
+    {
+        TaskPanel.GetComponent<Animator>().SetTrigger("close");
+        yield return new WaitForSeconds(0.4f);
+        TaskPanel.SetActive(false);
+    }
+
     public void RemoveOrderFromList(int ID)
     {
         ordersList.RemoveAt(ID);
@@ -273,7 +320,14 @@ public class UiManager : GenericSingletonClass_UI<MonoBehaviour>
 
     public void OpenInventoryPanel()
     {
-        ActivateUiPanel("inventory");
+        if (!bookPanel.activeInHierarchy && !InventoryPanel.activeInHierarchy)
+        {
+            ActivateUiPanel("inventory");
+        }
+        else
+        {
+            CloseOrderPanel();
+        }
     }
 
     public void CloseInventoryPanel()
@@ -292,8 +346,17 @@ public class UiManager : GenericSingletonClass_UI<MonoBehaviour>
         productListOnUi.Clear();
         GameManager.resumeTime?.Invoke();
         GameManager.ResumePlayerMovement?.Invoke();
+        StartCoroutine(ClosingAnimationInventoryPanelCo());
+    }
+
+    public IEnumerator ClosingAnimationInventoryPanelCo()
+    {
+        InventoryPanel.GetComponent<Animator>().SetTrigger("close");
+        yield return new WaitForSeconds(0.4f);
+        //clear ui elements
         InventoryPanel.SetActive(false);
     }
+
     #endregion
 
     #region Potions
@@ -371,13 +434,13 @@ public class UiManager : GenericSingletonClass_UI<MonoBehaviour>
     private void FillPotionIngredient()
     {
 
-        for (int i = 0; i < playerInventory.playerResources.Count; i++) //for each item
+        for (int i = 0; i < gameManager.inventoryManager.playerInventory.playerResources.Count; i++) //for each item
         {
-            if (playerInventory.playerResources[i].numInInv != 0) //there IS such resource
+            if (gameManager.inventoryManager.playerInventory.playerResources[i].numInInv > 0) //there IS such resource
             {
-                for (int j = 0; j < playerInventory.playerResources[i].numInInv; j++) //for each of the spesific item
+                for (int j = 0; j < gameManager.inventoryManager.playerInventory.playerResources[i].numInInv; j++) //for each of the spesific item
                 {
-                    inventoryIngredientsList.Add(playerInventory.playerResources[i]); //add it to the temp list
+                    inventoryIngredientsList.Add(gameManager.inventoryManager.playerInventory.playerResources[i]); //add it to the temp list
                 }
             }
         }
@@ -386,7 +449,7 @@ public class UiManager : GenericSingletonClass_UI<MonoBehaviour>
         int itemNum = 1;
         for (int i = 0; i < inventoryIngredientsList.Count; i++)
         {
-            if (inventoryIngredientsList[i].thisResourceType == ResourceType.plant) //only instantiate room for plants
+            if (inventoryIngredientsList[i].thisResourceType == ResourceType.plant && inventoryIngredientsList[i].numInInv > 0) //only instantiate room for plants
             {
                 GameObject tempIngredientRef = Instantiate(cauldronShelfImgPrefab, transform.position, Quaternion.identity) as GameObject;
                 tempIngredientRef.GetComponent<ShelfItem>().InitiateItem(inventoryIngredientsList[i]);
@@ -424,11 +487,77 @@ public class UiManager : GenericSingletonClass_UI<MonoBehaviour>
         }
     }
 
+
     #endregion
 
     public void GotToShop()
     {
-        gameManager.clockManager.TimePass(2, 30); //forward time TODOO smart
+        StartCoroutine(FadeCoToShop());
+    }
+    public void GoToForest()
+    {
+        StartCoroutine(FadeCoToForest());
+    }
+
+    public IEnumerator FadeCoToForest()
+    {
+
+        //gameManager.timeStateManager.SwtichState(gameManager.timeStateManager.pauseTimeState); // switch to pauseTimeState
+        gameManager.clockManager.TimePass(0, 30); //forward time
+        CloseTransitionPanel();
+        fadePanel.GetComponent<Animator>().SetTrigger("fadeIn");
+        cauldron.SetActive(false);
+        goToShopBtn.SetActive(true);
+        gameManager.costumerManager.spawnActive = false;
+        gameManager.forestManager.ActivePlants();
+        fadePanel.GetComponent<Animator>().SetTrigger("fadeOut");
+        yield return new WaitForSeconds(1f);
+        SceneManager.LoadScene("Forest"); //load the scene (after scene is loaded need to resume time)
+    }
+    public IEnumerator FadeCoToShop()
+    {
+        gameManager.clockManager.TimePass(0, 30);
+        fadePanel.GetComponent<Animator>().SetTrigger("fadeIn");
+        goToShopBtn.SetActive(false);
+        gameManager.costumerManager.spawnActive = true;
+        gameManager.forestManager.DeactivePlants();
+        fadePanel.GetComponent<Animator>().SetTrigger("fadeOut");
+        yield return new WaitForSeconds(1f);
+        cauldron.SetActive(true);
         SceneManager.LoadScene("Shop"); //load the scene (after scene is loaded need to resume time)
     }
+
+    public void Quit()
+    {
+        Application.Quit();
+    }
+
+    /*public void MakePotion() //called when the "make potion" button is pressed
+    {
+        cauldronScreen.GetComponent<CauldronScreen>().GoMiddle();
+        //get the current list from the uiManager
+        selectedIngredientList = gameManager.uiManager.selectedIngredientList;
+        //check if the combination is a valid potion
+        if (selectedIngredientList != null && selectedIngredientList.Count >= 2) //if enough ingrediant is selected
+        {
+            GenericInventoryProduct potionToMake = CheckRecipe(selectedIngredientList);
+            if (potionToMake != null)
+            {
+                //valid potion and ingredients make the potion
+                StartCoroutine(MakePotionCo(potionToMake));
+            }
+            else
+            {
+                Debug.Log("recipe failed");
+                StartCoroutine(MakePotionCo(potionToMake));
+            }
+
+
+        }
+        else
+        {
+            //no ingrediant was selected do nothing
+            Debug.Log("No ingredient is selected");
+        }
+    }*/
 }
